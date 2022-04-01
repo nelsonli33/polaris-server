@@ -1,9 +1,9 @@
 package com.bcorp.polaris.storefront.service.impl;
 
-import com.bcorp.polaris.model.tables.records.UserRecord;
+import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
+import com.bcorp.polaris.core.model.tables.records.UserRecord;
+import com.bcorp.polaris.security.util.JwtTokenUtil;
 import com.bcorp.polaris.storefront.dao.AccountDao;
-import com.bcorp.polaris.storefront.exception.PolarisServerRuntimeException;
-import com.bcorp.polaris.storefront.util.JwtTokenUtil;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

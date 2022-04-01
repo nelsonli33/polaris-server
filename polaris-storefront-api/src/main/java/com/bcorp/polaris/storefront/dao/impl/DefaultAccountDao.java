@@ -4,7 +4,7 @@ import com.bcorp.polaris.storefront.dao.AccountDao;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
-import static com.bcorp.polaris.model.Tables.USER;
+import static com.bcorp.polaris.core.model.Tables.USER;
 
 @Repository
 public class DefaultAccountDao implements AccountDao

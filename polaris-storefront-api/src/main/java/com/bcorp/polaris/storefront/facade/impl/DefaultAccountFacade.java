@@ -1,6 +1,6 @@
 package com.bcorp.polaris.storefront.facade.impl;
 
-import com.bcorp.polaris.model.tables.records.UserRecord;
+import com.bcorp.polaris.core.model.tables.records.UserRecord;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
 import com.bcorp.polaris.storefront.facade.AccountFacade;
 import com.bcorp.polaris.storefront.service.AccountService;
@@ -8,7 +8,7 @@ import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.bcorp.polaris.model.tables.User.USER;
+import static com.bcorp.polaris.core.model.tables.User.USER;
 
 @Component
 public class DefaultAccountFacade implements AccountFacade

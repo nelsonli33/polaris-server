@@ -1,6 +1,6 @@
 package com.bcorp.polaris.storefront.service;
 
-import com.bcorp.polaris.model.tables.records.UserRecord;
+import com.bcorp.polaris.core.model.tables.records.UserRecord;
 
 public interface AccountService
 {

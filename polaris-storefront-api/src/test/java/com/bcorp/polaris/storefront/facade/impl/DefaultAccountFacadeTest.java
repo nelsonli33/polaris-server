@@ -1,6 +1,6 @@
 package com.bcorp.polaris.storefront.facade.impl;
 
-import com.bcorp.polaris.model.tables.records.UserRecord;
+import com.bcorp.polaris.core.model.tables.records.UserRecord;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
 import com.bcorp.polaris.storefront.service.AccountService;
 import org.jooq.DSLContext;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static com.bcorp.polaris.model.tables.User.USER;
+import static com.bcorp.polaris.core.model.tables.User.USER;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
