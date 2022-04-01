@@ -441,24 +441,4 @@ public class CartLineItemRecord extends UpdatableRecordImpl<CartLineItemRecord> 
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised CartLineItemRecord
-     */
-    public CartLineItemRecord(com.bcorp.polaris.model.tables.pojos.CartLineItem value) {
-        super(CartLineItem.CART_LINE_ITEM);
-
-        if (value != null) {
-            setId(value.getId());
-            setCartId(value.getCartId());
-            setName(value.getName());
-            setPrice(value.getPrice());
-            setQuantity(value.getQuantity());
-            setSubtotal(value.getSubtotal());
-            setTotalDiscounts(value.getTotalDiscounts());
-            setTotalPrice(value.getTotalPrice());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

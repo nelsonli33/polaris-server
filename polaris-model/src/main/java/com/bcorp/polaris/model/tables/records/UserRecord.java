@@ -738,32 +738,4 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised UserRecord
-     */
-    public UserRecord(com.bcorp.polaris.model.tables.pojos.User value) {
-        super(User.USER);
-
-        if (value != null) {
-            setId(value.getId());
-            setName(value.getName());
-            setUid(value.getUid());
-            setPassword(value.getPassword());
-            setEmail(value.getEmail());
-            setAvatar(value.getAvatar());
-            setShortBio(value.getShortBio());
-            setFullBio(value.getFullBio());
-            setBirthday(value.getBirthday());
-            setIsAuthor(value.getIsAuthor());
-            setTwitter(value.getTwitter());
-            setGithub(value.getGithub());
-            setLinkedin(value.getLinkedin());
-            setFacebook(value.getFacebook());
-            setIsBlocked(value.getIsBlocked());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

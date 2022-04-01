@@ -334,21 +334,4 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised UserBookshelfRecord
-     */
-    public UserBookshelfRecord(com.bcorp.polaris.model.tables.pojos.UserBookshelf value) {
-        super(UserBookshelf.USER_BOOKSHELF);
-
-        if (value != null) {
-            setId(value.getId());
-            setUserId(value.getUserId());
-            setBookId(value.getBookId());
-            setLastChapterId(value.getLastChapterId());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

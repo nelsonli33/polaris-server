@@ -295,20 +295,4 @@ public class BookCategoryRecord extends UpdatableRecordImpl<BookCategoryRecord> 
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised BookCategoryRecord
-     */
-    public BookCategoryRecord(com.bcorp.polaris.model.tables.pojos.BookCategory value) {
-        super(BookCategory.BOOK_CATEGORY);
-
-        if (value != null) {
-            setId(value.getId());
-            setTitle(value.getTitle());
-            setSortPosition(value.getSortPosition());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

@@ -334,21 +334,4 @@ public class PaymentModeRecord extends UpdatableRecordImpl<PaymentModeRecord> im
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised PaymentModeRecord
-     */
-    public PaymentModeRecord(com.bcorp.polaris.model.tables.pojos.PaymentMode value) {
-        super(PaymentMode.PAYMENT_MODE);
-
-        if (value != null) {
-            setId(value.getId());
-            setCode(value.getCode());
-            setDescription(value.getDescription());
-            setIsActive(value.getIsActive());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

@@ -404,23 +404,4 @@ public class PageRecord extends UpdatableRecordImpl<PageRecord> implements Recor
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised PageRecord
-     */
-    public PageRecord(com.bcorp.polaris.model.tables.pojos.Page value) {
-        super(Page.PAGE);
-
-        if (value != null) {
-            setId(value.getId());
-            setChapterId(value.getChapterId());
-            setTitle(value.getTitle());
-            setBody(value.getBody());
-            setCharacterCount(value.getCharacterCount());
-            setSortPosition(value.getSortPosition());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

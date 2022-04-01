@@ -367,22 +367,4 @@ public class CartRecord extends UpdatableRecordImpl<CartRecord> implements Recor
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised CartRecord
-     */
-    public CartRecord(com.bcorp.polaris.model.tables.pojos.Cart value) {
-        super(Cart.CART);
-
-        if (value != null) {
-            setId(value.getId());
-            setCode(value.getCode());
-            setSubtotal(value.getSubtotal());
-            setTotalPrice(value.getTotalPrice());
-            setTotalDiscounts(value.getTotalDiscounts());
-            setUserId(value.getUserId());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

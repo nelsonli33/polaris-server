@@ -629,29 +629,4 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> implements Recor
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised BookRecord
-     */
-    public BookRecord(com.bcorp.polaris.model.tables.pojos.Book value) {
-        super(Book.BOOK);
-
-        if (value != null) {
-            setId(value.getId());
-            setUserId(value.getUserId());
-            setBookCategoryId(value.getBookCategoryId());
-            setTitle(value.getTitle());
-            setPriceType(value.getPriceType());
-            setPrice(value.getPrice());
-            setSynopsis(value.getSynopsis());
-            setAcquisition(value.getAcquisition());
-            setCover(value.getCover());
-            setPublishedAt(value.getPublishedAt());
-            setStatus(value.getStatus());
-            setCharacterCount(value.getCharacterCount());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

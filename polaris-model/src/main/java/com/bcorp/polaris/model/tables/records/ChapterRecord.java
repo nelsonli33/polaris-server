@@ -332,21 +332,4 @@ public class ChapterRecord extends UpdatableRecordImpl<ChapterRecord> implements
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised ChapterRecord
-     */
-    public ChapterRecord(com.bcorp.polaris.model.tables.pojos.Chapter value) {
-        super(Chapter.CHAPTER);
-
-        if (value != null) {
-            setId(value.getId());
-            setBookId(value.getBookId());
-            setTitle(value.getTitle());
-            setSortPosition(value.getSortPosition());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

@@ -369,22 +369,4 @@ public class BookReviewRecord extends UpdatableRecordImpl<BookReviewRecord> impl
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised BookReviewRecord
-     */
-    public BookReviewRecord(com.bcorp.polaris.model.tables.pojos.BookReview value) {
-        super(BookReview.BOOK_REVIEW);
-
-        if (value != null) {
-            setId(value.getId());
-            setComment(value.getComment());
-            setUserId(value.getUserId());
-            setBookId(value.getBookId());
-            setRatingStar(value.getRatingStar());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

@@ -627,29 +627,4 @@ public class OrderRecord extends UpdatableRecordImpl<OrderRecord> implements Rec
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised OrderRecord
-     */
-    public OrderRecord(com.bcorp.polaris.model.tables.pojos.Order value) {
-        super(Order.ORDER);
-
-        if (value != null) {
-            setId(value.getId());
-            setUserId(value.getUserId());
-            setInvoiceId(value.getInvoiceId());
-            setCode(value.getCode());
-            setOrderStatus(value.getOrderStatus());
-            setSubtotal(value.getSubtotal());
-            setTotalDiscounts(value.getTotalDiscounts());
-            setTotalPrice(value.getTotalPrice());
-            setPaymentModeId(value.getPaymentModeId());
-            setPaymentStatus(value.getPaymentStatus());
-            setPayAt(value.getPayAt());
-            setCompleteAt(value.getCompleteAt());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }

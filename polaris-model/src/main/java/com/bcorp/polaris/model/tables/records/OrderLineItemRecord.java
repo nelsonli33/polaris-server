@@ -516,26 +516,4 @@ public class OrderLineItemRecord extends UpdatableRecordImpl<OrderLineItemRecord
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
     }
-
-    /**
-     * Create a detached, initialised OrderLineItemRecord
-     */
-    public OrderLineItemRecord(com.bcorp.polaris.model.tables.pojos.OrderLineItem value) {
-        super(OrderLineItem.ORDER_LINE_ITEM);
-
-        if (value != null) {
-            setId(value.getId());
-            setOrderId(value.getOrderId());
-            setBookId(value.getBookId());
-            setName(value.getName());
-            setPrice(value.getPrice());
-            setQuantity(value.getQuantity());
-            setSubtotal(value.getSubtotal());
-            setTotalDiscounts(value.getTotalDiscounts());
-            setTotalPrice(value.getTotalPrice());
-            setIsDeleted(value.getIsDeleted());
-            setCreatedAt(value.getCreatedAt());
-            setUpdatedAt(value.getUpdatedAt());
-        }
-    }
 }
