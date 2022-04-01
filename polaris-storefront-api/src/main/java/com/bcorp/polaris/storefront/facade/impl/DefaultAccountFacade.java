@@ -1,0 +1,42 @@
+package com.bcorp.polaris.storefront.facade.impl;
+
+import com.bcorp.polaris.model.tables.records.UserRecord;
+import com.bcorp.polaris.storefront.dto.RegisterDto;
+import com.bcorp.polaris.storefront.facade.AccountFacade;
+import com.bcorp.polaris.storefront.service.AccountService;
+import org.jooq.DSLContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import static com.bcorp.polaris.model.tables.User.USER;
+
+@Component
+public class DefaultAccountFacade implements AccountFacade
+{
+    private AccountService accountService;
+    private DSLContext dslContext;
+
+    @Autowired
+    public DefaultAccountFacade(AccountService accountService, DSLContext dslContext)
+    {
+        this.accountService = accountService;
+        this.dslContext = dslContext;
+    }
+
+    @Override
+    public void register(RegisterDto registerDto)
+    {
+        UserRecord newUser = dslContext.newRecord(USER);
+        newUser.setName(registerDto.getName());
+        newUser.setEmail(registerDto.getEmail());
+        newUser.setUid(registerDto.getEmail().toLowerCase());
+
+        accountService.register(newUser, registerDto.getPassword());
+    }
+
+    @Override
+    public String login(String uid, String password)
+    {
+        return accountService.login(uid, password);
+    }
+}
