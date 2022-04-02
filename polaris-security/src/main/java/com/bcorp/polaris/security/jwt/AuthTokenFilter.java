@@ -1,6 +1,6 @@
 package com.bcorp.polaris.security.jwt;
 
-import com.bcorp.polaris.security.CoreUserDetailsService;
+import com.bcorp.polaris.security.service.CoreUserDetailsService;
 import com.bcorp.polaris.security.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

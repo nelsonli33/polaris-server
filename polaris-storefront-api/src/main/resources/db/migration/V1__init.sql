@@ -2,10 +2,10 @@ CREATE TABLE IF NOT EXISTS `book`
 (
     `id`               BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     `user_id`          BIGINT UNSIGNED  NOT NULL COMMENT '作者 id',
-    `book_category_id` BIGINT UNSIGNED  NOT NULL COMMENT '書本分類 id',
+    `book_category_id` BIGINT UNSIGNED  NULL COMMENT '書本分類 id',
     `title`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書本標題',
     `price_type`       TINYINT UNSIGNED NOT NULL DEFAULT 2 COMMENT '免費or付費閱讀，1-免費, 2-付費，預設為 2',
-    `price`            DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '書本售價',
+    `price`            DECIMAL(10, 2)   NOT NULL DEFAULT 0.00 COMMENT '書本售價',
     `synopsis`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書本簡介',
     `acquisition`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '你能學到',
     `cover`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書封',

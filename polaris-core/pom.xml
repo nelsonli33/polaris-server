@@ -99,9 +99,13 @@
                             <includes>.*</includes>
                             <excludes></excludes>
                             <inputSchema>polaris-db</inputSchema>
+                            <unsignedTypes>false</unsignedTypes>
                         </database>
+                        <generate>
+                            <deprecated>false</deprecated>
+                        </generate>
                         <target>
-                            <packageName>com.bcorp.polaris.model</packageName>
+                            <packageName>com.bcorp.polaris.core.model</packageName>
                             <directory>src/main/java</directory>
                         </target>
                     </generator>

@@ -4,15 +4,26 @@
 package com.bcorp.polaris.core.model;
 
 
-import com.bcorp.polaris.core.model.tables.*;
+import com.bcorp.polaris.core.model.tables.Book;
+import com.bcorp.polaris.core.model.tables.BookCategory;
+import com.bcorp.polaris.core.model.tables.BookReview;
+import com.bcorp.polaris.core.model.tables.Cart;
+import com.bcorp.polaris.core.model.tables.CartLineItem;
+import com.bcorp.polaris.core.model.tables.Chapter;
+import com.bcorp.polaris.core.model.tables.FlywaySchemaHistory;
+import com.bcorp.polaris.core.model.tables.Order;
+import com.bcorp.polaris.core.model.tables.OrderLineItem;
+import com.bcorp.polaris.core.model.tables.Page;
+import com.bcorp.polaris.core.model.tables.PaymentMode;
+import com.bcorp.polaris.core.model.tables.User;
+import com.bcorp.polaris.core.model.tables.UserBookshelf;
 
 
 /**
  * Convenience access to all tables in polaris-db.
  */
-@SuppressWarnings({"all", "unchecked", "rawtypes"})
-public class Tables
-{
+@SuppressWarnings({ "all", "unchecked", "rawtypes" })
+public class Tables {
 
     /**
      * The table <code>polaris-db.book</code>.

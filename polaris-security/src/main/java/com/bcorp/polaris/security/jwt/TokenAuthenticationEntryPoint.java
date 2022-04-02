@@ -1,7 +1,7 @@
 package com.bcorp.polaris.security.jwt;
 
-import com.bcorp.polaris.core.model.ServerErrorResponse;
-import com.bcorp.polaris.core.model.ServerResponse;
+import com.bcorp.polaris.core.payload.ServerErrorResponse;
+import com.bcorp.polaris.core.payload.ServerResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

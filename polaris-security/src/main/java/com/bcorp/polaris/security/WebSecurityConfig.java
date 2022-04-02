@@ -2,6 +2,7 @@ package com.bcorp.polaris.security;
 
 import com.bcorp.polaris.security.jwt.AuthTokenFilter;
 import com.bcorp.polaris.security.jwt.TokenAuthenticationEntryPoint;
+import com.bcorp.polaris.security.service.CoreUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,9 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .authorizeRequests((authz) -> authz
                         .antMatchers(
                                 "/api/v1/user/register",
-                                "/api/v1/user/login",
-                                "/author/api/v1/books")
+                                "/api/v1/user/login")
                         .permitAll()
+                        .antMatchers("/author/api/**").hasRole("AUTHOR")
                         .anyRequest().authenticated())
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -1,10 +1,11 @@
 package com.bcorp.polaris.core.advice;
 
 import com.bcorp.polaris.core.error.InternalErrorCode;
+import com.bcorp.polaris.core.exception.PolarisAuthenticationException;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
-import com.bcorp.polaris.core.model.Error;
-import com.bcorp.polaris.core.model.ServerErrorResponse;
-import com.bcorp.polaris.core.model.ServerResponse;
+import com.bcorp.polaris.core.payload.Error;
+import com.bcorp.polaris.core.payload.ServerErrorResponse;
+import com.bcorp.polaris.core.payload.ServerResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -92,6 +93,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
 
         serverErrorResponse.setError(serverResponse);
         return new ResponseEntity<>(serverErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PolarisAuthenticationException.class)
+    protected ResponseEntity<ServerErrorResponse> handleServerRuntimeException(PolarisAuthenticationException ex, WebRequest request)
+    {
+        ServerErrorResponse serverErrorResponse = new ServerErrorResponse();
+        ServerResponse serverResponse = ServerResponse
+                .builder()
+                .code(401)
+                .message("Unauthorized")
+                .build();
+        serverErrorResponse.setError(serverResponse);
+        return new ResponseEntity<>(serverErrorResponse, HttpStatus.UNAUTHORIZED);
     }
 
 
