@@ -15,7 +15,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row9;
+import org.jooq.Row11;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -56,6 +56,16 @@ public class Page extends TableImpl<PageRecord> {
      * The column <code>polaris-db.page.chapter_id</code>. 章節 id
      */
     public final TableField<PageRecord, Long> CHAPTER_ID = createField(DSL.name("chapter_id"), SQLDataType.BIGINT.nullable(false), this, "章節 id");
+
+    /**
+     * The column <code>polaris-db.page.book_id</code>. 書本 id
+     */
+    public final TableField<PageRecord, Long> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.BIGINT.nullable(false), this, "書本 id");
+
+    /**
+     * The column <code>polaris-db.page.user_id</code>. User(Author) id
+     */
+    public final TableField<PageRecord, Long> USER_ID = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "User(Author) id");
 
     /**
      * The column <code>polaris-db.page.title</code>. 頁面標題
@@ -167,11 +177,11 @@ public class Page extends TableImpl<PageRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row9 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<Long, Long, String, String, Integer, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row9) super.fieldsRow();
+    public Row11<Long, Long, Long, Long, String, String, Integer, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 }

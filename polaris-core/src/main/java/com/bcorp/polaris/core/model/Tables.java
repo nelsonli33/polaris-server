@@ -6,6 +6,7 @@ package com.bcorp.polaris.core.model;
 
 import com.bcorp.polaris.core.model.tables.Book;
 import com.bcorp.polaris.core.model.tables.BookCategory;
+import com.bcorp.polaris.core.model.tables.BookCategoryRel;
 import com.bcorp.polaris.core.model.tables.BookReview;
 import com.bcorp.polaris.core.model.tables.Cart;
 import com.bcorp.polaris.core.model.tables.CartLineItem;
@@ -34,6 +35,11 @@ public class Tables {
      * The table <code>polaris-db.book_category</code>.
      */
     public static final BookCategory BOOK_CATEGORY = BookCategory.BOOK_CATEGORY;
+
+    /**
+     * The table <code>polaris-db.book_category_rel</code>.
+     */
+    public static final BookCategoryRel BOOK_CATEGORY_REL = BookCategoryRel.BOOK_CATEGORY_REL;
 
     /**
      * The table <code>polaris-db.book_review</code>.

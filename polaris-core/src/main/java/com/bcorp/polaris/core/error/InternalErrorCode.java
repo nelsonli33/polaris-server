@@ -6,6 +6,7 @@ public enum InternalErrorCode
 {
     SUCCESS(0),
     INVALID_REQUEST_BODY(33),
+    RECORD_NOT_FOUND(34),
 
     // Account 100 ~ 200
     USER_LOGIN_FAILED(100),

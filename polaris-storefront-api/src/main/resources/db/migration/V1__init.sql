@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `book`
 (
     `id`               BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
-    `user_id`          BIGINT UNSIGNED  NOT NULL COMMENT '作者 id',
+    `user_id`          BIGINT UNSIGNED  NOT NULL COMMENT 'User(Author) id',
     `book_category_id` BIGINT UNSIGNED  NULL COMMENT '書本分類 id',
     `title`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書本標題',
     `price_type`       TINYINT UNSIGNED NOT NULL DEFAULT 2 COMMENT '免費or付費閱讀，1-免費, 2-付費，預設為 2',
@@ -29,6 +29,15 @@ CREATE TABLE IF NOT EXISTS `book_category`
     PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS `book_category_rel`
+(
+    `id`               BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `book_id`          BIGINT UNSIGNED NOT NULL,
+    `book_category_id` BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (id)
+);
+
+
 CREATE TABLE IF NOT EXISTS `chapter`
 (
     `id`            BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
@@ -45,6 +54,8 @@ CREATE TABLE IF NOT EXISTS `page`
 (
     `id`              BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     `chapter_id`      BIGINT UNSIGNED  NOT NULL COMMENT '章節 id',
+    `book_id`         BIGINT UNSIGNED  NOT NULL COMMENT '書本 id',
+    `user_id`         BIGINT UNSIGNED  NOT NULL COMMENT 'User(Author) id',
     `title`           VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '頁面標題',
     `body`            TEXT             NULL COMMENT '頁面內容',
     `character_count` INT              NOT NULL DEFAULT 0 COMMENT '字數',
@@ -61,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `book_review`
     `id`          BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     `comment`     VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '留言內容',
     `user_id`     BIGINT UNSIGNED  NOT NULL COMMENT '使用者 id',
-    `book_id`     BIGINT UNSIGNED  NOT NULL COMMENT '書本   id',
+    `book_id`     BIGINT UNSIGNED  NOT NULL COMMENT '書本 id',
     `rating_star` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '評分 0 ~ 5',
     `is_deleted`  TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
     `created_at`  DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
@@ -96,13 +107,13 @@ CREATE TABLE IF NOT EXISTS `user`
 
 CREATE TABLE IF NOT EXISTS `user_bookshelf`
 (
-    `id`              BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
-    `user_id`         BIGINT UNSIGNED  NOT NULL COMMENT '使用者 id',
-    `book_id`         BIGINT UNSIGNED  NOT NULL COMMENT '書本 id',
-    `last_chapter_id` BIGINT UNSIGNED  NOT NULL COMMENT '上次閱讀章節 id',
-    `is_deleted`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
-    `created_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
-    `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
+    `id`           BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    `user_id`      BIGINT UNSIGNED  NOT NULL COMMENT '使用者 id',
+    `book_id`      BIGINT UNSIGNED  NOT NULL COMMENT '書本 id',
+    `last_page_id` BIGINT UNSIGNED  NOT NULL COMMENT '上次閱讀 page id',
+    `is_deleted`   TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
+    `created_at`   DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+    `updated_at`   DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
     PRIMARY KEY (id)
 );
 

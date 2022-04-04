@@ -63,9 +63,9 @@ public class BookReview extends TableImpl<BookReviewRecord> {
     public final TableField<BookReviewRecord, Long> USER_ID = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "使用者 id");
 
     /**
-     * The column <code>polaris-db.book_review.book_id</code>. 書本   id
+     * The column <code>polaris-db.book_review.book_id</code>. 書本 id
      */
-    public final TableField<BookReviewRecord, Long> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.BIGINT.nullable(false), this, "書本   id");
+    public final TableField<BookReviewRecord, Long> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.BIGINT.nullable(false), this, "書本 id");
 
     /**
      * The column <code>polaris-db.book_review.rating_star</code>. 評分 0 ~ 5

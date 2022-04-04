@@ -63,10 +63,10 @@ public class UserBookshelf extends TableImpl<UserBookshelfRecord> {
     public final TableField<UserBookshelfRecord, Long> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.BIGINT.nullable(false), this, "書本 id");
 
     /**
-     * The column <code>polaris-db.user_bookshelf.last_chapter_id</code>. 上次閱讀章節
+     * The column <code>polaris-db.user_bookshelf.last_page_id</code>. 上次閱讀 page
      * id
      */
-    public final TableField<UserBookshelfRecord, Long> LAST_CHAPTER_ID = createField(DSL.name("last_chapter_id"), SQLDataType.BIGINT.nullable(false), this, "上次閱讀章節 id");
+    public final TableField<UserBookshelfRecord, Long> LAST_PAGE_ID = createField(DSL.name("last_page_id"), SQLDataType.BIGINT.nullable(false), this, "上次閱讀 page id");
 
     /**
      * The column <code>polaris-db.user_bookshelf.is_deleted</code>.

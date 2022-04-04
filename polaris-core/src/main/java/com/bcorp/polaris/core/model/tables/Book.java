@@ -54,9 +54,9 @@ public class Book extends TableImpl<BookRecord> {
     public final TableField<BookRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>polaris-db.book.user_id</code>. 作者 id
+     * The column <code>polaris-db.book.user_id</code>. User(Author) id
      */
-    public final TableField<BookRecord, Long> USER_ID = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "作者 id");
+    public final TableField<BookRecord, Long> USER_ID = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "User(Author) id");
 
     /**
      * The column <code>polaris-db.book.book_category_id</code>. 書本分類 id

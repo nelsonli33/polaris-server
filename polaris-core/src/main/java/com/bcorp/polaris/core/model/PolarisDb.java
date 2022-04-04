@@ -6,6 +6,7 @@ package com.bcorp.polaris.core.model;
 
 import com.bcorp.polaris.core.model.tables.Book;
 import com.bcorp.polaris.core.model.tables.BookCategory;
+import com.bcorp.polaris.core.model.tables.BookCategoryRel;
 import com.bcorp.polaris.core.model.tables.BookReview;
 import com.bcorp.polaris.core.model.tables.Cart;
 import com.bcorp.polaris.core.model.tables.CartLineItem;
@@ -48,6 +49,11 @@ public class PolarisDb extends SchemaImpl {
      * The table <code>polaris-db.book_category</code>.
      */
     public final BookCategory BOOK_CATEGORY = BookCategory.BOOK_CATEGORY;
+
+    /**
+     * The table <code>polaris-db.book_category_rel</code>.
+     */
+    public final BookCategoryRel BOOK_CATEGORY_REL = BookCategoryRel.BOOK_CATEGORY_REL;
 
     /**
      * The table <code>polaris-db.book_review</code>.
@@ -122,6 +128,7 @@ public class PolarisDb extends SchemaImpl {
         return Arrays.asList(
             Book.BOOK,
             BookCategory.BOOK_CATEGORY,
+            BookCategoryRel.BOOK_CATEGORY_REL,
             BookReview.BOOK_REVIEW,
             Cart.CART,
             CartLineItem.CART_LINE_ITEM,

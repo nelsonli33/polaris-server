@@ -26,6 +26,7 @@ public class BookDto
     private LocalDateTime publishedAt;
     private Byte status;
     private Integer characterCount;
+    private TableOfContentDto tableOfContent;
     private Byte isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

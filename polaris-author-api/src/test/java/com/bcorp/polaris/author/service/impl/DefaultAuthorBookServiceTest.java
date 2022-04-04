@@ -1,5 +1,6 @@
 package com.bcorp.polaris.author.service.impl;
 
+import com.bcorp.polaris.author.dao.AuthorPageDao;
 import com.bcorp.polaris.author.service.AuthorUserService;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
@@ -26,11 +27,13 @@ class DefaultAuthorBookServiceTest
     private DSLContext dslContext;
     @MockBean
     private AuthorUserService authorUserService;
+    @MockBean
+    private AuthorPageDao authorPageDao;
 
     @BeforeEach
     void setUp()
     {
-        defaultAuthorBookService = new DefaultAuthorBookService(dslContext, authorUserService);
+        defaultAuthorBookService = new DefaultAuthorBookService(dslContext, authorUserService, authorPageDao);
     }
 
     @Test

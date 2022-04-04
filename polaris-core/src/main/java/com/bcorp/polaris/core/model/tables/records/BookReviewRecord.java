@@ -66,14 +66,14 @@ public class BookReviewRecord extends UpdatableRecordImpl<BookReviewRecord> impl
     }
 
     /**
-     * Setter for <code>polaris-db.book_review.book_id</code>. 書本   id
+     * Setter for <code>polaris-db.book_review.book_id</code>. 書本 id
      */
     public void setBookId(Long value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>polaris-db.book_review.book_id</code>. 書本   id
+     * Getter for <code>polaris-db.book_review.book_id</code>. 書本 id
      */
     public Long getBookId() {
         return (Long) get(3);

@@ -5,11 +5,10 @@ import com.bcorp.polaris.author.dto.BookDto;
 import com.bcorp.polaris.author.facade.AuthorBookFacade;
 import com.bcorp.polaris.author.model.CreateBookRequest;
 import com.bcorp.polaris.author.model.CreateBookResponse;
+import com.bcorp.polaris.author.model.GetBookIntroResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,6 +23,18 @@ public class AuthorBookController
     {
         this.authorBookFacade = authorBookFacade;
         this.authorRestMapper = authorRestMapper;
+    }
+
+    @GetMapping(path = "/author/api/v1/books/{book_id}")
+    public ResponseEntity<GetBookIntroResponse> getBookIntro(@PathVariable(name = "book_id") Long bookId)
+    {
+        final BookDto bookIntroDto = authorBookFacade.getBookIntro(bookId);
+
+        final GetBookIntroResponse response = GetBookIntroResponse
+                .builder()
+                .book(authorRestMapper.convert(bookIntroDto))
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping(path = "/author/api/v1/books")

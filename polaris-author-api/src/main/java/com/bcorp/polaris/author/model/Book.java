@@ -21,6 +21,7 @@ public class Book
     private String synopsis;
     private String acquisition;
     private String cover;
+    private TableOfContent tableOfContent;
     private LocalDateTime publishedAt;
     private Byte status;
     private Integer characterCount;
@@ -38,6 +39,7 @@ public class Book
             @JsonProperty("synopsis") String synopsis,
             @JsonProperty("acquisition") String acquisition,
             @JsonProperty("cover") String cover,
+            @JsonProperty("toc") TableOfContent tableOfContent,
             @JsonProperty("published_at") LocalDateTime publishedAt,
             @JsonProperty("status") Byte status,
             @JsonProperty("character_count") Integer characterCount,
@@ -53,6 +55,7 @@ public class Book
         this.synopsis = synopsis;
         this.acquisition = acquisition;
         this.cover = cover;
+        this.tableOfContent = tableOfContent;
         this.publishedAt = publishedAt;
         this.status = status;
         this.characterCount = characterCount;

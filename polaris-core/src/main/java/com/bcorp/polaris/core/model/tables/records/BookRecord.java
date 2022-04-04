@@ -39,14 +39,14 @@ public class BookRecord extends UpdatableRecordImpl<BookRecord> implements Recor
     }
 
     /**
-     * Setter for <code>polaris-db.book.user_id</code>. 作者 id
+     * Setter for <code>polaris-db.book.user_id</code>. User(Author) id
      */
     public void setUserId(Long value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>polaris-db.book.user_id</code>. 作者 id
+     * Getter for <code>polaris-db.book.user_id</code>. User(Author) id
      */
     public Long getUserId() {
         return (Long) get(1);

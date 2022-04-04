@@ -6,6 +6,7 @@ package com.bcorp.polaris.core.model;
 
 import com.bcorp.polaris.core.model.tables.Book;
 import com.bcorp.polaris.core.model.tables.BookCategory;
+import com.bcorp.polaris.core.model.tables.BookCategoryRel;
 import com.bcorp.polaris.core.model.tables.BookReview;
 import com.bcorp.polaris.core.model.tables.Cart;
 import com.bcorp.polaris.core.model.tables.CartLineItem;
@@ -18,6 +19,7 @@ import com.bcorp.polaris.core.model.tables.PaymentMode;
 import com.bcorp.polaris.core.model.tables.User;
 import com.bcorp.polaris.core.model.tables.UserBookshelf;
 import com.bcorp.polaris.core.model.tables.records.BookCategoryRecord;
+import com.bcorp.polaris.core.model.tables.records.BookCategoryRelRecord;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.BookReviewRecord;
 import com.bcorp.polaris.core.model.tables.records.CartLineItemRecord;
@@ -50,6 +52,7 @@ public class Keys {
 
     public static final UniqueKey<BookRecord> KEY_BOOK_PRIMARY = Internal.createUniqueKey(Book.BOOK, DSL.name("KEY_book_PRIMARY"), new TableField[] { Book.BOOK.ID }, true);
     public static final UniqueKey<BookCategoryRecord> KEY_BOOK_CATEGORY_PRIMARY = Internal.createUniqueKey(BookCategory.BOOK_CATEGORY, DSL.name("KEY_book_category_PRIMARY"), new TableField[] { BookCategory.BOOK_CATEGORY.ID }, true);
+    public static final UniqueKey<BookCategoryRelRecord> KEY_BOOK_CATEGORY_REL_PRIMARY = Internal.createUniqueKey(BookCategoryRel.BOOK_CATEGORY_REL, DSL.name("KEY_book_category_rel_PRIMARY"), new TableField[] { BookCategoryRel.BOOK_CATEGORY_REL.ID }, true);
     public static final UniqueKey<BookReviewRecord> KEY_BOOK_REVIEW_PRIMARY = Internal.createUniqueKey(BookReview.BOOK_REVIEW, DSL.name("KEY_book_review_PRIMARY"), new TableField[] { BookReview.BOOK_REVIEW.ID }, true);
     public static final UniqueKey<CartRecord> KEY_CART_PRIMARY = Internal.createUniqueKey(Cart.CART, DSL.name("KEY_cart_PRIMARY"), new TableField[] { Cart.CART.ID }, true);
     public static final UniqueKey<CartRecord> KEY_CART_UK_CART_CODE = Internal.createUniqueKey(Cart.CART, DSL.name("KEY_cart_uk_cart_code"), new TableField[] { Cart.CART.CODE }, true);

@@ -66,18 +66,18 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
     }
 
     /**
-     * Setter for <code>polaris-db.user_bookshelf.last_chapter_id</code>. 上次閱讀章節
+     * Setter for <code>polaris-db.user_bookshelf.last_page_id</code>. 上次閱讀 page
      * id
      */
-    public void setLastChapterId(Long value) {
+    public void setLastPageId(Long value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>polaris-db.user_bookshelf.last_chapter_id</code>. 上次閱讀章節
+     * Getter for <code>polaris-db.user_bookshelf.last_page_id</code>. 上次閱讀 page
      * id
      */
-    public Long getLastChapterId() {
+    public Long getLastPageId() {
         return (Long) get(3);
     }
 
@@ -165,7 +165,7 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
 
     @Override
     public Field<Long> field4() {
-        return UserBookshelf.USER_BOOKSHELF.LAST_CHAPTER_ID;
+        return UserBookshelf.USER_BOOKSHELF.LAST_PAGE_ID;
     }
 
     @Override
@@ -200,7 +200,7 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
 
     @Override
     public Long component4() {
-        return getLastChapterId();
+        return getLastPageId();
     }
 
     @Override
@@ -235,7 +235,7 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
 
     @Override
     public Long value4() {
-        return getLastChapterId();
+        return getLastPageId();
     }
 
     @Override
@@ -273,7 +273,7 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
 
     @Override
     public UserBookshelfRecord value4(Long value) {
-        setLastChapterId(value);
+        setLastPageId(value);
         return this;
     }
 
@@ -321,13 +321,13 @@ public class UserBookshelfRecord extends UpdatableRecordImpl<UserBookshelfRecord
     /**
      * Create a detached, initialised UserBookshelfRecord
      */
-    public UserBookshelfRecord(Long id, Long userId, Long bookId, Long lastChapterId, Byte isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserBookshelfRecord(Long id, Long userId, Long bookId, Long lastPageId, Byte isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(UserBookshelf.USER_BOOKSHELF);
 
         setId(id);
         setUserId(userId);
         setBookId(bookId);
-        setLastChapterId(lastChapterId);
+        setLastPageId(lastPageId);
         setIsDeleted(isDeleted);
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
