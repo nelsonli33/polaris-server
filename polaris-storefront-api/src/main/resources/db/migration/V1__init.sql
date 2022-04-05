@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `book_category`
     `id`            BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     `title`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書本分類名稱',
     `sort_position` INT              NOT NULL DEFAULT 0 COMMENT '排序位置',
+    `is_visible`    TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否顯示前台，0-否，1-是，預設為 0',
     `is_deleted`    TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
     `created_at`    DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
     `updated_at`    DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
@@ -31,10 +32,9 @@ CREATE TABLE IF NOT EXISTS `book_category`
 
 CREATE TABLE IF NOT EXISTS `book_category_rel`
 (
-    `id`               BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `book_id`          BIGINT UNSIGNED NOT NULL,
     `book_category_id` BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id)
+    CONSTRAINT uk_book_category UNIQUE (book_id, book_category_id)
 );
 
 

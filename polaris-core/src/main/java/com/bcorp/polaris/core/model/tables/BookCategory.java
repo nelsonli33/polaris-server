@@ -15,7 +15,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row6;
+import org.jooq.Row7;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -61,6 +61,12 @@ public class BookCategory extends TableImpl<BookCategoryRecord> {
      * The column <code>polaris-db.book_category.sort_position</code>. 排序位置
      */
     public final TableField<BookCategoryRecord, Integer> SORT_POSITION = createField(DSL.name("sort_position"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "排序位置");
+
+    /**
+     * The column <code>polaris-db.book_category.is_visible</code>.
+     * 是否顯示前台，0-否，1-是，預設為 0
+     */
+    public final TableField<BookCategoryRecord, Byte> IS_VISIBLE = createField(DSL.name("is_visible"), SQLDataType.TINYINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.TINYINT)), this, "是否顯示前台，0-否，1-是，預設為 0");
 
     /**
      * The column <code>polaris-db.book_category.is_deleted</code>.
@@ -153,11 +159,11 @@ public class BookCategory extends TableImpl<BookCategoryRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row6 type methods
+    // Row7 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<Long, String, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row6) super.fieldsRow();
+    public Row7<Long, String, Integer, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row7) super.fieldsRow();
     }
 }

@@ -5,19 +5,18 @@ import com.bcorp.polaris.author.service.AuthorBookService;
 import com.bcorp.polaris.author.service.AuthorUserService;
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
-import com.bcorp.polaris.core.model.tables.records.BookRecord;
-import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
-import com.bcorp.polaris.core.model.tables.records.PageRecord;
-import com.bcorp.polaris.core.model.tables.records.UserRecord;
+import com.bcorp.polaris.core.model.tables.records.*;
 import com.bcorp.polaris.core.type.BookStatus;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static com.bcorp.polaris.core.model.tables.Book.BOOK;
+import static com.bcorp.polaris.core.model.tables.BookCategoryRel.BOOK_CATEGORY_REL;
 import static com.bcorp.polaris.core.model.tables.Chapter.CHAPTER;
 import static com.bcorp.polaris.core.model.tables.Page.PAGE;
 import static com.bcorp.polaris.core.util.ServicesUtil.validateParameterNotNull;
@@ -82,5 +81,31 @@ public class DefaultAuthorBookService implements AuthorBookService
                     .execute();
             return bookRecord;
         });
+    }
+
+    public void batchSaveBookCategoriesToBook(BookRecord bookRecord, List<BookCategoryRecord> bookCategoryRecords)
+    {
+        validateParameterNotNull(bookRecord, "BookRecord " + bookRecord + " must not be null");
+
+        clearBookCategoryRelForBook(bookRecord);
+
+        List<BookCategoryRelRecord> bcls = new ArrayList<>();
+        for (BookCategoryRecord bc : bookCategoryRecords)
+        {
+            final BookCategoryRelRecord bcl
+                    = dslContext.newRecord(BOOK_CATEGORY_REL);
+            bcl.setBookId(bookRecord.getId());
+            bcl.setBookCategoryId(bc.getId());
+            bcls.add(bcl);
+        }
+        dslContext.batchInsert(bcls).execute();
+    }
+
+    private void clearBookCategoryRelForBook(BookRecord bookRecord)
+    {
+        validateParameterNotNull(bookRecord, "BookRecord " + bookRecord + " must not be null");
+        dslContext.deleteFrom(BOOK_CATEGORY_REL)
+                .where(BOOK_CATEGORY_REL.BOOK_ID.eq(bookRecord.getId()))
+                .execute();
     }
 }

@@ -5,8 +5,10 @@ import com.bcorp.polaris.author.dto.ChapterDto;
 import com.bcorp.polaris.author.dto.PageDto;
 import com.bcorp.polaris.author.dto.TableOfContentDto;
 import com.bcorp.polaris.author.facade.AuthorBookFacade;
+import com.bcorp.polaris.author.service.AuthorBookCategoryService;
 import com.bcorp.polaris.author.service.AuthorBookService;
 import com.bcorp.polaris.author.service.AuthorChapterService;
+import com.bcorp.polaris.core.model.tables.records.BookCategoryRecord;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
@@ -22,16 +24,18 @@ public class DefaultAuthorBookFacade implements AuthorBookFacade
 {
     private AuthorBookService authorBookService;
     private AuthorChapterService authorChapterService;
-
+    private AuthorBookCategoryService authorBookCategoryService;
 
     @Autowired
     public DefaultAuthorBookFacade(
             AuthorBookService authorBookService,
-            AuthorChapterService authorChapterService
+            AuthorChapterService authorChapterService,
+            AuthorBookCategoryService authorBookCategoryService
     )
     {
         this.authorBookService = authorBookService;
         this.authorChapterService = authorChapterService;
+        this.authorBookCategoryService = authorBookCategoryService;
     }
 
     @Override
@@ -52,6 +56,15 @@ public class DefaultAuthorBookFacade implements AuthorBookFacade
         return newBook.into(BookDto.class);
     }
 
+    @Override
+    public void batchSaveBookCategoryToBook(Long bookId, List<Long> bookCategoryIds)
+    {
+        final BookRecord bookRecord = authorBookService.getBookForId(bookId);
+        final List<BookCategoryRecord> bookCategoryRecords
+                = authorBookCategoryService.getBookCategoriesForIds(bookCategoryIds);
+
+        authorBookService.batchSaveBookCategoriesToBook(bookRecord, bookCategoryRecords);
+    }
 
     private TableOfContentDto getTableOfContent(BookRecord bookRecord)
     {

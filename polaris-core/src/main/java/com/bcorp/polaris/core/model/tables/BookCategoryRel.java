@@ -8,12 +8,14 @@ import com.bcorp.polaris.core.model.Keys;
 import com.bcorp.polaris.core.model.PolarisDb;
 import com.bcorp.polaris.core.model.tables.records.BookCategoryRelRecord;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row2;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -44,11 +46,6 @@ public class BookCategoryRel extends TableImpl<BookCategoryRelRecord> {
     public Class<BookCategoryRelRecord> getRecordType() {
         return BookCategoryRelRecord.class;
     }
-
-    /**
-     * The column <code>polaris-db.book_category_rel.id</code>.
-     */
-    public final TableField<BookCategoryRelRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>polaris-db.book_category_rel.book_id</code>.
@@ -101,13 +98,8 @@ public class BookCategoryRel extends TableImpl<BookCategoryRelRecord> {
     }
 
     @Override
-    public Identity<BookCategoryRelRecord, Long> getIdentity() {
-        return (Identity<BookCategoryRelRecord, Long>) super.getIdentity();
-    }
-
-    @Override
-    public UniqueKey<BookCategoryRelRecord> getPrimaryKey() {
-        return Keys.KEY_BOOK_CATEGORY_REL_PRIMARY;
+    public List<UniqueKey<BookCategoryRelRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.KEY_BOOK_CATEGORY_REL_UK_BOOK_CATEGORY);
     }
 
     @Override
@@ -137,11 +129,11 @@ public class BookCategoryRel extends TableImpl<BookCategoryRelRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row2 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Long, Long, Long> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row2<Long, Long> fieldsRow() {
+        return (Row2) super.fieldsRow();
     }
 }

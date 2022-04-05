@@ -1,5 +1,6 @@
 package com.bcorp.polaris.author.service;
 
+import com.bcorp.polaris.core.model.tables.records.BookCategoryRecord;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
 
@@ -13,4 +14,6 @@ public interface AuthorBookService
     Map<Long, List<PageRecord>> getTableOfContent(BookRecord bookRecord);
 
     BookRecord createNewBook(String title);
+
+    void batchSaveBookCategoriesToBook(BookRecord bookRecord, List<BookCategoryRecord> bookCategoryRecords);
 }

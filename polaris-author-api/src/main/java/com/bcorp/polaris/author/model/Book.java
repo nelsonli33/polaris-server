@@ -14,7 +14,6 @@ public class Book
 {
     private Long id;
     private Long userId;
-    private Long bookCategoryId;
     private String title;
     private Byte priceType;
     private BigDecimal price;
@@ -32,7 +31,6 @@ public class Book
     public Book(
             @JsonProperty("id") Long id,
             @JsonProperty("user_id") Long userId,
-            @JsonProperty("book_category_id") Long bookCategoryId,
             @JsonProperty("title") String title,
             @JsonProperty("price_type") Byte priceType,
             @JsonProperty("price") BigDecimal price,
@@ -48,7 +46,6 @@ public class Book
     {
         this.id = id;
         this.userId = userId;
-        this.bookCategoryId = bookCategoryId;
         this.title = title;
         this.priceType = priceType;
         this.price = price;
