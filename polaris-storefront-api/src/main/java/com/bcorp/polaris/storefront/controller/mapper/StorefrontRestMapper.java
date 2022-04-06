@@ -2,9 +2,9 @@ package com.bcorp.polaris.storefront.controller.mapper;
 
 
 import com.bcorp.polaris.core.dto.*;
+import com.bcorp.polaris.storefront.api.model.Book;
+import com.bcorp.polaris.storefront.api.model.*;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
-import com.bcorp.polaris.storefront.model.Book;
-import com.bcorp.polaris.storefront.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

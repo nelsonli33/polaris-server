@@ -28,7 +28,7 @@ public class DefaultPageDao implements PageDao
     public Map<ChapterRecord, List<PageRecord>> findAllPageRecordsGroupByChapterByBookId(Long bookId)
     {
         validateParameterNotNull(bookId, "bookId must not be null");
-        return dslContext.select(PAGE.ID, PAGE.CHAPTER_ID, PAGE.BOOK_ID, PAGE.TITLE)
+        return dslContext.select(PAGE.ID, PAGE.TITLE)
                 .select(CHAPTER.fields())
                 .from(PAGE)
                 .join(CHAPTER).on(PAGE.CHAPTER_ID.eq(CHAPTER.ID))

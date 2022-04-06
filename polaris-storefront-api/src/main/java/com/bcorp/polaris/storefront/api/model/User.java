@@ -1,4 +1,4 @@
-package com.bcorp.polaris.storefront.model;
+package com.bcorp.polaris.storefront.api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;

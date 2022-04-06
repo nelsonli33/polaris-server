@@ -3,7 +3,7 @@ package com.bcorp.polaris.core.type;
 public enum BookStatus
 {
     DRAFT(0),
-    ACTIVE(1);
+    PUBLISHED(1);
 
     private int value;
 

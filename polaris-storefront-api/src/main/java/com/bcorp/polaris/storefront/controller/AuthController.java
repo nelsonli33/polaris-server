@@ -1,11 +1,11 @@
 package com.bcorp.polaris.storefront.controller;
 
+import com.bcorp.polaris.storefront.api.model.LoginRequest;
+import com.bcorp.polaris.storefront.api.model.LoginResponse;
+import com.bcorp.polaris.storefront.api.model.RegisterUserRequest;
 import com.bcorp.polaris.storefront.controller.mapper.StorefrontRestMapper;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
 import com.bcorp.polaris.storefront.facade.AccountFacade;
-import com.bcorp.polaris.storefront.model.LoginRequest;
-import com.bcorp.polaris.storefront.model.LoginResponse;
-import com.bcorp.polaris.storefront.model.RegisterUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

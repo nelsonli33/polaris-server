@@ -1,9 +1,9 @@
 package com.bcorp.polaris.storefront.controller;
 
 import com.bcorp.polaris.core.dto.BookDto;
+import com.bcorp.polaris.storefront.api.model.GetBookIntroResponse;
 import com.bcorp.polaris.storefront.controller.mapper.StorefrontRestMapper;
 import com.bcorp.polaris.storefront.facade.BookFacade;
-import com.bcorp.polaris.storefront.model.GetBookIntroResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
