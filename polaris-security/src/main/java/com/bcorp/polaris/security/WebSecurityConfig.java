@@ -31,9 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     {
         http.csrf().disable().cors().disable()
                 .authorizeRequests((authz) -> authz
+
                         .antMatchers(
                                 "/api/v1/user/register",
-                                "/api/v1/user/login")
+                                "/api/v1/user/login",
+                                "/api/v1/books/**")
                         .permitAll()
                         .antMatchers("/author/api/**").hasRole("AUTHOR")
                         .anyRequest().authenticated())
@@ -72,4 +74,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     }
 
 }
-

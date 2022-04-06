@@ -1,4 +1,4 @@
-package com.bcorp.polaris.author.dto;
+package com.bcorp.polaris.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

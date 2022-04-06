@@ -1,14 +1,14 @@
 package com.bcorp.polaris.author.controller;
 
 import com.bcorp.polaris.author.controller.mapper.AuthorRestMapper;
-import com.bcorp.polaris.author.dto.ChapterDto;
-import com.bcorp.polaris.author.dto.CreateChapterDto;
-import com.bcorp.polaris.author.dto.UpdateChapterDto;
 import com.bcorp.polaris.author.facade.AuthorChapterFacade;
 import com.bcorp.polaris.author.model.CreateChapterRequest;
 import com.bcorp.polaris.author.model.CreateChapterResponse;
 import com.bcorp.polaris.author.model.UpdateChapterRequest;
 import com.bcorp.polaris.author.model.UpdateChapterResponse;
+import com.bcorp.polaris.core.dto.ChapterDto;
+import com.bcorp.polaris.core.dto.CreateChapterDto;
+import com.bcorp.polaris.core.dto.UpdateChapterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

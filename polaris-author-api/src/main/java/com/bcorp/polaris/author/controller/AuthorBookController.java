@@ -1,12 +1,12 @@
 package com.bcorp.polaris.author.controller;
 
 import com.bcorp.polaris.author.controller.mapper.AuthorRestMapper;
-import com.bcorp.polaris.author.dto.BookDto;
 import com.bcorp.polaris.author.facade.AuthorBookFacade;
 import com.bcorp.polaris.author.model.BatchSaveBookCategoryToBookRequest;
 import com.bcorp.polaris.author.model.CreateBookRequest;
 import com.bcorp.polaris.author.model.CreateBookResponse;
 import com.bcorp.polaris.author.model.GetBookIntroResponse;
+import com.bcorp.polaris.core.dto.BookDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +51,8 @@ public class AuthorBookController
     @PutMapping(path = "/author/api/v1/books/{book_id}/categories/batch-save")
     public ResponseEntity<?> batchSaveBookCategoriesToBook(
             @Valid @RequestBody BatchSaveBookCategoryToBookRequest body,
-            @PathVariable(name = "book_id") Long bookId)
+            @PathVariable(name = "book_id") Long bookId
+    )
     {
         authorBookFacade.batchSaveBookCategoryToBook(bookId, body.getBookCategoryIds());
         return ResponseEntity.status(HttpStatus.OK).body(null);

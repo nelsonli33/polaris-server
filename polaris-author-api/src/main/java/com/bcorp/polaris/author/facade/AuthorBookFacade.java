@@ -1,6 +1,6 @@
 package com.bcorp.polaris.author.facade;
 
-import com.bcorp.polaris.author.dto.BookDto;
+import com.bcorp.polaris.core.dto.BookDto;
 
 import java.util.List;
 

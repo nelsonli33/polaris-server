@@ -1,13 +1,13 @@
 package com.bcorp.polaris.author.controller;
 
 import com.bcorp.polaris.author.controller.mapper.AuthorRestMapper;
-import com.bcorp.polaris.author.dto.CreatePageDto;
-import com.bcorp.polaris.author.dto.PageDto;
-import com.bcorp.polaris.author.dto.SavePageDto;
 import com.bcorp.polaris.author.facade.AuthorPageFacade;
 import com.bcorp.polaris.author.model.CreatePageRequest;
 import com.bcorp.polaris.author.model.CreatePageResponse;
 import com.bcorp.polaris.author.model.SavePageRequest;
+import com.bcorp.polaris.core.dto.CreatePageDto;
+import com.bcorp.polaris.core.dto.PageDto;
+import com.bcorp.polaris.core.dto.SavePageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,13 +1,13 @@
 package com.bcorp.polaris.author.facade.impl;
 
-import com.bcorp.polaris.author.dto.BookDto;
-import com.bcorp.polaris.author.dto.ChapterDto;
-import com.bcorp.polaris.author.dto.PageDto;
-import com.bcorp.polaris.author.dto.TableOfContentDto;
 import com.bcorp.polaris.author.facade.AuthorBookFacade;
 import com.bcorp.polaris.author.service.AuthorBookCategoryService;
 import com.bcorp.polaris.author.service.AuthorBookService;
 import com.bcorp.polaris.author.service.AuthorChapterService;
+import com.bcorp.polaris.core.dto.BookDto;
+import com.bcorp.polaris.core.dto.ChapterDto;
+import com.bcorp.polaris.core.dto.PageDto;
+import com.bcorp.polaris.core.dto.TableOfContentDto;
 import com.bcorp.polaris.core.model.tables.records.BookCategoryRecord;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;

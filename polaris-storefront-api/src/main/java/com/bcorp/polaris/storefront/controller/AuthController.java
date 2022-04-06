@@ -1,8 +1,8 @@
 package com.bcorp.polaris.storefront.controller;
 
+import com.bcorp.polaris.storefront.controller.mapper.StorefrontRestMapper;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
 import com.bcorp.polaris.storefront.facade.AccountFacade;
-import com.bcorp.polaris.storefront.mapstruct.mapper.AuthRestMapper;
 import com.bcorp.polaris.storefront.model.LoginRequest;
 import com.bcorp.polaris.storefront.model.LoginResponse;
 import com.bcorp.polaris.storefront.model.RegisterUserRequest;
@@ -17,20 +17,20 @@ import javax.validation.Valid;
 @RestController
 public class AuthController
 {
-    private AuthRestMapper authRestMapper;
+    private StorefrontRestMapper storefrontRestMapper;
     private AccountFacade accountFacade;
 
     @Autowired
-    public AuthController(AuthRestMapper authRestMapper, AccountFacade accountFacade)
+    public AuthController(StorefrontRestMapper storefrontRestMapper, AccountFacade accountFacade)
     {
-        this.authRestMapper = authRestMapper;
+        this.storefrontRestMapper = storefrontRestMapper;
         this.accountFacade = accountFacade;
     }
 
     @PostMapping(path = "/api/v1/user/register")
     public ResponseEntity registerUser(@Valid @RequestBody RegisterUserRequest body)
     {
-        final RegisterDto registerDto = authRestMapper.toDto(body);
+        final RegisterDto registerDto = storefrontRestMapper.toDto(body);
         accountFacade.register(registerDto);
         return ResponseEntity.ok().build();
     }

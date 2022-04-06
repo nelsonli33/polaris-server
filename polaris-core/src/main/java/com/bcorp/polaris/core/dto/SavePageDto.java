@@ -1,4 +1,4 @@
-package com.bcorp.polaris.author.dto;
+package com.bcorp.polaris.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateChapterDto
+public class SavePageDto
 {
     private Long bookId;
+    private Long pageId;
     private String title;
-    private Long previousChapterId;
+    private String body;
+    private Integer characterCount;
 }

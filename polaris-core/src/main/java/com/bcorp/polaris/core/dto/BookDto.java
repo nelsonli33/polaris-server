@@ -1,4 +1,4 @@
-package com.bcorp.polaris.author.dto;
+package com.bcorp.polaris.core.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,6 @@ public class BookDto
 {
     private Long id;
     private Long userId;
-    private Long bookCategoryId;
     private String title;
     private Byte priceType;
     private BigDecimal price;
@@ -30,4 +29,5 @@ public class BookDto
     private Byte isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private UserDto author;
 }

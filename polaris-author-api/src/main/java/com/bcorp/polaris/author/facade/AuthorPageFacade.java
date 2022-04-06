@@ -1,8 +1,8 @@
 package com.bcorp.polaris.author.facade;
 
-import com.bcorp.polaris.author.dto.CreatePageDto;
-import com.bcorp.polaris.author.dto.PageDto;
-import com.bcorp.polaris.author.dto.SavePageDto;
+import com.bcorp.polaris.core.dto.CreatePageDto;
+import com.bcorp.polaris.core.dto.PageDto;
+import com.bcorp.polaris.core.dto.SavePageDto;
 
 public interface AuthorPageFacade
 {

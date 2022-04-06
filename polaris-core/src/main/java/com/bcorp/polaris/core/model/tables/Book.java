@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row15;
+import org.jooq.Row14;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -57,11 +57,6 @@ public class Book extends TableImpl<BookRecord> {
      * The column <code>polaris-db.book.user_id</code>. User(Author) id
      */
     public final TableField<BookRecord, Long> USER_ID = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "User(Author) id");
-
-    /**
-     * The column <code>polaris-db.book.book_category_id</code>. 書本分類 id
-     */
-    public final TableField<BookRecord, Long> BOOK_CATEGORY_ID = createField(DSL.name("book_category_id"), SQLDataType.BIGINT, this, "書本分類 id");
 
     /**
      * The column <code>polaris-db.book.title</code>. 書本標題
@@ -199,11 +194,11 @@ public class Book extends TableImpl<BookRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row15 type methods
+    // Row14 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row15<Long, Long, Long, String, Byte, BigDecimal, String, String, String, LocalDateTime, Byte, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row15) super.fieldsRow();
+    public Row14<Long, Long, String, Byte, BigDecimal, String, String, String, LocalDateTime, Byte, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row14) super.fieldsRow();
     }
 }

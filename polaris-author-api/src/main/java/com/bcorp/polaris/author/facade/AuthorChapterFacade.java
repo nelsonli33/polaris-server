@@ -1,8 +1,8 @@
 package com.bcorp.polaris.author.facade;
 
-import com.bcorp.polaris.author.dto.ChapterDto;
-import com.bcorp.polaris.author.dto.CreateChapterDto;
-import com.bcorp.polaris.author.dto.UpdateChapterDto;
+import com.bcorp.polaris.core.dto.ChapterDto;
+import com.bcorp.polaris.core.dto.CreateChapterDto;
+import com.bcorp.polaris.core.dto.UpdateChapterDto;
 
 public interface AuthorChapterFacade
 {

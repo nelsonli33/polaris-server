@@ -1,11 +1,11 @@
 package com.bcorp.polaris.author.facade.impl;
 
-import com.bcorp.polaris.author.dto.ChapterDto;
-import com.bcorp.polaris.author.dto.CreateChapterDto;
-import com.bcorp.polaris.author.dto.UpdateChapterDto;
 import com.bcorp.polaris.author.facade.AuthorChapterFacade;
 import com.bcorp.polaris.author.service.AuthorBookService;
 import com.bcorp.polaris.author.service.AuthorChapterService;
+import com.bcorp.polaris.core.dto.ChapterDto;
+import com.bcorp.polaris.core.dto.CreateChapterDto;
+import com.bcorp.polaris.core.dto.UpdateChapterDto;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import org.springframework.beans.factory.annotation.Autowired;
