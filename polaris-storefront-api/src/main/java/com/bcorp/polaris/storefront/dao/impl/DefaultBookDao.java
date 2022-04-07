@@ -1,5 +1,6 @@
 package com.bcorp.polaris.storefront.dao.impl;
 
+import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.storefront.dao.BookDao;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -20,6 +21,12 @@ public class DefaultBookDao implements BookDao
         this.dslContext = dslContext;
     }
 
+
+    @Override
+    public BookRecord findBookById(Long bookId)
+    {
+        return dslContext.fetchOne(BOOK, BOOK.ID.eq(bookId).and(BOOK.STATUS.eq((byte) 1)).and(BOOK.IS_DELETED.eq((byte) 0)));
+    }
 
     public Record findBookWithAuthorById(Long bookId)
     {

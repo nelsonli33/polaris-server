@@ -2,6 +2,7 @@ package com.bcorp.polaris.storefront.service.impl;
 
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
+import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
 import com.bcorp.polaris.storefront.dao.BookDao;
@@ -27,7 +28,18 @@ public class DefaultBookService implements BookService
         this.pageDao = pageDao;
     }
 
-    public Record getBookForId(Long bookId)
+    public BookRecord getBookForId(Long bookId)
+    {
+        validateParameterNotNull(bookId, "BookId must not be null");
+        final BookRecord bookRecord = bookDao.findBookById(bookId);
+        if (bookRecord == null)
+        {
+            throw new PolarisServerRuntimeException(InternalErrorCode.RECORD_NOT_FOUND, "Book with Id: " + bookId + " not found.");
+        }
+        return bookRecord;
+    }
+
+    public Record getBookAndAuthorForId(Long bookId)
     {
         validateParameterNotNull(bookId, "BookId must not be null");
         final Record record = bookDao.findBookWithAuthorById(bookId);

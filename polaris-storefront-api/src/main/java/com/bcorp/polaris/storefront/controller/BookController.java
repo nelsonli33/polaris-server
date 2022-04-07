@@ -2,7 +2,6 @@ package com.bcorp.polaris.storefront.controller;
 
 import com.bcorp.polaris.core.dto.BookDto;
 import com.bcorp.polaris.storefront.api.model.GetBookIntroResponse;
-import com.bcorp.polaris.storefront.controller.mapper.StorefrontRestMapper;
 import com.bcorp.polaris.storefront.facade.BookFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,16 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BookController
+public class BookController extends AbstractController
 {
     private BookFacade bookFacade;
-    private StorefrontRestMapper storefrontRestMapper;
 
     @Autowired
-    public BookController(BookFacade bookFacade, StorefrontRestMapper storefrontRestMapper)
+    public BookController(BookFacade bookFacade)
     {
         this.bookFacade = bookFacade;
-        this.storefrontRestMapper = storefrontRestMapper;
     }
 
     @GetMapping(path = "/api/v1/books/{book_id}/intro")
@@ -30,7 +27,7 @@ public class BookController
         final BookDto bookIntro = bookFacade.getBookIntro(bookId);
 
         GetBookIntroResponse response = GetBookIntroResponse.builder()
-                .book(storefrontRestMapper.convert(bookIntro))
+                .book(getStorefrontRestMapper().convert(bookIntro))
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(response);

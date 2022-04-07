@@ -3,7 +3,6 @@ package com.bcorp.polaris.storefront.controller;
 import com.bcorp.polaris.storefront.api.model.LoginRequest;
 import com.bcorp.polaris.storefront.api.model.LoginResponse;
 import com.bcorp.polaris.storefront.api.model.RegisterUserRequest;
-import com.bcorp.polaris.storefront.controller.mapper.StorefrontRestMapper;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
 import com.bcorp.polaris.storefront.facade.AccountFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class AuthController
+public class AuthController extends AbstractController
 {
-    private StorefrontRestMapper storefrontRestMapper;
     private AccountFacade accountFacade;
 
     @Autowired
-    public AuthController(StorefrontRestMapper storefrontRestMapper, AccountFacade accountFacade)
+    public AuthController(AccountFacade accountFacade)
     {
-        this.storefrontRestMapper = storefrontRestMapper;
         this.accountFacade = accountFacade;
     }
 
     @PostMapping(path = "/api/v1/user/register")
     public ResponseEntity registerUser(@Valid @RequestBody RegisterUserRequest body)
     {
-        final RegisterDto registerDto = storefrontRestMapper.toDto(body);
+        final RegisterDto registerDto = getStorefrontRestMapper().toDto(body);
         accountFacade.register(registerDto);
         return ResponseEntity.ok().build();
     }

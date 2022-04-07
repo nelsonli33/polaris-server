@@ -134,9 +134,9 @@ CREATE TABLE IF NOT EXISTS `cart_line_item`
 (
     `id`              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `cart_id`         BIGINT UNSIGNED NOT NULL COMMENT '購物車 id',
+    `book_id`         BIGINT UNSIGNED NOT NULL,
     `name`            VARCHAR(255)    NOT NULL DEFAULT '' COMMENT '商品名稱',
     `price`           DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品金額',
-    `quantity`        INT             NOT NULL DEFAULT 1,
     `subtotal`        DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品小計',
     `total_discounts` DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品總折扣',
     `total_price`     DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品總金額',
@@ -173,7 +173,6 @@ CREATE TABLE IF NOT EXISTS `order_line_item`
     `book_id`         BIGINT UNSIGNED  NOT NULL,
     `name`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '商品名稱',
     `price`           DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品金額',
-    `quantity`        INT              NOT NULL DEFAULT 1,
     `subtotal`        DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品小計',
     `total_discounts` DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品總折扣',
     `total_price`     DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品總金額',

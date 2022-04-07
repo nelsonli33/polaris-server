@@ -1,5 +1,6 @@
 package com.bcorp.polaris.storefront.service;
 
+import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
 import org.jooq.Record;
@@ -9,7 +10,9 @@ import java.util.Map;
 
 public interface BookService
 {
-    Record getBookForId(Long bookId);
+    BookRecord getBookForId(Long bookId);
+
+    Record getBookAndAuthorForId(Long bookId);
 
     Map<ChapterRecord, List<PageRecord>> getTableOfContent(Long bookId);
 }

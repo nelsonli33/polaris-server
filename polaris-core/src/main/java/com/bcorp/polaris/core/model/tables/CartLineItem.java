@@ -59,6 +59,11 @@ public class CartLineItem extends TableImpl<CartLineItemRecord> {
     public final TableField<CartLineItemRecord, Long> CART_ID = createField(DSL.name("cart_id"), SQLDataType.BIGINT.nullable(false), this, "購物車 id");
 
     /**
+     * The column <code>polaris-db.cart_line_item.book_id</code>.
+     */
+    public final TableField<CartLineItemRecord, Long> BOOK_ID = createField(DSL.name("book_id"), SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
      * The column <code>polaris-db.cart_line_item.name</code>. 商品名稱
      */
     public final TableField<CartLineItemRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "商品名稱");
@@ -67,11 +72,6 @@ public class CartLineItem extends TableImpl<CartLineItemRecord> {
      * The column <code>polaris-db.cart_line_item.price</code>. 商品金額
      */
     public final TableField<CartLineItemRecord, BigDecimal> PRICE = createField(DSL.name("price"), SQLDataType.DECIMAL(10, 2).nullable(false).defaultValue(DSL.inline("0.00", SQLDataType.DECIMAL)), this, "商品金額");
-
-    /**
-     * The column <code>polaris-db.cart_line_item.quantity</code>.
-     */
-    public final TableField<CartLineItemRecord, Integer> QUANTITY = createField(DSL.name("quantity"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("1", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>polaris-db.cart_line_item.subtotal</code>. 商品小計
@@ -177,7 +177,7 @@ public class CartLineItem extends TableImpl<CartLineItemRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<Long, Long, String, BigDecimal, Integer, BigDecimal, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row10<Long, Long, Long, String, BigDecimal, BigDecimal, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row10) super.fieldsRow();
     }
 }

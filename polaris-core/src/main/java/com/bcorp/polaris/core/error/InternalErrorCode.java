@@ -12,6 +12,9 @@ public enum InternalErrorCode
     USER_LOGIN_FAILED(100),
     USER_ACCOUNT_EXISTS(101),
 
+    // Cart 300 ~ 400
+    ADD_TO_CART_ERROR(300),
+
     INTERNAL_SERVER_ERROR(999);
 
     private final int code;

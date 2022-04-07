@@ -25,7 +25,7 @@ public class DefaultBookFacade implements BookFacade
     @Override
     public BookDto getBookIntro(Long bookId)
     {
-        final Record record = bookService.getBookForId(bookId);
+        final Record record = bookService.getBookAndAuthorForId(bookId);
         final TableOfContentDto tableOfContentDto = getTableOfContent(bookId);
 
         final BookDto bookDto = record.into(BookDto.class);

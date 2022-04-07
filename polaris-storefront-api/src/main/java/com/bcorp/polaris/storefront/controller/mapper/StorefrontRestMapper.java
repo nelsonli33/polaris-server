@@ -16,7 +16,6 @@ public interface StorefrontRestMapper
 {
     RegisterDto toDto(RegisterUserRequest body);
 
-
     Book convert(BookDto bookDto);
 
     User convert(UserDto userDto);
@@ -26,4 +25,8 @@ public interface StorefrontRestMapper
     Page convert(PageDto pageDto);
 
     TableOfContent convert(TableOfContentDto tableOfContentDto);
+
+    Cart convert(CartDto cartDto);
+
+    CartLineItem convert(CartLineItemDto cartLineItemDto);
 }
