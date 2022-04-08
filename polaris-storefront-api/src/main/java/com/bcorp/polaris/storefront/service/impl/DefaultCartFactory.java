@@ -26,7 +26,7 @@ public class DefaultCartFactory implements CartFactory
     @Override
     public CartRecord createCart()
     {
-        final UserRecord currentUser = userService.getCartForCurrentUser();
+        final UserRecord currentUser = userService.getCurrentUser();
         final CartRecord cart = dslContext.newRecord(CART);
         cart.setUserId(currentUser.getId());
         cart.store();

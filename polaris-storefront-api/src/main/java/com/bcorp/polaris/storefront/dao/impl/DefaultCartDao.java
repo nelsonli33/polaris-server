@@ -15,6 +15,7 @@ import java.util.Map;
 import static com.bcorp.polaris.core.model.tables.Cart.CART;
 import static com.bcorp.polaris.core.model.tables.CartLineItem.CART_LINE_ITEM;
 import static com.bcorp.polaris.core.util.ServicesUtil.validateParameterNotNull;
+import static java.util.stream.Collectors.*;
 
 @Repository
 public class DefaultCartDao implements CartDao
@@ -39,10 +40,24 @@ public class DefaultCartDao implements CartDao
     {
         validateParameterNotNull(userRecord, "UserRecord must not be null");
         return dslContext.select()
-                .from(CART_LINE_ITEM)
-                .join(CART).on(CART_LINE_ITEM.CART_ID.eq(CART.ID))
+                .from(CART)
+                .leftJoin(CART_LINE_ITEM).on(CART.ID.eq(CART_LINE_ITEM.CART_ID))
                 .where(CART.USER_ID.eq(userRecord.getId()))
-                .fetchGroups(r -> r.into(CartRecord.class), r -> r.into(CartLineItemRecord.class));
+                .collect(groupingBy(
+                        r -> r.into(CART), filtering(
+                                r -> r.get(CART_LINE_ITEM.ID) != null, mapping(
+                                        r -> r.into(CART_LINE_ITEM), toList()
+                                )
+                        )
+                ));
+    }
+
+    @Override
+    public boolean checkUserIfHasCart(UserRecord userRecord)
+    {
+        validateParameterNotNull(userRecord, "UserRecord must not be null");
+        return dslContext.fetchExists(dslContext.selectOne().from(CART)
+                .where(CART.USER_ID.eq(userRecord.getId())));
     }
 
     @Override
@@ -61,4 +76,12 @@ public class DefaultCartDao implements CartDao
         return dslContext.select().from(CART_LINE_ITEM).where(CART_LINE_ITEM.CART_ID.eq(cartRecord.getId()))
                 .fetchInto(CartLineItemRecord.class);
     }
+
+    @Override
+    public void deleteAllCartItemsByCart(CartRecord cartRecord)
+    {
+        validateParameterNotNull(cartRecord, "CartRecord cannot be null");
+        dslContext.delete(CART_LINE_ITEM).where(CART_LINE_ITEM.CART_ID.eq(cartRecord.getId())).execute();
+    }
+
 }

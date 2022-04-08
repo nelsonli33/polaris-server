@@ -14,7 +14,11 @@ public interface CartDao
 
     Map<CartRecord, List<CartLineItemRecord>> findCartAndLineItemsByUser(UserRecord userRecord);
 
+    boolean checkUserIfHasCart(UserRecord userRecord);
+
     CartLineItemRecord findCartLineItemByCartAndBook(CartRecord cartRecord, BookRecord bookRecord);
 
     List<CartLineItemRecord> findAllCartLineItemsByCart(CartRecord cartRecord);
+
+    void deleteAllCartItemsByCart(CartRecord cartRecord);
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class DefaultUserService implements UserService
 {
     @Override
-    public UserRecord getCartForCurrentUser()
+    public UserRecord getCurrentUser()
     {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || StringUtils.isEmpty(authentication.getName()) || authentication.getPrincipal() == null)

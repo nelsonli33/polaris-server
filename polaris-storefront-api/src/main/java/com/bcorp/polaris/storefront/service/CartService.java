@@ -19,4 +19,6 @@ public interface CartService
     Optional<CartLineItemRecord> getCartLineItem(CartRecord cartRecord, BookRecord bookRecord);
 
     List<CartLineItemRecord> getAllCartLineItemsForCart(CartRecord cartRecord);
+
+    void removeAllCartLineItems(CartRecord cartRecord);
 }

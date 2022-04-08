@@ -26,6 +26,7 @@ public class DefaultCartService implements CartService
     private CartDao cartDao;
     private DSLContext dslContext;
 
+
     public DefaultCartService(UserService userService,
                               CartFactory cartFactory,
                               CartDao cartDao,
@@ -40,7 +41,7 @@ public class DefaultCartService implements CartService
     @Override
     public CartRecord getCartForCurrentUser()
     {
-        final UserRecord currentUser = userService.getCartForCurrentUser();
+        final UserRecord currentUser = userService.getCurrentUser();
         final CartRecord cart = cartDao.findCartByUser(currentUser);
 
         if (cart != null)
@@ -56,9 +57,14 @@ public class DefaultCartService implements CartService
     @Override
     public Map<CartRecord, List<CartLineItemRecord>> getCartDetailForCurrentUser()
     {
-        final UserRecord currentUser = userService.getCartForCurrentUser();
+        final UserRecord currentUser = userService.getCurrentUser();
+        if (!cartDao.checkUserIfHasCart(currentUser))
+        {
+            cartFactory.createCart();
+        }
         return cartDao.findCartAndLineItemsByUser(currentUser);
     }
+
 
     @Override
     public CartLineItemRecord addCartLineItem(CartRecord cartRecord, BookRecord bookRecord)
@@ -83,6 +89,7 @@ public class DefaultCartService implements CartService
         }
     }
 
+    @Override
     public Optional<CartLineItemRecord> getCartLineItem(CartRecord cartRecord, BookRecord bookRecord)
     {
         validateParameterNotNullStandardMessage("cartRecord", cartRecord);
@@ -95,5 +102,12 @@ public class DefaultCartService implements CartService
     {
         validateParameterNotNullStandardMessage("cartRecord", cartRecord);
         return cartDao.findAllCartLineItemsByCart(cartRecord);
+    }
+
+    @Override
+    public void removeAllCartLineItems(CartRecord cartRecord)
+    {
+        validateParameterNotNullStandardMessage("cartRecord", cartRecord);
+        cartDao.deleteAllCartItemsByCart(cartRecord);
     }
 }

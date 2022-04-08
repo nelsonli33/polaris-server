@@ -1,6 +1,7 @@
 package com.bcorp.polaris.storefront.api.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CartLineItem
 {
     private Long id;

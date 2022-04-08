@@ -14,6 +14,7 @@ public enum InternalErrorCode
 
     // Cart 300 ~ 400
     ADD_TO_CART_ERROR(300),
+    REMOVE_CART_LINE_ITEM_ERROR(301),
 
     INTERNAL_SERVER_ERROR(999);
 
