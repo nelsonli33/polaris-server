@@ -2,12 +2,14 @@ package com.bcorp.polaris.storefront.service.strategy.impl;
 
 import com.bcorp.polaris.storefront.service.CartService;
 import com.bcorp.polaris.storefront.service.strategy.CartCalculationStrategy;
+import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractCartStrategy
 {
     private CartService cartService;
     private CartCalculationStrategy cartCalculationStrategy;
+    private DSLContext dslContext;
 
     public CartService getCartService()
     {
@@ -29,5 +31,16 @@ public abstract class AbstractCartStrategy
     public void setCartCalculationStrategy(CartCalculationStrategy cartCalculationStrategy)
     {
         this.cartCalculationStrategy = cartCalculationStrategy;
+    }
+
+    public DSLContext getDslContext()
+    {
+        return dslContext;
+    }
+
+    @Autowired
+    public void setDslContext(DSLContext dslContext)
+    {
+        this.dslContext = dslContext;
     }
 }

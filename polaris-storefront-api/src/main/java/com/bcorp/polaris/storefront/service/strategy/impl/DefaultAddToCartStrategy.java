@@ -4,6 +4,8 @@ import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.CartRecord;
+import com.bcorp.polaris.storefront.bo.BookBo;
+import com.bcorp.polaris.storefront.bo.CartBo;
 import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
 import com.bcorp.polaris.storefront.service.strategy.AddToCartStrategy;
 import org.springframework.stereotype.Component;
@@ -26,19 +28,23 @@ public class DefaultAddToCartStrategy extends AbstractCartStrategy implements Ad
     {
         validateAddToCart(parameter);
 
-        final CartRecord cart = parameter.getCart();
-        final BookRecord book = parameter.getBook();
+        final CartBo cartBo = parameter.getCartBo();
+        final BookBo bookBo = parameter.getBookBo();
 
-        getCartService().addCartLineItem(cart, book);
+        getCartService().addCartLineItem(cartBo, bookBo);
     }
 
     protected void validateAddToCart(CommerceCartParameter parameter)
     {
-        final CartRecord cart = parameter.getCart();
-        final BookRecord book = parameter.getBook();
+        final CartBo cartBo = parameter.getCartBo();
+        final BookBo bookBo = parameter.getBookBo();
+        validateParameterNotNull(cartBo, "CartBo cannot be null");
+        validateParameterNotNull(bookBo, "BookBo cannot be null");
 
-        validateParameterNotNull(cart, "CartRecord cannot be null");
-        validateParameterNotNull(book, "BookRecord cannot be null");
+        final CartRecord cart = cartBo.getCart();
+        final BookRecord book = bookBo.getBook();
+        validateParameterNotNull(bookBo, "CartRecord cannot be null");
+        validateParameterNotNull(bookBo, "BookRecord cannot be null");
 
         if (cart.getUserId().equals(book.getUserId()))
         {

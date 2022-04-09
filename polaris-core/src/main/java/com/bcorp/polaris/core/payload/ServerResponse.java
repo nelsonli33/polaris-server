@@ -15,13 +15,13 @@ public class ServerResponse
     private int code;
     private String message;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<Error> errors;
+    private List<Object> errors;
 
     @JsonCreator
     public ServerResponse(
             @JsonProperty("code") int code,
             @JsonProperty("message") String message,
-            @JsonProperty("errors") List<Error> errors)
+            @JsonProperty("errors") List<Object> errors)
     {
         this.code = code;
         this.message = message;

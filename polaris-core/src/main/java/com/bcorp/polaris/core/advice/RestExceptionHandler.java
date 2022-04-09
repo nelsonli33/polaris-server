@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,7 +64,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
                 .builder()
                 .code(errorCode.getCode())
                 .message(errorCode.name())
-                .errors(errors)
+                .errors(Collections.singletonList(errors))
                 .build();
 
         serverErrorResponse.setError(serverResponse);

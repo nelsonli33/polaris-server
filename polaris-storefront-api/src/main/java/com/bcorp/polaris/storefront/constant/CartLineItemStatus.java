@@ -1,4 +1,4 @@
-package com.bcorp.polaris.core.type;
+package com.bcorp.polaris.storefront.constant;
 
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
@@ -6,15 +6,15 @@ import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum BookStatus
+public enum CartLineItemStatus
 {
-    DRAFT(0),
+    UNAVAILABLE(0),
 
     PUBLISHED(1);
 
     private int value;
 
-    BookStatus(int value)
+    CartLineItemStatus(int value)
     {
         this.value = value;
     }
@@ -24,19 +24,19 @@ public enum BookStatus
         return value;
     }
 
-    private static final Map<Integer, BookStatus> map = new HashMap<Integer, BookStatus>();
+    private static final Map<Integer, CartLineItemStatus> map = new HashMap<Integer, CartLineItemStatus>();
 
     static
     {
-        for (BookStatus type : BookStatus.values())
+        for (CartLineItemStatus type : CartLineItemStatus.values())
         {
             map.put(type.value, type);
         }
     }
 
-    public static BookStatus fromValue(int i)
+    public static CartLineItemStatus fromValue(int i)
     {
-        BookStatus type = map.get(i);
+        CartLineItemStatus type = map.get(i);
         if (type == null)
         {
             throw new PolarisServerRuntimeException(InternalErrorCode.INTERNAL_SERVER_ERROR, "Not Enum constant was found for value : " + i);

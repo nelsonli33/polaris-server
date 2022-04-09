@@ -15,7 +15,8 @@ public class ServerErrorResponse
 
     @JsonCreator
     public ServerErrorResponse(
-            @JsonProperty("error") ServerResponse error)
+            @JsonProperty("error") ServerResponse error
+    )
     {
         this.error = error;
     }

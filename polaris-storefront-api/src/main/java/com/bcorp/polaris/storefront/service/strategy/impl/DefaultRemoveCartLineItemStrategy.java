@@ -2,9 +2,9 @@ package com.bcorp.polaris.storefront.service.strategy.impl;
 
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
-import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.CartLineItemRecord;
-import com.bcorp.polaris.core.model.tables.records.CartRecord;
+import com.bcorp.polaris.storefront.bo.BookBo;
+import com.bcorp.polaris.storefront.bo.CartBo;
 import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
 import com.bcorp.polaris.storefront.service.strategy.RemoveCartLineItemStrategy;
 import org.springframework.stereotype.Component;
@@ -20,11 +20,11 @@ public class DefaultRemoveCartLineItemStrategy extends AbstractCartStrategy
     @Transactional
     public void removeLineItem(CommerceCartParameter parameter)
     {
-        final CartRecord cart = parameter.getCart();
-        final BookRecord book = parameter.getBook();
+        final CartBo cartBo = parameter.getCartBo();
+        final BookBo bookBo = parameter.getBookBo();
 
         final Optional<CartLineItemRecord> cartLineItem
-                = getCartService().getCartLineItem(cart, book);
+                = getCartService().getCartLineItemForBook(cartBo, bookBo);
 
         if (cartLineItem.isEmpty())
         {
@@ -39,8 +39,9 @@ public class DefaultRemoveCartLineItemStrategy extends AbstractCartStrategy
     @Transactional
     public void removeAllLineItems(CommerceCartParameter parameter)
     {
-        final CartRecord cart = parameter.getCart();
-        getCartService().removeAllCartLineItems(cart);
+        final CartBo cartBo = parameter.getCartBo();
+        getDslContext().batchDelete(cartBo.getLineItems()).execute();
+        cartBo.getLineItems().clear();
         getCartCalculationStrategy().calculateCart(parameter);
     }
 }

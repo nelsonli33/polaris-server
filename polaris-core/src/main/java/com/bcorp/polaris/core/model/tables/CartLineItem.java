@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row10;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -72,6 +72,23 @@ public class CartLineItem extends TableImpl<CartLineItemRecord> {
      * The column <code>polaris-db.cart_line_item.price</code>. 商品金額
      */
     public final TableField<CartLineItemRecord, BigDecimal> PRICE = createField(DSL.name("price"), SQLDataType.DECIMAL(10, 2).nullable(false).defaultValue(DSL.inline("0.00", SQLDataType.DECIMAL)), this, "商品金額");
+
+    /**
+     * The column <code>polaris-db.cart_line_item.cover</code>. 書封
+     */
+    public final TableField<CartLineItemRecord, String> COVER = createField(DSL.name("cover"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "書封");
+
+    /**
+     * The column <code>polaris-db.cart_line_item.item_key</code>.
+     * book_id:(name,price) 用來判斷資料是否改變
+     */
+    public final TableField<CartLineItemRecord, String> ITEM_KEY = createField(DSL.name("item_key"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "book_id:(name,price) 用來判斷資料是否改變");
+
+    /**
+     * The column <code>polaris-db.cart_line_item.status</code>.
+     * 商品狀態，0-未上架，1-已上架，預設為 1
+     */
+    public final TableField<CartLineItemRecord, Byte> STATUS = createField(DSL.name("status"), SQLDataType.TINYINT.nullable(false).defaultValue(DSL.inline("1", SQLDataType.TINYINT)), this, "商品狀態，0-未上架，1-已上架，預設為 1");
 
     /**
      * The column <code>polaris-db.cart_line_item.subtotal</code>. 商品小計
@@ -173,11 +190,11 @@ public class CartLineItem extends TableImpl<CartLineItemRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<Long, Long, Long, String, BigDecimal, BigDecimal, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row13<Long, Long, Long, String, BigDecimal, String, String, Byte, BigDecimal, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 }

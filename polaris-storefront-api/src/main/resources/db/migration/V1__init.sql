@@ -132,16 +132,19 @@ CREATE TABLE IF NOT EXISTS `cart`
 
 CREATE TABLE IF NOT EXISTS `cart_line_item`
 (
-    `id`              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `cart_id`         BIGINT UNSIGNED NOT NULL COMMENT '購物車 id',
-    `book_id`         BIGINT UNSIGNED NOT NULL,
-    `name`            VARCHAR(255)    NOT NULL DEFAULT '' COMMENT '商品名稱',
-    `price`           DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品金額',
-    `subtotal`        DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品小計',
-    `total_discounts` DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品總折扣',
-    `total_price`     DECIMAL(10, 2)  NOT NULL DEFAULT 0 COMMENT '商品總金額',
-    `created_at`      DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
-    `updated_at`      DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
+    `id`              BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    `cart_id`         BIGINT UNSIGNED  NOT NULL COMMENT '購物車 id',
+    `book_id`         BIGINT UNSIGNED  NOT NULL,
+    `name`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '商品名稱',
+    `price`           DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品金額',
+    `cover`           VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書封',
+    `item_key`        VARCHAR(255)     NOT NULL DEFAULT '' COMMENT 'book_id:(name,price) 用來判斷資料是否改變',
+    `status`          TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '商品狀態，0-未上架，1-已上架，預設為 1',
+    `subtotal`        DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品小計',
+    `total_discounts` DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品總折扣',
+    `total_price`     DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品總金額',
+    `created_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+    `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
     PRIMARY KEY (id)
 );
 

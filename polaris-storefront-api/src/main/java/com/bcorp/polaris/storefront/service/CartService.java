@@ -1,22 +1,26 @@
 package com.bcorp.polaris.storefront.service;
 
-import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.CartLineItemRecord;
 import com.bcorp.polaris.core.model.tables.records.CartRecord;
+import com.bcorp.polaris.storefront.bo.BookBo;
+import com.bcorp.polaris.storefront.bo.CartBo;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface CartService
 {
     CartRecord getCartForCurrentUser();
 
-    Map<CartRecord, List<CartLineItemRecord>> getCartDetailForCurrentUser();
+    boolean hasCart();
 
-    CartLineItemRecord addCartLineItem(CartRecord cartRecord, BookRecord bookRecord);
+    CartBo getCartDetailForCurrentUser();
 
-    Optional<CartLineItemRecord> getCartLineItem(CartRecord cartRecord, BookRecord bookRecord);
+    CartBo getCartBo();
+
+    CartLineItemRecord addCartLineItem(CartBo cartBo, BookBo bookBo);
+
+    Optional<CartLineItemRecord> getCartLineItemForBook(CartBo cartBo, BookBo bookBo);
 
     List<CartLineItemRecord> getAllCartLineItemsForCart(CartRecord cartRecord);
 

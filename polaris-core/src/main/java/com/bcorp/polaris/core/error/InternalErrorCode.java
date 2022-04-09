@@ -16,6 +16,11 @@ public enum InternalErrorCode
     ADD_TO_CART_ERROR(300),
     REMOVE_CART_LINE_ITEM_ERROR(301),
 
+
+    // Checkout 401 ~ 500
+    CART_CHECKOUT_ERROR(401),
+    EMPTY_CART_ERROR(402),
+
     INTERNAL_SERVER_ERROR(999);
 
     private final int code;

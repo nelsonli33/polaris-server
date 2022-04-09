@@ -1,6 +1,6 @@
 package com.bcorp.polaris.storefront.service.strategy.impl;
 
-import com.bcorp.polaris.core.model.tables.records.CartRecord;
+import com.bcorp.polaris.storefront.bo.CartBo;
 import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
 import com.bcorp.polaris.storefront.service.CalculationService;
 import com.bcorp.polaris.storefront.service.strategy.CartCalculationStrategy;
@@ -23,8 +23,8 @@ public class DefaultCartCalculationStrategy implements CartCalculationStrategy
     @Override
     public void calculateCart(CommerceCartParameter parameter)
     {
-        final CartRecord cart = parameter.getCart();
-        validateParameterNotNull(cart, "Cart entity cannot be null");
-        calculationService.calculate(cart);
+        final CartBo cartBo = parameter.getCartBo();
+        validateParameterNotNull(cartBo, "CartBo cannot be null");
+        calculationService.calculate(cartBo);
     }
 }
