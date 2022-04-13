@@ -13,11 +13,12 @@ import com.bcorp.polaris.core.model.tables.CartLineItem;
 import com.bcorp.polaris.core.model.tables.Chapter;
 import com.bcorp.polaris.core.model.tables.FlywaySchemaHistory;
 import com.bcorp.polaris.core.model.tables.Order;
+import com.bcorp.polaris.core.model.tables.OrderInvoice;
 import com.bcorp.polaris.core.model.tables.OrderLineItem;
 import com.bcorp.polaris.core.model.tables.Page;
-import com.bcorp.polaris.core.model.tables.PaymentMode;
 import com.bcorp.polaris.core.model.tables.User;
 import com.bcorp.polaris.core.model.tables.UserBookshelf;
+import com.bcorp.polaris.core.model.tables.UserInvoiceSetting;
 
 import java.util.Arrays;
 import java.util.List;
@@ -86,6 +87,11 @@ public class PolarisDb extends SchemaImpl {
     public final Order ORDER = Order.ORDER;
 
     /**
+     * The table <code>polaris-db.order_invoice</code>.
+     */
+    public final OrderInvoice ORDER_INVOICE = OrderInvoice.ORDER_INVOICE;
+
+    /**
      * The table <code>polaris-db.order_line_item</code>.
      */
     public final OrderLineItem ORDER_LINE_ITEM = OrderLineItem.ORDER_LINE_ITEM;
@@ -96,11 +102,6 @@ public class PolarisDb extends SchemaImpl {
     public final Page PAGE = Page.PAGE;
 
     /**
-     * The table <code>polaris-db.payment_mode</code>.
-     */
-    public final PaymentMode PAYMENT_MODE = PaymentMode.PAYMENT_MODE;
-
-    /**
      * The table <code>polaris-db.user</code>.
      */
     public final User USER = User.USER;
@@ -109,6 +110,11 @@ public class PolarisDb extends SchemaImpl {
      * The table <code>polaris-db.user_bookshelf</code>.
      */
     public final UserBookshelf USER_BOOKSHELF = UserBookshelf.USER_BOOKSHELF;
+
+    /**
+     * The table <code>polaris-db.user_invoice_setting</code>.
+     */
+    public final UserInvoiceSetting USER_INVOICE_SETTING = UserInvoiceSetting.USER_INVOICE_SETTING;
 
     /**
      * No further instances allowed
@@ -135,11 +141,12 @@ public class PolarisDb extends SchemaImpl {
             Chapter.CHAPTER,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Order.ORDER,
+            OrderInvoice.ORDER_INVOICE,
             OrderLineItem.ORDER_LINE_ITEM,
             Page.PAGE,
-            PaymentMode.PAYMENT_MODE,
             User.USER,
-            UserBookshelf.USER_BOOKSHELF
+            UserBookshelf.USER_BOOKSHELF,
+            UserInvoiceSetting.USER_INVOICE_SETTING
         );
     }
 }

@@ -5,7 +5,6 @@ import com.bcorp.polaris.core.model.tables.records.CartRecord;
 import com.bcorp.polaris.storefront.bo.BookBo;
 import com.bcorp.polaris.storefront.bo.CartBo;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface CartService
@@ -22,7 +21,7 @@ public interface CartService
 
     Optional<CartLineItemRecord> getCartLineItemForBook(CartBo cartBo, BookBo bookBo);
 
-    List<CartLineItemRecord> getAllCartLineItemsForCart(CartRecord cartRecord);
-
+    void removeCart();
+    
     void removeAllCartLineItems(CartRecord cartRecord);
 }

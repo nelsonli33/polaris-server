@@ -7,6 +7,7 @@ public enum InternalErrorCode
     SUCCESS(0),
     INVALID_REQUEST_BODY(33),
     RECORD_NOT_FOUND(34),
+    ENUM_CODE_NOT_FOUND(35),
 
     // Account 100 ~ 200
     USER_LOGIN_FAILED(100),
@@ -20,6 +21,12 @@ public enum InternalErrorCode
     // Checkout 401 ~ 500
     CART_CHECKOUT_ERROR(401),
     EMPTY_CART_ERROR(402),
+    CART_ITEMS_CHANGED(403),
+    INVOICE_LOVE_CODE_ERROR(406),
+    INVOICE_LOVE_CODE_NOT_EXIST(407),
+
+    // Order 501 ~ 600
+    ORDER_NOT_FOUND(501),
 
     INTERNAL_SERVER_ERROR(999);
 

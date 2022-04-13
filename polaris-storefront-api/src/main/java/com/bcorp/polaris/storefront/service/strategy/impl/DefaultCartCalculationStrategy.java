@@ -1,7 +1,7 @@
 package com.bcorp.polaris.storefront.service.strategy.impl;
 
 import com.bcorp.polaris.storefront.bo.CartBo;
-import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
+import com.bcorp.polaris.storefront.dto.CommerceCartParameter;
 import com.bcorp.polaris.storefront.service.CalculationService;
 import com.bcorp.polaris.storefront.service.strategy.CartCalculationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;

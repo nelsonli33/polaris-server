@@ -81,24 +81,26 @@ CREATE TABLE IF NOT EXISTS `book_review`
 
 CREATE TABLE IF NOT EXISTS `user`
 (
-    `id`         BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
-    `name`       VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者名稱',
-    `uid`        VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者 Uid',
-    `password`   VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者密碼',
-    `email`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者 E-mail',
-    `avatar`     VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者頭像',
-    `short_bio`  VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者簡短介紹',
-    `full_bio`   VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者完整介紹',
-    `birthday`   DATE             NULL COMMENT '使用者生日',
-    `is_author`  TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否是作者，0-否，1-是，預設為 0',
-    `twitter`    VARCHAR(255)     NOT NULL DEFAULT '',
-    `github`     VARCHAR(255)     NOT NULL DEFAULT '',
-    `linkedin`   VARCHAR(255)     NOT NULL DEFAULT '',
-    `facebook`   VARCHAR(255)     NOT NULL DEFAULT '',
-    `is_blocked` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否停權，0-否，1-是，預設為 0',
-    `is_deleted` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
-    `created_at` DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
-    `updated_at` DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
+    `id`                   BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    `name`                 VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者名稱',
+    `uid`                  VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者 Uid',
+    `password`             VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者密碼',
+    `email`                VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者 E-mail',
+    `avatar`               VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者頭像',
+    `short_bio`            VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者簡短介紹',
+    `full_bio`             VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者完整介紹',
+    `birthday`             DATE             NULL COMMENT '使用者生日',
+    `is_author`            TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否是作者，0-否，1-是，預設為 0',
+    `twitter`              VARCHAR(255)     NOT NULL DEFAULT '',
+    `github`               VARCHAR(255)     NOT NULL DEFAULT '',
+    `linkedin`             VARCHAR(255)     NOT NULL DEFAULT '',
+    `facebook`             VARCHAR(255)     NOT NULL DEFAULT '',
+    `default_payment_mode` VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '付款方式',
+    `default_invoice_type` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '發票類型，1-個人，2-公司，3-捐贈',
+    `is_blocked`           TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否停權，0-否，1-是，預設為 0',
+    `is_deleted`           TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
+    `created_at`           DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+    `updated_at`           DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
     PRIMARY KEY (id),
     CONSTRAINT uk_uid UNIQUE (uid),
     CONSTRAINT uk_email UNIQUE (email)
@@ -114,6 +116,20 @@ CREATE TABLE IF NOT EXISTS `user_bookshelf`
     `created_at`   DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
     `updated_at`   DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
     PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS `user_invoice_setting`
+(
+    `user_id`         BIGINT UNSIGNED  NOT NULL COMMENT '使用者 id',
+    `invoice_type`    TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '發票類型，1-個人，2-公司，3-捐贈',
+    `contact_email`   VARCHAR(255)     NOT NULL DEFAULT '',
+    `invoice_title`   VARCHAR(255)     NOT NULL DEFAULT '',
+    `business_number` VARCHAR(255)     NOT NULL DEFAULT '',
+    `lovecode`        VARCHAR(255)     NOT NULL DEFAULT '',
+    `is_deleted`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
+    `created_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+    `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
+    PRIMARY KEY (user_id, invoice_type)
 );
 
 CREATE TABLE IF NOT EXISTS `cart`
@@ -154,14 +170,14 @@ CREATE TABLE IF NOT EXISTS `order`
     `user_id`         BIGINT UNSIGNED  NOT NULL COMMENT '購買人 id',
     `invoice_id`      BIGINT UNSIGNED  NULL COMMENT '發票 id',
     `code`            VARCHAR(255)     NOT NULL COMMENT '訂單編號',
-    `order_status`    TINYINT UNSIGNED NOT NULL COMMENT '訂單狀態',
+    `order_status`    VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '訂單狀態',
     `subtotal`        DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '訂單小計',
     `total_discounts` DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '訂單總折扣',
     `total_price`     DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '訂單總金額',
-    `payment_mode_id` BIGINT UNSIGNED  NOT NULL COMMENT '付款方式',
-    `payment_status`  TINYINT UNSIGNED NOT NULL COMMENT '付款狀態',
-    `pay_at`          DATETIME         NOT NULL COMMENT '付款時間',
-    `complete_at`     DATETIME         NOT NULL COMMENT '訂單完成時間',
+    `payment_mode`    VARCHAR(255)     NOT NULL COMMENT '付款方式',
+    `payment_status`  VARCHAR(255)     NOT NULL DEFAULT '' '付款狀態',
+    `pay_at`          DATETIME         NULL COMMENT '付款時間',
+    `complete_at`     DATETIME         NULL COMMENT '訂單完成時間',
     `is_deleted`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '訂單禁止刪除',
     `created_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
     `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
@@ -179,21 +195,28 @@ CREATE TABLE IF NOT EXISTS `order_line_item`
     `subtotal`        DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品小計',
     `total_discounts` DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品總折扣',
     `total_price`     DECIMAL(10, 2)   NOT NULL DEFAULT 0 COMMENT '商品總金額',
+    `item_status`     VARCHAR(255)     NOT NULL DEFAULT '訂單商品狀態',
     `is_deleted`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '訂單商品禁止刪除',
     `created_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
     `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS `payment_mode`
+CREATE TABLE IF NOT EXISTS `order_invoice`
 (
-    `id`          BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
-    `code`        VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '付款識別子',
-    `description` VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '付款方式描述',
-    `is_active`   TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否啟用，0-未啟用，1-啟用，預設為 1',
-    `is_deleted`  TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
-    `created_at`  DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
-    `updated_at`  DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
-    PRIMARY KEY (id),
-    CONSTRAINT uk_payment_mode_code UNIQUE (code)
+    `id`              BIGINT           NOT NULL AUTO_INCREMENT,
+    `invoice_type`    TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '發票類型，1-個人，2-公司，3-捐贈',
+    `invoice_title`   VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '發票抬頭',
+    `business_number` VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '統一編號',
+    `contact_email`   VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '聯絡信箱',
+    `love_code`       VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '捐贈碼',
+    `invoice_number`  VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '發票號碼',
+    `invoice_date`    DATETIME         NULL COMMENT '發票開立日期',
+    `order_code`      VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '對應訂單編號',
+    `gateway_message` VARCHAR(255)     NOT NULL DEFAULT '' COMMENT 'Gateway 回傳訊息',
+    `invoice_status`  TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '發票開立狀態 1-SUCCESS, 2-FAILURE, 3-PENDING, 4-VOIDED',
+    `is_deleted`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '訂單發票禁止刪除',
+    `created_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+    `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
+    PRIMARY KEY (id)
 );

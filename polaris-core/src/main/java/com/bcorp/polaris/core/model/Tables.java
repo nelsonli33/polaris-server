@@ -13,11 +13,12 @@ import com.bcorp.polaris.core.model.tables.CartLineItem;
 import com.bcorp.polaris.core.model.tables.Chapter;
 import com.bcorp.polaris.core.model.tables.FlywaySchemaHistory;
 import com.bcorp.polaris.core.model.tables.Order;
+import com.bcorp.polaris.core.model.tables.OrderInvoice;
 import com.bcorp.polaris.core.model.tables.OrderLineItem;
 import com.bcorp.polaris.core.model.tables.Page;
-import com.bcorp.polaris.core.model.tables.PaymentMode;
 import com.bcorp.polaris.core.model.tables.User;
 import com.bcorp.polaris.core.model.tables.UserBookshelf;
+import com.bcorp.polaris.core.model.tables.UserInvoiceSetting;
 
 
 /**
@@ -72,6 +73,11 @@ public class Tables {
     public static final Order ORDER = Order.ORDER;
 
     /**
+     * The table <code>polaris-db.order_invoice</code>.
+     */
+    public static final OrderInvoice ORDER_INVOICE = OrderInvoice.ORDER_INVOICE;
+
+    /**
      * The table <code>polaris-db.order_line_item</code>.
      */
     public static final OrderLineItem ORDER_LINE_ITEM = OrderLineItem.ORDER_LINE_ITEM;
@@ -82,11 +88,6 @@ public class Tables {
     public static final Page PAGE = Page.PAGE;
 
     /**
-     * The table <code>polaris-db.payment_mode</code>.
-     */
-    public static final PaymentMode PAYMENT_MODE = PaymentMode.PAYMENT_MODE;
-
-    /**
      * The table <code>polaris-db.user</code>.
      */
     public static final User USER = User.USER;
@@ -95,4 +96,9 @@ public class Tables {
      * The table <code>polaris-db.user_bookshelf</code>.
      */
     public static final UserBookshelf USER_BOOKSHELF = UserBookshelf.USER_BOOKSHELF;
+
+    /**
+     * The table <code>polaris-db.user_invoice_setting</code>.
+     */
+    public static final UserInvoiceSetting USER_INVOICE_SETTING = UserInvoiceSetting.USER_INVOICE_SETTING;
 }

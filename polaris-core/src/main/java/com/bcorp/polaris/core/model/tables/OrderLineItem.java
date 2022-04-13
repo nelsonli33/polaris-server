@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -87,6 +87,11 @@ public class OrderLineItem extends TableImpl<OrderLineItemRecord> {
      * The column <code>polaris-db.order_line_item.total_price</code>. 商品總金額
      */
     public final TableField<OrderLineItemRecord, BigDecimal> TOTAL_PRICE = createField(DSL.name("total_price"), SQLDataType.DECIMAL(10, 2).nullable(false).defaultValue(DSL.inline("0.00", SQLDataType.DECIMAL)), this, "商品總金額");
+
+    /**
+     * The column <code>polaris-db.order_line_item.item_status</code>.
+     */
+    public final TableField<OrderLineItemRecord, String> ITEM_STATUS = createField(DSL.name("item_status"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("訂單商品狀態", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>polaris-db.order_line_item.is_deleted</code>. 訂單商品禁止刪除
@@ -178,11 +183,11 @@ public class OrderLineItem extends TableImpl<OrderLineItemRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, Long, Long, String, BigDecimal, BigDecimal, BigDecimal, BigDecimal, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row12<Long, Long, Long, String, BigDecimal, BigDecimal, BigDecimal, BigDecimal, String, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 }

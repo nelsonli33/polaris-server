@@ -6,7 +6,7 @@ import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.CartRecord;
 import com.bcorp.polaris.storefront.bo.BookBo;
 import com.bcorp.polaris.storefront.bo.CartBo;
-import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
+import com.bcorp.polaris.storefront.dto.CommerceCartParameter;
 import com.bcorp.polaris.storefront.service.strategy.AddToCartStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

@@ -11,4 +11,6 @@ public interface CartFacade
     CartDto removeLineItem(Long bookId);
 
     CartDto clearCart();
+
+    boolean validateCartIsValid();
 }

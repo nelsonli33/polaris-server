@@ -1,8 +1,8 @@
 package com.bcorp.polaris.storefront.service.strategy;
 
-import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
+import com.bcorp.polaris.storefront.dto.CommerceCartParameter;
 
 public interface CartValidationStrategy
 {
-    void validateCart(final CommerceCartParameter parameter);
+    boolean validateCartIsValid(CommerceCartParameter parameter);
 }

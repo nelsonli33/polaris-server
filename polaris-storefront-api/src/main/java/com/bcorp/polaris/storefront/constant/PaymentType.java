@@ -1,23 +1,19 @@
 package com.bcorp.polaris.storefront.constant;
 
-public enum PaymentType
+import com.bcorp.polaris.core.constant.CodeEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum PaymentType implements CodeEnum<String>
 {
-    CREDIT_CARD_ONCE("CreditCardOnce");
+    CREDIT_CARD_ONCE("CreditCardOnce", "信用卡結帳"),
 
-    private String paymentType;
+    WEB_ATM("WebATM", "網路 ATM"),
 
-    PaymentType(String paymentType)
-    {
-        this.paymentType = paymentType;
-    }
+    CVS("CVS", "超商條碼");
 
-    public String getPaymentType()
-    {
-        return paymentType;
-    }
-
-    public static String getPaymentTypeCode(final String paymentType)
-    {
-        return PaymentType.valueOf(paymentType).paymentType;
-    }
+    private String code;
+    private String name;
 }

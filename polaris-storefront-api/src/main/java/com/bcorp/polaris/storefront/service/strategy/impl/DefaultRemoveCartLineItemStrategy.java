@@ -5,7 +5,7 @@ import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.CartLineItemRecord;
 import com.bcorp.polaris.storefront.bo.BookBo;
 import com.bcorp.polaris.storefront.bo.CartBo;
-import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
+import com.bcorp.polaris.storefront.dto.CommerceCartParameter;
 import com.bcorp.polaris.storefront.service.strategy.RemoveCartLineItemStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

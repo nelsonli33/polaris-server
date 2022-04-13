@@ -15,12 +15,15 @@ import lombok.Data;
 public class GetCheckoutResponse implements ServerAPIResponse
 {
     private ServerResponse error;
+    private Checkout checkout;
 
     @JsonCreator
     public GetCheckoutResponse(
-            @JsonProperty("error") ServerResponse error
+            @JsonProperty("error") ServerResponse error,
+            @JsonProperty("checkout") Checkout checkout
     )
     {
         this.error = error;
+        this.checkout = checkout;
     }
 }

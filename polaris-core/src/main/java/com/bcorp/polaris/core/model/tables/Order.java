@@ -73,7 +73,7 @@ public class Order extends TableImpl<OrderRecord> {
     /**
      * The column <code>polaris-db.order.order_status</code>. 訂單狀態
      */
-    public final TableField<OrderRecord, Byte> ORDER_STATUS = createField(DSL.name("order_status"), SQLDataType.TINYINT.nullable(false), this, "訂單狀態");
+    public final TableField<OrderRecord, String> ORDER_STATUS = createField(DSL.name("order_status"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "訂單狀態");
 
     /**
      * The column <code>polaris-db.order.subtotal</code>. 訂單小計
@@ -91,24 +91,24 @@ public class Order extends TableImpl<OrderRecord> {
     public final TableField<OrderRecord, BigDecimal> TOTAL_PRICE = createField(DSL.name("total_price"), SQLDataType.DECIMAL(10, 2).nullable(false).defaultValue(DSL.inline("0.00", SQLDataType.DECIMAL)), this, "訂單總金額");
 
     /**
-     * The column <code>polaris-db.order.payment_mode_id</code>. 付款方式
+     * The column <code>polaris-db.order.payment_mode</code>. 付款方式
      */
-    public final TableField<OrderRecord, Long> PAYMENT_MODE_ID = createField(DSL.name("payment_mode_id"), SQLDataType.BIGINT.nullable(false), this, "付款方式");
+    public final TableField<OrderRecord, String> PAYMENT_MODE = createField(DSL.name("payment_mode"), SQLDataType.VARCHAR(255).nullable(false), this, "付款方式");
 
     /**
-     * The column <code>polaris-db.order.payment_status</code>. 付款狀態
+     * The column <code>polaris-db.order.payment_status</code>.
      */
-    public final TableField<OrderRecord, Byte> PAYMENT_STATUS = createField(DSL.name("payment_status"), SQLDataType.TINYINT.nullable(false), this, "付款狀態");
+    public final TableField<OrderRecord, String> PAYMENT_STATUS = createField(DSL.name("payment_status"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("付款狀態", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>polaris-db.order.pay_at</code>. 付款時間
      */
-    public final TableField<OrderRecord, LocalDateTime> PAY_AT = createField(DSL.name("pay_at"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "付款時間");
+    public final TableField<OrderRecord, LocalDateTime> PAY_AT = createField(DSL.name("pay_at"), SQLDataType.LOCALDATETIME(0), this, "付款時間");
 
     /**
      * The column <code>polaris-db.order.complete_at</code>. 訂單完成時間
      */
-    public final TableField<OrderRecord, LocalDateTime> COMPLETE_AT = createField(DSL.name("complete_at"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "訂單完成時間");
+    public final TableField<OrderRecord, LocalDateTime> COMPLETE_AT = createField(DSL.name("complete_at"), SQLDataType.LOCALDATETIME(0), this, "訂單完成時間");
 
     /**
      * The column <code>polaris-db.order.is_deleted</code>. 訂單禁止刪除
@@ -209,7 +209,7 @@ public class Order extends TableImpl<OrderRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row15<Long, Long, Long, String, Byte, BigDecimal, BigDecimal, BigDecimal, Long, Byte, LocalDateTime, LocalDateTime, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row15<Long, Long, Long, String, String, BigDecimal, BigDecimal, BigDecimal, String, String, LocalDateTime, LocalDateTime, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row15) super.fieldsRow();
     }
 }

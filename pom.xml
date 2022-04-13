@@ -38,6 +38,8 @@
         <module>polaris-security</module>
         <module>polaris-storefront-api</module>
         <module>polaris-author-api</module>
+        <module>ecpay-invoice</module>
+        <module>ecpay-payment</module>
     </modules>
 
 
@@ -56,6 +58,16 @@
             <dependency>
                 <groupId>com.bcorp</groupId>
                 <artifactId>polaris-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.bcorp</groupId>
+                <artifactId>ecpay-invoice</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.bcorp</groupId>
+                <artifactId>ecpay-payment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

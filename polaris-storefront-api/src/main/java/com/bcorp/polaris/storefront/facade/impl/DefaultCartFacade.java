@@ -4,7 +4,7 @@ import com.bcorp.polaris.core.dto.CartDto;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.storefront.bo.BookBo;
 import com.bcorp.polaris.storefront.bo.CartBo;
-import com.bcorp.polaris.storefront.dto.cart.CommerceCartParameter;
+import com.bcorp.polaris.storefront.dto.CommerceCartParameter;
 import com.bcorp.polaris.storefront.facade.CartFacade;
 import com.bcorp.polaris.storefront.facade.converter.DtoConverter;
 import com.bcorp.polaris.storefront.service.BookService;
@@ -62,6 +62,14 @@ public class DefaultCartFacade implements CartFacade
         parameter.setCartBo(cartService.getCartBo());
         commerceCartService.removeAllCartLineItems(parameter);
         return dtoConverter.convert(cartService.getCartDetailForCurrentUser());
+    }
+
+    @Override
+    public boolean validateCartIsValid()
+    {
+        final CommerceCartParameter parameter = new CommerceCartParameter();
+        parameter.setCartBo(cartService.getCartBo());
+        return commerceCartService.validateCartIsValid(parameter);
     }
 
 

@@ -1,11 +1,14 @@
 package com.bcorp.polaris.storefront.controller.mapper;
 
 
+import com.bcorp.polaris.core.dto.UserDto;
 import com.bcorp.polaris.core.dto.*;
 import com.bcorp.polaris.storefront.api.model.Book;
+import com.bcorp.polaris.storefront.api.model.PaymentMode;
 import com.bcorp.polaris.storefront.api.model.*;
-import com.bcorp.polaris.storefront.dto.RegisterDto;
+import com.bcorp.polaris.storefront.dto.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
@@ -29,4 +32,17 @@ public interface StorefrontRestMapper
     Cart convert(CartDto cartDto);
 
     CartLineItem convert(CartLineItemDto cartLineItemDto);
+
+    Checkout convert(CheckoutDto checkoutDto);
+
+    PaymentMode convert(PaymentModeDto paymentModeDto);
+
+    @Mapping(source = "invoiceType.code", target = "invoiceType")
+    PersonalInvoice convert(PersonalInvoiceDto personalInvoiceDto);
+
+    @Mapping(source = "invoiceType.code", target = "invoiceType")
+    CompanyInvoice convert(CompanyInvoiceDto companyInvoiceDto);
+
+    @Mapping(source = "invoiceType.code", target = "invoiceType")
+    DonationInvoice convert(DonationInvoiceDto donationInvoiceDto);
 }

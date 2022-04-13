@@ -215,11 +215,14 @@ public class DefaultCartService implements CartService
     }
 
     @Override
-    public List<CartLineItemRecord> getAllCartLineItemsForCart(CartRecord cartRecord)
+    @Transactional
+    public void removeCart()
     {
-        validateParameterNotNullStandardMessage("cartRecord", cartRecord);
-        return cartDao.findAllCartLineItemsByCart(cartRecord);
+        final CartRecord cart = getCartForCurrentUser();
+        removeAllCartLineItems(cart);
+        cart.delete();
     }
+
 
     @Override
     public void removeAllCartLineItems(CartRecord cartRecord)

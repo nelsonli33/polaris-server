@@ -18,7 +18,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row18;
+import org.jooq.Row20;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -121,6 +121,17 @@ public class User extends TableImpl<UserRecord> {
     public final TableField<UserRecord, String> FACEBOOK = createField(DSL.name("facebook"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
+     * The column <code>polaris-db.user.default_payment_mode</code>. 付款方式
+     */
+    public final TableField<UserRecord, String> DEFAULT_PAYMENT_MODE = createField(DSL.name("default_payment_mode"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "付款方式");
+
+    /**
+     * The column <code>polaris-db.user.default_invoice_type</code>.
+     * 發票類型，1-個人，2-公司，3-捐贈
+     */
+    public final TableField<UserRecord, Byte> DEFAULT_INVOICE_TYPE = createField(DSL.name("default_invoice_type"), SQLDataType.TINYINT.nullable(false).defaultValue(DSL.inline("1", SQLDataType.TINYINT)), this, "發票類型，1-個人，2-公司，3-捐贈");
+
+    /**
      * The column <code>polaris-db.user.is_blocked</code>. 是否停權，0-否，1-是，預設為 0
      */
     public final TableField<UserRecord, Byte> IS_BLOCKED = createField(DSL.name("is_blocked"), SQLDataType.TINYINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.TINYINT)), this, "是否停權，0-否，1-是，預設為 0");
@@ -220,11 +231,11 @@ public class User extends TableImpl<UserRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row18 type methods
+    // Row20 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row18<Long, String, String, String, String, String, String, String, LocalDate, Byte, String, String, String, String, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row18) super.fieldsRow();
+    public Row20<Long, String, String, String, String, String, String, String, LocalDate, Byte, String, String, String, String, String, Byte, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row20) super.fieldsRow();
     }
 }
