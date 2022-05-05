@@ -18,7 +18,6 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row20;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -59,6 +58,11 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>polaris-db.user.name</code>. 使用者名稱
      */
     public final TableField<UserRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "使用者名稱");
+
+    /**
+     * The column <code>polaris-db.user.title</code>. 頭銜
+     */
+    public final TableField<UserRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "頭銜");
 
     /**
      * The column <code>polaris-db.user.uid</code>. 使用者 Uid
@@ -119,6 +123,16 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>polaris-db.user.facebook</code>.
      */
     public final TableField<UserRecord, String> FACEBOOK = createField(DSL.name("facebook"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>polaris-db.user.youtube</code>.
+     */
+    public final TableField<UserRecord, String> YOUTUBE = createField(DSL.name("youtube"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>polaris-db.user.website</code>.
+     */
+    public final TableField<UserRecord, String> WEBSITE = createField(DSL.name("website"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>polaris-db.user.default_payment_mode</code>. 付款方式
@@ -228,14 +242,5 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public User rename(Name name) {
         return new User(name, null);
-    }
-
-    // -------------------------------------------------------------------------
-    // Row20 type methods
-    // -------------------------------------------------------------------------
-
-    @Override
-    public Row20<Long, String, String, String, String, String, String, String, LocalDate, Byte, String, String, String, String, String, Byte, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row20) super.fieldsRow();
     }
 }

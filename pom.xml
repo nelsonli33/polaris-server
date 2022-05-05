@@ -29,7 +29,7 @@
         <guava.version>30.1-jre</guava.version>
         <jooq.version>3.16.5</jooq.version>
         <lombok.version>1.18.22</lombok.version>
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.5.0.RC1</org.mapstruct.version>
         <jjwt.version>0.11.2</jjwt.version>
     </properties>
 
@@ -124,6 +124,11 @@
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
                 <version>${org.mapstruct.version}</version>
             </dependency>
             <dependency>

@@ -18,13 +18,12 @@ public class User
     private String email;
     private String avatar;
     private String shortBio;
-    private String fullBio;
     private LocalDate birthday;
     private Integer isAuthor;
-    private String twitter;
-    private String github;
-    private String linkedin;
-    private String facebook;
+    private String websiteUrl;
+    private String facebookUrl;
+    private String linkedInUrl;
+    private String youtubeUrl;
 
     @JsonCreator
     public User(
@@ -34,13 +33,12 @@ public class User
             @JsonProperty("email") String email,
             @JsonProperty("avatar") String avatar,
             @JsonProperty("short_bio") String shortBio,
-            @JsonProperty("full_bio") String fullBio,
             @JsonProperty("birthday") LocalDate birthday,
             @JsonProperty("is_author") Integer isAuthor,
-            @JsonProperty("twitter") String twitter,
-            @JsonProperty("github") String github,
-            @JsonProperty("linkedin") String linkedin,
-            @JsonProperty("facebook") String facebook)
+            @JsonProperty("linkedin_url") String linkedInUrl,
+            @JsonProperty("facebook_url") String facebookUrl,
+            @JsonProperty("website_url") String websiteUrl,
+            @JsonProperty("youtube_url") String youtubeUrl)
     {
         this.id = id;
         this.name = name;
@@ -48,12 +46,11 @@ public class User
         this.email = email;
         this.avatar = avatar;
         this.shortBio = shortBio;
-        this.fullBio = fullBio;
         this.birthday = birthday;
         this.isAuthor = isAuthor;
-        this.twitter = twitter;
-        this.github = github;
-        this.linkedin = linkedin;
-        this.facebook = facebook;
+        this.linkedInUrl = linkedInUrl;
+        this.facebookUrl = facebookUrl;
+        this.websiteUrl = websiteUrl;
+        this.youtubeUrl = youtubeUrl;
     }
 }

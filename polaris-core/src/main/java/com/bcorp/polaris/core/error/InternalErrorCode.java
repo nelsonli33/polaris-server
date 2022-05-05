@@ -9,6 +9,8 @@ public enum InternalErrorCode
     RECORD_NOT_FOUND(34),
     ENUM_CODE_NOT_FOUND(35),
 
+    UPLOAD_ERROR(36),
+
     // Account 100 ~ 200
     USER_LOGIN_FAILED(100),
     USER_ACCOUNT_EXISTS(101),

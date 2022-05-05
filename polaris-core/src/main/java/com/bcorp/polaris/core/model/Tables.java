@@ -11,6 +11,7 @@ import com.bcorp.polaris.core.model.tables.BookReview;
 import com.bcorp.polaris.core.model.tables.Cart;
 import com.bcorp.polaris.core.model.tables.CartLineItem;
 import com.bcorp.polaris.core.model.tables.Chapter;
+import com.bcorp.polaris.core.model.tables.File;
 import com.bcorp.polaris.core.model.tables.FlywaySchemaHistory;
 import com.bcorp.polaris.core.model.tables.Order;
 import com.bcorp.polaris.core.model.tables.OrderInvoice;
@@ -61,6 +62,11 @@ public class Tables {
      * The table <code>polaris-db.chapter</code>.
      */
     public static final Chapter CHAPTER = Chapter.CHAPTER;
+
+    /**
+     * The table <code>polaris-db.file</code>.
+     */
+    public static final File FILE = File.FILE;
 
     /**
      * The table <code>polaris-db.flyway_schema_history</code>.

@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `user`
 (
     `id`                   BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     `name`                 VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者名稱',
+    `title`                VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '頭銜',
     `uid`                  VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者 Uid',
     `password`             VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者密碼',
     `email`                VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '使用者 E-mail',
@@ -95,6 +96,8 @@ CREATE TABLE IF NOT EXISTS `user`
     `github`               VARCHAR(255)     NOT NULL DEFAULT '',
     `linkedin`             VARCHAR(255)     NOT NULL DEFAULT '',
     `facebook`             VARCHAR(255)     NOT NULL DEFAULT '',
+    `youtube`              VARCHAR(255)     NOT NULL DEFAULT '',
+    `website`              VARCHAR(255)     NOT NULL DEFAULT '',
     `default_payment_mode` VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '付款方式',
     `default_invoice_type` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '發票類型，1-個人，2-公司，3-捐贈',
     `is_blocked`           TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否停權，0-否，1-是，預設為 0',
@@ -220,3 +223,22 @@ CREATE TABLE IF NOT EXISTS `order_invoice`
     `updated_at`      DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
     PRIMARY KEY (id)
 );
+
+
+CREATE TABLE IF NOT EXISTS `file`
+(
+    `id`                BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    `name`              VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '檔案名稱',
+    `extension`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '檔案 ext',
+    `url`               VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '檔案 url',
+    `file_size`         BIGINT UNSIGNED  NOT NULL DEFAULT 0 COMMENT '檔案大小',
+    `width`             INT UNSIGNED     NOT NULL DEFAULT 0 COMMENT '圖片寬度',
+    `height`            INT UNSIGNED     NOT NULL DEFAULT 0 COMMENT '圖片高度',
+    `original_filename` VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '檔案名稱',
+    `mime_type`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '檔案 mime',
+    `user_id`           BIGINT UNSIGNED  NULL COMMENT 'User id',
+    `is_deleted`        TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
+    `created_at`        DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+    `updated_at`        DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改時間',
+    PRIMARY KEY (id)
+)

@@ -43,7 +43,7 @@ public class CheckoutController extends AbstractController
     }
 
 
-    @GetMapping(value = "/api/v1/checkout")
+    @GetMapping(path = "/api/v1/checkout")
     public ResponseEntity<GetCheckoutResponse> doCheckout()
     {
         final ServerResponse serverResponse = beforeCheckout();
@@ -68,7 +68,7 @@ public class CheckoutController extends AbstractController
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
 
-    @PostMapping(value = "/api/v1/checkout/place-order")
+    @PostMapping(path = "/api/v1/checkout/place-order")
     public ResponseEntity<PlaceOrderResponse> placeOrder(@Valid @RequestBody PlaceOrderRequest body)
     {
         // 1. validate checkout data
@@ -98,7 +98,7 @@ public class CheckoutController extends AbstractController
                 .orderCode(orderDto.getCode())
                 .checkoutForm(paymentDto.getCheckoutForm())
                 .build();
-        
+
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

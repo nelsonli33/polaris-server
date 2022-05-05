@@ -1,12 +1,7 @@
 package com.bcorp.polaris.storefront.facade.converter;
 
-import com.bcorp.polaris.core.dto.CartDto;
-import com.bcorp.polaris.core.dto.CartLineItemDto;
-import com.bcorp.polaris.core.dto.OrderDto;
-import com.bcorp.polaris.core.model.tables.records.CartLineItemRecord;
-import com.bcorp.polaris.core.model.tables.records.CartRecord;
-import com.bcorp.polaris.core.model.tables.records.OrderRecord;
-import com.bcorp.polaris.core.model.tables.records.UserInvoiceSettingRecord;
+import com.bcorp.polaris.core.dto.*;
+import com.bcorp.polaris.core.model.tables.records.*;
 import com.bcorp.polaris.core.util.EnumUtil;
 import com.bcorp.polaris.storefront.bo.CartBo;
 import com.bcorp.polaris.storefront.constant.InvoiceType;
@@ -21,6 +16,40 @@ import java.util.stream.Collectors;
 @Component(value = "dtoConverter")
 public class DtoConverter
 {
+
+    public UserDto convert(UserRecord userRecord)
+    {
+        UserDto userDto = new UserDto();
+        userDto.setId(userRecord.getId());
+        userDto.setName(userRecord.getName());
+        userDto.setUid(userRecord.getUid());
+        userDto.setEmail(userRecord.getEmail());
+        userDto.setAvatar(userRecord.getAvatar());
+        userDto.setShortBio(userRecord.getShortBio());
+        userDto.setIsAuthor(userRecord.getIsAuthor());
+        userDto.setWebsiteUrl(userRecord.getWebsite());
+        userDto.setFacebookUrl(userRecord.getFacebook());
+        userDto.setLinkedInUrl(userRecord.getLinkedin());
+        userDto.setYoutubeUrl(userRecord.getYoutube());
+        return userDto;
+    }
+
+    public FileDto convert(FileRecord fileRecord)
+    {
+        FileDto fileDto = new FileDto();
+        fileDto.setId(fileRecord.getId());
+        fileDto.setUserId(fileRecord.getUserId());
+        fileDto.setFilename(fileRecord.getName());
+        fileDto.setFileExt(fileRecord.getExtension());
+        fileDto.setUrl(fileRecord.getUrl());
+        fileDto.setFileSize(fileRecord.getFileSize());
+        fileDto.setOriginalFilename(fileRecord.getOriginalFilename());
+        fileDto.setMimeType(fileRecord.getMimeType());
+        fileDto.setCreatedAt(fileRecord.getCreatedAt());
+        fileDto.setUpdatedAt(fileRecord.getUpdatedAt());
+        return fileDto;
+    }
+
     public CartDto convert(CartBo cartBo)
     {
 

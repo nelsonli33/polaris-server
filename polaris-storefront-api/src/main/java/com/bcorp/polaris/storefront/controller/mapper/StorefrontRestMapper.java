@@ -1,10 +1,8 @@
 package com.bcorp.polaris.storefront.controller.mapper;
 
 
-import com.bcorp.polaris.core.dto.UserDto;
 import com.bcorp.polaris.core.dto.*;
 import com.bcorp.polaris.storefront.api.model.Book;
-import com.bcorp.polaris.storefront.api.model.PaymentMode;
 import com.bcorp.polaris.storefront.api.model.*;
 import com.bcorp.polaris.storefront.dto.*;
 import org.mapstruct.Mapper;
@@ -18,6 +16,8 @@ import org.mapstruct.ReportingPolicy;
 public interface StorefrontRestMapper
 {
     RegisterDto toDto(RegisterUserRequest body);
+
+    UserProfileDto toDto(UpdateUserRequest body);
 
     Book convert(BookDto bookDto);
 
@@ -36,6 +36,8 @@ public interface StorefrontRestMapper
     Checkout convert(CheckoutDto checkoutDto);
 
     PaymentMode convert(PaymentModeDto paymentModeDto);
+
+    File convert(FileDto fileDto);
 
     @Mapping(source = "invoiceType.code", target = "invoiceType")
     PersonalInvoice convert(PersonalInvoiceDto personalInvoiceDto);

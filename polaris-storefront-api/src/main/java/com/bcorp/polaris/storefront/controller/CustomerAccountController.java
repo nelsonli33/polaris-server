@@ -29,7 +29,7 @@ public class CustomerAccountController extends AbstractController
         this.customerFacade = customerFacade;
     }
 
-    @GetMapping(value = "/api/v1/custom/account/invoice-setting")
+    @GetMapping(path = "/api/v1/customer/account/invoice-setting")
     public ResponseEntity<GetInvoiceSettingResponse> getUserInvoiceSetting()
     {
         final InvoiceSettingDto invoiceSettingDto = customerFacade.getCustomerInvoiceSetting();
@@ -45,7 +45,7 @@ public class CustomerAccountController extends AbstractController
                 .body(response);
     }
 
-    @PostMapping(value = "/api/v1/customer/account/invoice-setting")
+    @PostMapping(path = "/api/v1/customer/account/invoice-setting")
     public ResponseEntity<SaveInvoiceSettingResponse> postInvoiceSetting(
             @RequestParam(value = "type") Integer type,
             @RequestBody SaveInvoiceSettingRequest body

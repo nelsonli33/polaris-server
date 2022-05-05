@@ -21,7 +21,7 @@ public class CartController extends AbstractController
         this.cartFacade = cartFacade;
     }
 
-    @GetMapping(value = "/api/v1/cart")
+    @GetMapping(path = "/api/v1/cart")
     public ResponseEntity<GetCartResponse> getCartDetails()
     {
         final CartDto cartDto = cartFacade.getCartForCurrentUser();
@@ -35,7 +35,7 @@ public class CartController extends AbstractController
                 .body(response);
     }
 
-    @PostMapping(value = "/api/v1/cart/add")
+    @PostMapping(path = "/api/v1/cart/add")
     public ResponseEntity<AddToCartResponse> addToCart(@Valid @RequestBody final AddToCartRequest body)
     {
         final CartDto cartDto = cartFacade.addToCart(body.getBookId());
@@ -49,7 +49,7 @@ public class CartController extends AbstractController
                 .body(response);
     }
 
-    @PutMapping(value = "/api/v1/cart/remove")
+    @PutMapping(path = "/api/v1/cart/remove")
     public ResponseEntity<RemoveLineItemResponse> removeCartLineItem(@Valid @RequestBody final RemoveLineItemRequest body)
     {
         final CartDto cartDto = cartFacade.removeLineItem(body.getBookId());
@@ -63,7 +63,7 @@ public class CartController extends AbstractController
                 .body(response);
     }
 
-    @PutMapping(value = "/api/v1/cart/clear")
+    @PutMapping(path = "/api/v1/cart/clear")
     public ResponseEntity<ClearCartResponse> clearCart()
     {
         final CartDto cartDto = cartFacade.clearCart();

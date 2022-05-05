@@ -24,4 +24,5 @@ public class DefaultUserService implements UserService
         final CoreUserDetails coreUserDetails = (CoreUserDetails) authentication.getPrincipal();
         return coreUserDetails.getUserRecord();
     }
+
 }
