@@ -29,14 +29,18 @@ public class DefaultAuthorChapterFacade implements AuthorChapterFacade
     {
         final BookRecord bookRecord = authorBookService.getBookForId(dto.getBookId());
 
-        ChapterRecord chapterRecord = null;
-        if (dto.getPreviousChapterId() != null)
+        authorChapterService.validateAddChapterIsValid(bookRecord);
+
+
+        ChapterRecord belowChapterRecord = null;
+        if (dto.getBelowChapterId() != null)
         {
-            chapterRecord = authorChapterService.getChapterForId(bookRecord, dto.getPreviousChapterId());
+            belowChapterRecord = authorChapterService.getChapterForId(bookRecord, dto.getBelowChapterId());
         }
 
+        
         final ChapterRecord newChapter
-                = authorChapterService.createChapter(bookRecord, dto.getTitle(), chapterRecord);
+                = authorChapterService.createChapter(bookRecord, dto.getTitle(), belowChapterRecord);
         return newChapter.into(ChapterDto.class);
     }
 
@@ -49,4 +53,6 @@ public class DefaultAuthorChapterFacade implements AuthorChapterFacade
                 = authorChapterService.updateChapter(chapterRecord, dto.getTitle());
         return updatedChapter.into(ChapterDto.class);
     }
+
+
 }

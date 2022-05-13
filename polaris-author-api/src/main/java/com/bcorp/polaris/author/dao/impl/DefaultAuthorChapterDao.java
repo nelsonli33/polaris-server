@@ -4,6 +4,7 @@ import com.bcorp.polaris.author.dao.AuthorChapterDao;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,10 +35,20 @@ public class DefaultAuthorChapterDao implements AuthorChapterDao
                 .fetchInto(ChapterRecord.class);
     }
 
+    @Override
+    public int countChaptersByBook(BookRecord bookRecord)
+    {
+        validateParameterNotNull(bookRecord, "BookRecord must not be null");
+
+        return dslContext.fetchCount(DSL.selectFrom(CHAPTER)
+                .where(CHAPTER.BOOK_ID.eq(bookRecord.getId()))
+                .and(CHAPTER.IS_DELETED.eq((byte) 0)));
+
+    }
+
     public ChapterRecord saveChapter(ChapterRecord chapter)
     {
         validateParameterNotNull(chapter, "ChapterRecord must not be null");
-
         chapter.store();
         return chapter;
     }

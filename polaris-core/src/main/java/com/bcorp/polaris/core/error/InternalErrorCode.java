@@ -30,6 +30,10 @@ public enum InternalErrorCode
     // Order 501 ~ 600
     ORDER_NOT_FOUND(501),
 
+
+    // Chapters 601 ~ 700
+    Exceed_MAXIMUM_CHAPTER_COUNT(601),
+
     INTERNAL_SERVER_ERROR(999);
 
     private final int code;

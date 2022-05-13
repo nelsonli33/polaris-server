@@ -9,7 +9,6 @@ public class PolarisServerRuntimeException extends RuntimeException
     private InternalErrorCode errorCode;
     private List<Object> errors;
 
-
     public PolarisServerRuntimeException(InternalErrorCode errorCode, String message)
     {
         super(message);

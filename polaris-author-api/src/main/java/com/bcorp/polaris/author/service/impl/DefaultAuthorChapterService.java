@@ -18,6 +18,8 @@ import static com.bcorp.polaris.core.util.ServicesUtil.validateParameterNotNull;
 @Service(value = "authorChapterService")
 public class DefaultAuthorChapterService implements AuthorChapterService
 {
+    private static final int MAXIMUM_CHAPTER_COUNT = 20;
+
     private DSLContext dslContext;
     private AuthorChapterDao authorChapterDao;
 
@@ -42,20 +44,31 @@ public class DefaultAuthorChapterService implements AuthorChapterService
 
     public List<ChapterRecord> getAllChaptersForBook(BookRecord bookRecord)
     {
-        validateParameterNotNull(bookRecord, "BookRecord must not be null");
+        validateParameterNotNull(bookRecord, "bookRecord must not be null");
         return authorChapterDao.findAllChaptersByBook(bookRecord);
+    }
+
+    @Override
+    public void validateAddChapterIsValid(BookRecord bookRecord)
+    {
+        validateParameterNotNull(bookRecord, "bookRecord must not be null");
+        final int chaptersCount = authorChapterDao.countChaptersByBook(bookRecord);
+        if (chaptersCount >= MAXIMUM_CHAPTER_COUNT)
+        {
+            throw new PolarisServerRuntimeException(InternalErrorCode.Exceed_MAXIMUM_CHAPTER_COUNT, "最多 " + MAXIMUM_CHAPTER_COUNT + " 章節");
+        }
     }
 
     // TODO: add unit test
     @Transactional
-    public ChapterRecord createChapter(BookRecord bookRecord, String title, ChapterRecord previousChapterRecord)
+    public ChapterRecord createChapter(BookRecord bookRecord, String title, ChapterRecord belowChapterRecord)
     {
-        validateParameterNotNull(bookRecord, "BookRecord must not be null");
+        validateParameterNotNull(bookRecord, "bookRecord must not be null");
 
-        int sortPos = previousChapterRecord == null ? 0 : previousChapterRecord.getSortPosition();
+        int sortPos = belowChapterRecord == null ? 0 : belowChapterRecord.getSortPosition();
         authorChapterDao.moveBackwardAfterChapterSortPos(bookRecord, sortPos);
 
-        int newSortPosition = previousChapterRecord == null ? 1 : previousChapterRecord.getSortPosition() + 1;
+        int newSortPosition = belowChapterRecord == null ? 1 : belowChapterRecord.getSortPosition() + 1;
         final ChapterRecord newChapter = dslContext.newRecord(CHAPTER);
         newChapter.setTitle(title);
         newChapter.setBookId(bookRecord.getId());

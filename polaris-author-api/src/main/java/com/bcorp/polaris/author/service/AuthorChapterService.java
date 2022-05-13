@@ -11,7 +11,9 @@ public interface AuthorChapterService
 
     List<ChapterRecord> getAllChaptersForBook(BookRecord bookRecord);
 
-    ChapterRecord createChapter(BookRecord bookRecord, String title, ChapterRecord previousChapterRecord);
+    void validateAddChapterIsValid(BookRecord bookRecord);
+
+    ChapterRecord createChapter(BookRecord bookRecord, String title, ChapterRecord belowChapterRecord);
 
     ChapterRecord updateChapter(ChapterRecord chapterRecord, String title);
 }

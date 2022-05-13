@@ -13,5 +13,5 @@ public class CreateChapterDto
 {
     private Long bookId;
     private String title;
-    private Long previousChapterId;
+    private Long belowChapterId;
 }

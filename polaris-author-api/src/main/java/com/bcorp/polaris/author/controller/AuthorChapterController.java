@@ -27,13 +27,15 @@ public class AuthorChapterController extends AbstractAuthorController
     }
 
     @PostMapping(path = "/author/api/v1/books/{book_id}/chapters")
-    public ResponseEntity<CreateChapterResponse> createBookChapter(@Valid @RequestBody CreateChapterRequest body,
-                                                                   @PathVariable(name = "book_id") Long bookId)
+    public ResponseEntity<CreateChapterResponse> createBookChapter(
+            @PathVariable(name = "book_id") Long bookId,
+            @RequestBody CreateChapterRequest body
+    )
     {
         CreateChapterDto dto = new CreateChapterDto();
         dto.setBookId(bookId);
         dto.setTitle(body.getTitle());
-        dto.setPreviousChapterId(body.getPreviousChapterId());
+        dto.setBelowChapterId(body.getBelowChapterId());
         final ChapterDto newChapterDto = authorChapterFacade.createNewChapter(dto);
 
         final CreateChapterResponse response = CreateChapterResponse.builder()
