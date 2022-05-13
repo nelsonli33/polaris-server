@@ -15,7 +15,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -53,9 +53,14 @@ public class BookCategory extends TableImpl<BookCategoryRecord> {
     public final TableField<BookCategoryRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>polaris-db.book_category.title</code>. 書本分類名稱
+     * The column <code>polaris-db.book_category.name</code>. 書本分類名稱
      */
-    public final TableField<BookCategoryRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "書本分類名稱");
+    public final TableField<BookCategoryRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "書本分類名稱");
+
+    /**
+     * The column <code>polaris-db.book_category.parent_id</code>. 父類別 id
+     */
+    public final TableField<BookCategoryRecord, Long> PARENT_ID = createField(DSL.name("parent_id"), SQLDataType.BIGINT, this, "父類別 id");
 
     /**
      * The column <code>polaris-db.book_category.sort_position</code>. 排序位置
@@ -159,11 +164,11 @@ public class BookCategory extends TableImpl<BookCategoryRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<Long, String, Integer, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<Long, String, Long, Integer, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 }

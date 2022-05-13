@@ -15,6 +15,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -22,22 +29,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
     @Autowired
     CoreUserDetailsService coreUserDetailsService;
-
     @Autowired
     private TokenAuthenticationEntryPoint tokenAuthenticationEntryPoint;
+
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource()
+    {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(new ArrayList<>(Arrays.asList("http://localhost:3001")));
+        config.setAllowCredentials(true);
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+
+        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+        configSource.registerCorsConfiguration("/**", config);
+
+        return configSource;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.csrf().disable().cors().disable()
+        http.cors().configurationSource(corsConfigurationSource())
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/api/v1/user/login")
+                .ignoringAntMatchers("/api/v1/user/register")
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .authorizeRequests((authz) -> authz
-
                         .antMatchers(
                                 "/api/v1/user/register",
-                                "/api/v1/user/login",
-                                "/api/v1/books/{book_id}/intro")
+                                "/api/v1/user/login")
                         .permitAll()
-                        .antMatchers("/author/api/**").hasRole("AUTHOR")
+//                        .antMatchers("/author/api/**").hasRole("AUTHOR")
                         .anyRequest().authenticated())
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -26,6 +27,7 @@ public class BookDto
     private Byte status;
     private Integer characterCount;
     private TableOfContentDto tableOfContent;
+    private List<BookCategoryDto> categories;
     private Byte isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

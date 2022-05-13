@@ -19,7 +19,8 @@ public class PageDto
     private Long chapterId;
     private Long authorId;
     private String title;
-    private String body;
+    private String description;
+    private Object body;
     private Integer characterCount;
     private Integer sortPosition;
     private Byte isDeleted;

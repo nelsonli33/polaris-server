@@ -1,11 +1,10 @@
 package com.bcorp.polaris.author.controller;
 
-import com.bcorp.polaris.author.controller.mapper.AuthorRestMapper;
+import com.bcorp.polaris.author.api.model.CreateChapterRequest;
+import com.bcorp.polaris.author.api.model.CreateChapterResponse;
+import com.bcorp.polaris.author.api.model.UpdateChapterRequest;
+import com.bcorp.polaris.author.api.model.UpdateChapterResponse;
 import com.bcorp.polaris.author.facade.AuthorChapterFacade;
-import com.bcorp.polaris.author.model.CreateChapterRequest;
-import com.bcorp.polaris.author.model.CreateChapterResponse;
-import com.bcorp.polaris.author.model.UpdateChapterRequest;
-import com.bcorp.polaris.author.model.UpdateChapterResponse;
 import com.bcorp.polaris.core.dto.ChapterDto;
 import com.bcorp.polaris.core.dto.CreateChapterDto;
 import com.bcorp.polaris.core.dto.UpdateChapterDto;
@@ -17,16 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class AuthorChapterController
+public class AuthorChapterController extends AbstractAuthorController
 {
     private AuthorChapterFacade authorChapterFacade;
-    private AuthorRestMapper authorRestMapper;
 
     @Autowired
-    public AuthorChapterController(AuthorChapterFacade authorChapterFacade, AuthorRestMapper authorRestMapper)
+    public AuthorChapterController(AuthorChapterFacade authorChapterFacade)
     {
         this.authorChapterFacade = authorChapterFacade;
-        this.authorRestMapper = authorRestMapper;
     }
 
     @PostMapping(path = "/author/api/v1/books/{book_id}/chapters")
@@ -40,7 +37,7 @@ public class AuthorChapterController
         final ChapterDto newChapterDto = authorChapterFacade.createNewChapter(dto);
 
         final CreateChapterResponse response = CreateChapterResponse.builder()
-                .chapter(authorRestMapper.convert(newChapterDto))
+                .chapter(getAuthorRestMapper().convert(newChapterDto))
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -58,7 +55,7 @@ public class AuthorChapterController
         final ChapterDto updatedChapterDto = authorChapterFacade.updateChapter(dto);
 
         final UpdateChapterResponse response = UpdateChapterResponse.builder()
-                .chapter(authorRestMapper.convert(updatedChapterDto))
+                .chapter(getAuthorRestMapper().convert(updatedChapterDto))
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(response);

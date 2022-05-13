@@ -1,11 +1,8 @@
 package com.bcorp.polaris.author.controller;
 
-import com.bcorp.polaris.author.controller.mapper.AuthorRestMapper;
+import com.bcorp.polaris.author.api.model.*;
+import com.bcorp.polaris.author.dto.UpdateBookDto;
 import com.bcorp.polaris.author.facade.AuthorBookFacade;
-import com.bcorp.polaris.author.model.BatchSaveBookCategoryToBookRequest;
-import com.bcorp.polaris.author.model.CreateBookRequest;
-import com.bcorp.polaris.author.model.CreateBookResponse;
-import com.bcorp.polaris.author.model.GetBookIntroResponse;
 import com.bcorp.polaris.core.dto.BookDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class AuthorBookController
+public class AuthorBookController extends AbstractAuthorController
 {
     private AuthorBookFacade authorBookFacade;
-    private AuthorRestMapper authorRestMapper;
 
-    public AuthorBookController(AuthorBookFacade authorBookFacade,
-                                AuthorRestMapper authorRestMapper)
+
+    public AuthorBookController(AuthorBookFacade authorBookFacade)
     {
         this.authorBookFacade = authorBookFacade;
-        this.authorRestMapper = authorRestMapper;
     }
 
     @GetMapping(path = "/author/api/v1/books/{book_id}")
@@ -32,7 +27,7 @@ public class AuthorBookController
         final BookDto bookIntroDto = authorBookFacade.getBookIntro(bookId);
         final GetBookIntroResponse response = GetBookIntroResponse
                 .builder()
-                .book(authorRestMapper.convert(bookIntroDto))
+                .book(getAuthorRestMapper().convert(bookIntroDto))
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -40,21 +35,35 @@ public class AuthorBookController
     @PostMapping(path = "/author/api/v1/books")
     public ResponseEntity<CreateBookResponse> createBook(@Valid @RequestBody CreateBookRequest body)
     {
-        final BookDto newBookDto = authorBookFacade.createNewBook(body.getTitle());
+        final Long newBookId = authorBookFacade.createNewBook(body.getTitle(), body.getCategoryIds());
         final CreateBookResponse response = CreateBookResponse
                 .builder()
-                .book(authorRestMapper.convert(newBookDto))
+                .bookId(newBookId)
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PutMapping(path = "/author/api/v1/books/{book_id}")
+    public ResponseEntity<UpdateBookResponse> updateBook(@PathVariable(name = "book_id") Long bookId,
+                                                         @Valid @RequestBody UpdateBookRequest body)
+    {
+        final UpdateBookDto updateBookDto = getAuthorRestMapper().toDto(body);
+        final Long updatedBookId = authorBookFacade.updateBook(bookId, updateBookDto);
+        final UpdateBookResponse response = UpdateBookResponse.builder()
+                .bookId(updatedBookId)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @PutMapping(path = "/author/api/v1/books/{book_id}/categories/batch-save")
     public ResponseEntity<?> batchSaveBookCategoriesToBook(
-            @Valid @RequestBody BatchSaveBookCategoryToBookRequest body,
-            @PathVariable(name = "book_id") Long bookId
+            @PathVariable(name = "book_id") Long bookId,
+            @Valid @RequestBody BatchSaveBookCategoryToBookRequest body
     )
     {
-        authorBookFacade.batchSaveBookCategoryToBook(bookId, body.getBookCategoryIds());
+        authorBookFacade.batchSaveBookCategoryForBookId(bookId, body.getBookCategoryIds());
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+
+
 }

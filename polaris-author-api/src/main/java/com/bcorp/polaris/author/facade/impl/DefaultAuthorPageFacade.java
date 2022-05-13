@@ -1,6 +1,7 @@
 package com.bcorp.polaris.author.facade.impl;
 
 import com.bcorp.polaris.author.facade.AuthorPageFacade;
+import com.bcorp.polaris.author.facade.mapper.AuthorPageMapper;
 import com.bcorp.polaris.author.service.AuthorBookService;
 import com.bcorp.polaris.author.service.AuthorChapterService;
 import com.bcorp.polaris.author.service.AuthorPageService;
@@ -26,16 +27,27 @@ public class DefaultAuthorPageFacade implements AuthorPageFacade
     private AuthorChapterService authorChapterService;
     private DSLContext dslContext;
 
+    private AuthorPageMapper authorPageMapper;
+
     @Autowired
     public DefaultAuthorPageFacade(AuthorPageService authorPageService,
                                    AuthorBookService authorBookService,
                                    AuthorChapterService authorChapterService,
-                                   DSLContext dslContext)
+                                   DSLContext dslContext,
+                                   AuthorPageMapper authorPageMapper)
     {
         this.authorPageService = authorPageService;
         this.authorBookService = authorBookService;
         this.authorChapterService = authorChapterService;
         this.dslContext = dslContext;
+        this.authorPageMapper = authorPageMapper;
+    }
+
+    public PageDto getPage(Long pageId)
+    {
+        validateParameterNotNullStandardMessage("pageId", pageId);
+        final PageRecord pageRecord = authorPageService.getPageForId(pageId);
+        return authorPageMapper.toDto(pageRecord);
     }
 
     @Override
@@ -55,33 +67,20 @@ public class DefaultAuthorPageFacade implements AuthorPageFacade
 
         final PageRecord createdPageRecord
                 = authorPageService.createPage(pageRecord, bookRecord, chapterRecord);
-        return convert(createdPageRecord);
+        return authorPageMapper.toDto(createdPageRecord);
     }
 
     @Override
-    public void savePage(SavePageDto savePageDto)
+    public PageDto savePage(SavePageDto savePageDto)
     {
         validateParameterNotNullStandardMessage("savePageDto", savePageDto);
         final Long pageId = savePageDto.getPageId();
-
         final PageRecord pageRecord = authorPageService.getPageForId(pageId);
-        pageRecord.setTitle(savePageDto.getTitle());
-        pageRecord.setBody(savePageDto.getBody());
-        pageRecord.setCharacterCount(savePageDto.getCharacterCount());
+        authorPageMapper.update(savePageDto, pageRecord);
         pageRecord.update();
+        pageRecord.refresh();
+        return authorPageMapper.toDto(pageRecord);
     }
 
 
-    private PageDto convert(PageRecord pageRecord)
-    {
-        return PageDto.builder()
-                .id(pageRecord.getId())
-                .bookId(pageRecord.getBookId())
-                .chapterId(pageRecord.getChapterId())
-                .authorId(pageRecord.getUserId())
-                .title(pageRecord.getTitle())
-                .body(pageRecord.getBody())
-                .sortPosition(pageRecord.getSortPosition())
-                .build();
-    }
 }

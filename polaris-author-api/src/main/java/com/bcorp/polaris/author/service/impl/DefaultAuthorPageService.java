@@ -40,7 +40,7 @@ public class DefaultAuthorPageService implements AuthorPageService
         final PageRecord pageRecord = dslContext.fetchOne(PAGE, PAGE.ID.eq(pageId).and(PAGE.USER_ID.eq(currentAuthorUser.getId())));
         if (pageRecord == null)
         {
-            throw new PolarisServerRuntimeException(InternalErrorCode.RECORD_NOT_FOUND, "Page: " + pageId + "not found.");
+            throw new PolarisServerRuntimeException(InternalErrorCode.RECORD_NOT_FOUND, "Page: " + pageId + " not found.");
         }
         return pageRecord;
     }

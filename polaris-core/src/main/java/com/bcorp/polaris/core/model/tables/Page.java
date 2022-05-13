@@ -13,9 +13,10 @@ import java.time.LocalDateTime;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
+import org.jooq.JSON;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -73,9 +74,14 @@ public class Page extends TableImpl<PageRecord> {
     public final TableField<PageRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "頁面標題");
 
     /**
-     * The column <code>polaris-db.page.body</code>. 頁面內容
+     * The column <code>polaris-db.page.description</code>. 頁面標題
      */
-    public final TableField<PageRecord, String> BODY = createField(DSL.name("body"), SQLDataType.CLOB, this, "頁面內容");
+    public final TableField<PageRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "頁面標題");
+
+    /**
+     * The column <code>polaris-db.page.body</code>. 頁面內容 (json)
+     */
+    public final TableField<PageRecord, JSON> BODY = createField(DSL.name("body"), SQLDataType.JSON, this, "頁面內容 (json)");
 
     /**
      * The column <code>polaris-db.page.character_count</code>. 字數
@@ -177,11 +183,11 @@ public class Page extends TableImpl<PageRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, Long, Long, Long, String, String, Integer, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row12<Long, Long, Long, Long, String, String, JSON, Integer, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 }

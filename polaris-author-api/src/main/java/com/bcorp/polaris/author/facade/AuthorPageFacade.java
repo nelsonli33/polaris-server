@@ -6,7 +6,9 @@ import com.bcorp.polaris.core.dto.SavePageDto;
 
 public interface AuthorPageFacade
 {
+    PageDto getPage(Long pageId);
+
     PageDto createPage(CreatePageDto createPageDto);
 
-    void savePage(SavePageDto savePageDto);
+    PageDto savePage(SavePageDto savePageDto);
 }

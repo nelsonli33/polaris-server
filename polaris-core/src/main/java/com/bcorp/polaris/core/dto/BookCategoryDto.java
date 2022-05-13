@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SavePageDto
+public class BookCategoryDto
 {
-    private Long pageId;
-    private String title;
-    private String description;
-    private String body;
-    private Integer characterCount;
+    private Long id;
+    private String name;
+    private Long parentId;
 }

@@ -13,7 +13,7 @@ public interface AuthorBookService
 
     Map<Long, List<PageRecord>> getTableOfContent(BookRecord bookRecord);
 
-    BookRecord createNewBook(String title);
+    BookRecord createNewBook(String title, List<BookCategoryRecord> bookCategoryRecords);
 
     void batchSaveBookCategoriesToBook(BookRecord bookRecord, List<BookCategoryRecord> bookCategoryRecords);
 }

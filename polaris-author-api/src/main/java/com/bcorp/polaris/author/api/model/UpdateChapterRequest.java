@@ -1,21 +1,18 @@
-package com.bcorp.polaris.author.model;
+package com.bcorp.polaris.author.api.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-
 @Data
 @Builder
-public class CreateBookRequest
+public class UpdateChapterRequest
 {
-    @NotBlank(message = "書名 必填")
     private String title;
 
     @JsonCreator
-    public CreateBookRequest(
+    public UpdateChapterRequest(
             @JsonProperty("title") String title
     )
     {

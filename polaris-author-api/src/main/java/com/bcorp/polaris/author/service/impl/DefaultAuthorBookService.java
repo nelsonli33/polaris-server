@@ -8,8 +8,8 @@ import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.*;
 import com.bcorp.polaris.core.type.BookStatus;
 import org.jooq.DSLContext;
-import org.jooq.impl.DSL;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,33 +55,39 @@ public class DefaultAuthorBookService implements AuthorBookService
         return authorPageDao.findAllPageTitleWithChapterByBook(bookRecord);
     }
 
-    public BookRecord createNewBook(String title)
+    @Transactional
+    public BookRecord createNewBook(String title, List<BookCategoryRecord> bookCategoryRecords)
     {
-        return dslContext.transactionResult(configuration -> {
-            final UserRecord currentAuthorUser = authorUserService.getCurrentAuthorUser();
-            BookRecord bookRecord = DSL.using(configuration).insertInto(BOOK)
-                    .set(BOOK.TITLE, title)
-                    .set(BOOK.STATUS, (byte) BookStatus.DRAFT.getValue())
-                    .set(BOOK.USER_ID, currentAuthorUser.getId())
-                    .returning()
-                    .fetchOne();
 
-            final ChapterRecord chapterRecord = DSL.using(configuration).insertInto(CHAPTER)
-                    .set(CHAPTER.BOOK_ID, bookRecord.getId())
-                    .set(CHAPTER.TITLE, "第一章")
-                    .set(CHAPTER.SORT_POSITION, 1)
-                    .returning(CHAPTER.ID)
-                    .fetchOne();
+        final UserRecord currentAuthorUser = authorUserService.getCurrentAuthorUser();
+        BookRecord bookRecord = dslContext.insertInto(BOOK)
+                .set(BOOK.TITLE, title)
+                .set(BOOK.STATUS, (byte) BookStatus.DRAFT.getValue())
+                .set(BOOK.USER_ID, currentAuthorUser.getId())
+                .returning()
+                .fetchOne();
 
-            DSL.using(configuration).insertInto(PAGE)
-                    .set(PAGE.CHAPTER_ID, chapterRecord.getId())
-                    .set(PAGE.BOOK_ID, bookRecord.getId())
-                    .set(PAGE.USER_ID, currentAuthorUser.getId())
-                    .set(PAGE.SORT_POSITION, 1)
-                    .execute();
-            return bookRecord;
-        });
+        batchSaveBookCategoriesToBook(bookRecord, bookCategoryRecords);
+
+        final ChapterRecord chapterRecord = dslContext.insertInto(CHAPTER)
+                .set(CHAPTER.BOOK_ID, bookRecord.getId())
+                .set(CHAPTER.TITLE, "第一章")
+                .set(CHAPTER.SORT_POSITION, 1)
+                .returning(CHAPTER.ID)
+                .fetchOne();
+
+        dslContext.insertInto(PAGE)
+                .set(PAGE.CHAPTER_ID, chapterRecord.getId())
+                .set(PAGE.BOOK_ID, bookRecord.getId())
+                .set(PAGE.USER_ID, currentAuthorUser.getId())
+                .set(PAGE.SORT_POSITION, 1)
+                .execute();
+
+        return bookRecord;
     }
+
+    ;
+
 
     public void batchSaveBookCategoriesToBook(BookRecord bookRecord, List<BookCategoryRecord> bookCategoryRecords)
     {

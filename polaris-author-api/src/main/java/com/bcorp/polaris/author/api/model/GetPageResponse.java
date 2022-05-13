@@ -1,4 +1,4 @@
-package com.bcorp.polaris.author.model;
+package com.bcorp.polaris.author.api.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,15 +7,15 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CreateBookResponse
+public class GetPageResponse
 {
-    private Book book;
+    private Page page;
 
     @JsonCreator
-    public CreateBookResponse(
-            @JsonProperty("book") Book book
+    public GetPageResponse(
+            @JsonProperty("page") Page page
     )
     {
-        this.book = book;
+        this.page = page;
     }
 }

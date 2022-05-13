@@ -37,6 +37,7 @@ public class FileUploadController extends AbstractController
         UploadFileResponse response = UploadFileResponse.builder()
                 .file(getStorefrontRestMapper().convert(fileDto))
                 .build();
+
         return ResponseEntity.ok(response);
     }
 }

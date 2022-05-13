@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS `book`
 CREATE TABLE IF NOT EXISTS `book_category`
 (
     `id`            BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
-    `title`         VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書本分類名稱',
+    `name`          VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '書本分類名稱',
+    `parent_id`     BIGINT UNSIGNED  NULL COMMENT '父類別 id',
     `sort_position` INT              NOT NULL DEFAULT 0 COMMENT '排序位置',
     `is_visible`    TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否顯示前台，0-否，1-是，預設為 0',
     `is_deleted`    TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',
@@ -56,7 +57,8 @@ CREATE TABLE IF NOT EXISTS `page`
     `book_id`         BIGINT UNSIGNED  NOT NULL COMMENT '書本 id',
     `user_id`         BIGINT UNSIGNED  NOT NULL COMMENT 'User(Author) id',
     `title`           VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '頁面標題',
-    `body`            TEXT             NULL COMMENT '頁面內容',
+    `description`     VARCHAR(255)     NOT NULL DEFAULT '' COMMENT '頁面標題',
+    `body`            JSON             NULL COMMENT '頁面內容 (json)',
     `character_count` INT              NOT NULL DEFAULT 0 COMMENT '字數',
     `sort_position`   INT              NOT NULL DEFAULT 0 COMMENT '排序位置',
     `is_deleted`      TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否刪除，0-未刪除，1-刪除，預設為 0',

@@ -24,14 +24,14 @@ public class DefaultAccountFacade implements AccountFacade
     }
 
     @Override
-    public void register(RegisterDto registerDto)
+    public String register(RegisterDto registerDto)
     {
         UserRecord newUser = dslContext.newRecord(USER);
         newUser.setName(registerDto.getName());
         newUser.setEmail(registerDto.getEmail());
         newUser.setUid(registerDto.getEmail().toLowerCase());
 
-        accountService.register(newUser, registerDto.getPassword());
+        return accountService.register(newUser, registerDto.getPassword());
     }
 
     @Override

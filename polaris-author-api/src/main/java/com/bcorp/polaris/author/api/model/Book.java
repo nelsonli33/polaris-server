@@ -1,4 +1,4 @@
-package com.bcorp.polaris.author.model;
+package com.bcorp.polaris.author.api.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,7 +21,9 @@ public class Book
     private String synopsis;
     private String acquisition;
     private String cover;
+    private List<BookCategory> categories;
     private TableOfContent tableOfContent;
+
     private LocalDateTime publishedAt;
     private Byte status;
     private Integer characterCount;
@@ -37,6 +40,7 @@ public class Book
             @JsonProperty("synopsis") String synopsis,
             @JsonProperty("acquisition") String acquisition,
             @JsonProperty("cover") String cover,
+            @JsonProperty("categories") List<BookCategory> categories,
             @JsonProperty("toc") TableOfContent tableOfContent,
             @JsonProperty("published_at") LocalDateTime publishedAt,
             @JsonProperty("status") Byte status,
@@ -52,6 +56,7 @@ public class Book
         this.synopsis = synopsis;
         this.acquisition = acquisition;
         this.cover = cover;
+        this.categories = categories;
         this.tableOfContent = tableOfContent;
         this.publishedAt = publishedAt;
         this.status = status;

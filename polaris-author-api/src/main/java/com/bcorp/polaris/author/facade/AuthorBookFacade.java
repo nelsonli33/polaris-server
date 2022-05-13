@@ -1,5 +1,6 @@
 package com.bcorp.polaris.author.facade;
 
+import com.bcorp.polaris.author.dto.UpdateBookDto;
 import com.bcorp.polaris.core.dto.BookDto;
 
 import java.util.List;
@@ -8,7 +9,9 @@ public interface AuthorBookFacade
 {
     BookDto getBookIntro(Long bookId);
 
-    BookDto createNewBook(String title);
+    Long createNewBook(String title, List<Long> categoryIds);
 
-    void batchSaveBookCategoryToBook(Long bookId, List<Long> bookCategoryIds);
+    Long updateBook(Long bookId, UpdateBookDto updateBookDto);
+
+    void batchSaveBookCategoryForBookId(Long bookId, List<Long> bookCategoryIds);
 }

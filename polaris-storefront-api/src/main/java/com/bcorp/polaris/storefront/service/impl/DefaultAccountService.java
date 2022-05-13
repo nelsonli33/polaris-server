@@ -41,7 +41,7 @@ public class DefaultAccountService implements AccountService
     }
 
     @Override
-    public void register(UserRecord newUser, String password)
+    public String register(UserRecord newUser, String password)
     {
         final boolean isAccountExists = accountDao.checkAccountIsExistsByUid(newUser.getUid());
         if (isAccountExists)
@@ -51,6 +51,8 @@ public class DefaultAccountService implements AccountService
         final String encodedPassword = passwordEncoder.encode(password);
         newUser.setPassword(encodedPassword);
         dslContext.executeInsert(newUser);
+
+        return login(newUser.getUid(), password);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class DefaultAccountService implements AccountService
         }
         catch (AuthenticationException ex)
         {
-            throw new PolarisServerRuntimeException(InternalErrorCode.USER_LOGIN_FAILED, ex);
+            throw new PolarisServerRuntimeException(InternalErrorCode.USER_LOGIN_FAILED, "你的帳號或密碼不正確，請再試一次");
         }
     }
 

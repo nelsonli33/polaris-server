@@ -18,9 +18,10 @@ public class JwtTokenUtil
 {
     @Value("${polaris.app.jwtSecret}")
     private String jwtSecret;
-
     @Value("${polaris.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+    @Value("${polaris.app.accessTokenCookieName}")
+    private String accessTokenCookieName;
 
     public String generateToken(Authentication authentication)
     {
@@ -73,5 +74,10 @@ public class JwtTokenUtil
     {
         final byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String getAccessTokenCookieName()
+    {
+        return accessTokenCookieName;
     }
 }

@@ -28,7 +28,7 @@ public class User
     @JsonCreator
     public User(
             @JsonProperty("id") Long id,
-            @JsonProperty("username") String name,
+            @JsonProperty("name") String name,
             @JsonProperty("uid") String uid,
             @JsonProperty("email") String email,
             @JsonProperty("avatar") String avatar,

@@ -5,12 +5,15 @@ import com.bcorp.polaris.author.service.AuthorBookCategoryService;
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.BookCategoryRecord;
+import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.bcorp.polaris.core.util.ServicesUtil.validateParameterNotNull;
 
 @Service(value = "authorBookCategoryService")
 public class DefaultAuthorBookCategoryService implements AuthorBookCategoryService
@@ -23,6 +26,13 @@ public class DefaultAuthorBookCategoryService implements AuthorBookCategoryServi
         this.authorBookCategoryDao = authorBookCategoryDao;
     }
 
+    @Override
+    public List<BookCategoryRecord> getAllBookCategories()
+    {
+        return authorBookCategoryDao.findAllBookCategories();
+    }
+
+    @Override
     public List<BookCategoryRecord> getBookCategoriesForIds(List<Long> bookCategoryIds)
     {
 
@@ -35,5 +45,12 @@ public class DefaultAuthorBookCategoryService implements AuthorBookCategoryServi
         }
 
         return bookCategoryRecords;
+    }
+
+    @Override
+    public List<BookCategoryRecord> getBookCategoriesForBook(BookRecord bookRecord)
+    {
+        validateParameterNotNull(bookRecord, "bookRecord must not be null");
+        return authorBookCategoryDao.findBookCategoriesByBook(bookRecord);
     }
 }

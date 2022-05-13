@@ -16,7 +16,7 @@ public class Page
     private Long chapterId;
     private Long authorId;
     private String title;
-    private String body;
+    private Object body;
     private Integer characterCount;
     private Integer sortPosition;
 
@@ -27,7 +27,7 @@ public class Page
             @JsonProperty("chapter_id") Long chapterId,
             @JsonProperty("author_id") Long authorId,
             @JsonProperty("title") String title,
-            @JsonProperty("body") String body,
+            @JsonProperty("body") Object body,
             @JsonProperty("character_count") Integer characterCount,
             @JsonProperty("sort_position") Integer sortPosition)
     {
