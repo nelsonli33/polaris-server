@@ -25,14 +25,13 @@ public class AuthorPageController extends AbstractAuthorController
 
 
     // Creates a new page for a book
-    @PostMapping(path = "/author/api/v1/books/{book_id}/pages")
+    @PostMapping(path = "/author/api/v1/pages")
     public ResponseEntity<CreatePageResponse> createNewPage(
-            @PathVariable(name = "book_id") Long bookId,
             @Valid @RequestBody CreatePageRequest body
     )
     {
         CreatePageDto dto = new CreatePageDto();
-        dto.setBookId(bookId);
+        dto.setBookId(body.getBookId());
         dto.setChapterId(body.getChapterId());
         dto.setTitle(body.getTitle());
         dto.setSortPosition(body.getSortPosition());
@@ -47,9 +46,8 @@ public class AuthorPageController extends AbstractAuthorController
     }
 
     // Retrieves a single page
-    @GetMapping(path = "/author/api/v1/books/{book_id}/pages/{page_id}")
+    @GetMapping(path = "/author/api/v1/pages/{page_id}")
     public ResponseEntity<GetPageResponse> getPage(
-            @PathVariable(name = "book_id") Long bookId,
             @PathVariable(name = "page_id") Long pageId
     )
     {
@@ -63,14 +61,13 @@ public class AuthorPageController extends AbstractAuthorController
     }
 
 
-    @PutMapping(path = "/author/api/v1/books/{book_id}/pages/{page_id}/save")
+    @PutMapping(path = "/author/api/v1/pages/{page_id}/save")
     public ResponseEntity<SavePageResponse> savePage(
             @Valid @RequestBody SavePageRequest body,
-            @PathVariable(name = "book_id") Long bookId,
             @PathVariable(name = "page_id") Long pageId
     )
     {
-       
+
         SavePageDto dto = new SavePageDto();
         dto.setPageId(pageId);
         dto.setTitle(body.getTitle());

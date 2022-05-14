@@ -23,7 +23,7 @@ public interface AuthorPageMapper
     @Mapping(target = "body", source = "body", qualifiedByName = "toJSON")
     void update(SavePageDto savePageDto, @MappingTarget PageRecord pageRecord);
 
-    @Named(value = "toJSON")
+    @Named("toJSON")
     default JSON toJSON(String jsonStr)
     {
         try
@@ -37,14 +37,13 @@ public interface AuthorPageMapper
         }
     }
 
-    @Named(value = "toNormalJson")
+    @Named("toNormalJson")
     default Object toNormalJson(JSON json)
     {
         if (json == null)
         {
             return null;
         }
-
         try
         {
             ObjectMapper objectMapper = new ObjectMapper();

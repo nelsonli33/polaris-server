@@ -4,6 +4,7 @@ import com.bcorp.polaris.author.api.model.CreateChapterRequest;
 import com.bcorp.polaris.author.api.model.CreateChapterResponse;
 import com.bcorp.polaris.author.api.model.UpdateChapterRequest;
 import com.bcorp.polaris.author.api.model.UpdateChapterResponse;
+import com.bcorp.polaris.author.dto.CreateChapterRespDto;
 import com.bcorp.polaris.author.facade.AuthorChapterFacade;
 import com.bcorp.polaris.core.dto.ChapterDto;
 import com.bcorp.polaris.core.dto.CreateChapterDto;
@@ -36,10 +37,13 @@ public class AuthorChapterController extends AbstractAuthorController
         dto.setBookId(bookId);
         dto.setTitle(body.getTitle());
         dto.setBelowChapterId(body.getBelowChapterId());
-        final ChapterDto newChapterDto = authorChapterFacade.createNewChapter(dto);
+
+        final CreateChapterRespDto respDto = authorChapterFacade.createNewChapter(dto);
+
 
         final CreateChapterResponse response = CreateChapterResponse.builder()
-                .chapter(getAuthorRestMapper().convert(newChapterDto))
+                .chapter(getAuthorRestMapper().convert(respDto.getChapterDto()))
+                .page(getAuthorRestMapper().convert(respDto.getPageDto()))
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

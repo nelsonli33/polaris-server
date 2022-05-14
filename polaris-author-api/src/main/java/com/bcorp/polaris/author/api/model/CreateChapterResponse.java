@@ -10,12 +10,15 @@ import lombok.Data;
 public class CreateChapterResponse
 {
     private Chapter chapter;
+    private Page page;
 
     @JsonCreator
     public CreateChapterResponse(
-            @JsonProperty("chapter") Chapter chapter
+            @JsonProperty("chapter") Chapter chapter,
+            @JsonProperty("page") Page page
     )
     {
         this.chapter = chapter;
+        this.page = page;
     }
 }

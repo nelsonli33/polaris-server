@@ -14,6 +14,7 @@ public class Chapter
 {
     private Long id;
     private String title;
+    private Long bookId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Page> pages;
 
@@ -21,11 +22,13 @@ public class Chapter
     public Chapter(
             @JsonProperty("id") Long id,
             @JsonProperty("title") String title,
+            @JsonProperty("book_id") Long bookId,
             @JsonProperty("pages") List<Page> pages
     )
     {
         this.id = id;
         this.title = title;
+        this.bookId = bookId;
         this.pages = pages;
     }
 }

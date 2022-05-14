@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.collections4.CollectionUtils.emptyIfNull;
+
 @Component(value = "authorBookFacade")
 public class DefaultAuthorBookFacade implements AuthorBookFacade
 {
@@ -112,7 +114,7 @@ public class DefaultAuthorBookFacade implements AuthorBookFacade
 
         final List<ChapterDto> allChapterDtos = allChapters.stream().map(c -> {
             ChapterDto dto = c.into(ChapterDto.class);
-            final List<PageDto> pages = tableOfContentMap.get(c.getId())
+            final List<PageDto> pages = emptyIfNull(tableOfContentMap.get(c.getId()))
                     .stream().map(p -> p.into(PageDto.class))
                     .collect(Collectors.toList());
             dto.setPages(pages);
