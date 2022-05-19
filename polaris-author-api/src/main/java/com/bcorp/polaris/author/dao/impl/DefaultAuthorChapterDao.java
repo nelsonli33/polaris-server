@@ -31,7 +31,7 @@ public class DefaultAuthorChapterDao implements AuthorChapterDao
         return dslContext.selectFrom(CHAPTER)
                 .where(CHAPTER.BOOK_ID.eq(bookRecord.getId()))
                 .and(CHAPTER.IS_DELETED.eq((byte) 0))
-                .orderBy(CHAPTER.SORT_POSITION)
+                .orderBy(CHAPTER.RANK)
                 .fetchInto(ChapterRecord.class);
     }
 
@@ -46,6 +46,16 @@ public class DefaultAuthorChapterDao implements AuthorChapterDao
 
     }
 
+    public void softDelete(ChapterRecord chapter)
+    {
+        validateParameterNotNull(chapter, "BookRecord must not be null");
+
+        dslContext.update(CHAPTER)
+                .set(CHAPTER.IS_DELETED, (byte) 1)
+                .where(CHAPTER.ID.eq(chapter.getId()))
+                .execute();
+    }
+
     public ChapterRecord saveChapter(ChapterRecord chapter)
     {
         validateParameterNotNull(chapter, "ChapterRecord must not be null");
@@ -53,15 +63,5 @@ public class DefaultAuthorChapterDao implements AuthorChapterDao
         return chapter;
     }
 
-    public void moveBackwardAfterChapterSortPos(BookRecord bookRecord, int sortPosition)
-    {
-        validateParameterNotNull(bookRecord, "BookRecord must not be null");
-
-        dslContext.update(CHAPTER)
-                .set(CHAPTER.SORT_POSITION, CHAPTER.SORT_POSITION.plus(1))
-                .where(CHAPTER.BOOK_ID.eq(bookRecord.getId()))
-                .and(CHAPTER.SORT_POSITION.gt(sortPosition))
-                .execute();
-    }
 
 }

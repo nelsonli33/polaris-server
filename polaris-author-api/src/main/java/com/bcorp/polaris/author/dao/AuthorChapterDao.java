@@ -10,9 +10,9 @@ public interface AuthorChapterDao
 
     List<ChapterRecord> findAllChaptersByBook(BookRecord bookRecord);
 
-    int countChaptersByBook(BookRecord bookRecord);
-
     ChapterRecord saveChapter(ChapterRecord chapter);
     
-    void moveBackwardAfterChapterSortPos(BookRecord bookRecord, int sortPosition);
+    int countChaptersByBook(BookRecord bookRecord);
+
+    void softDelete(ChapterRecord chapter);
 }

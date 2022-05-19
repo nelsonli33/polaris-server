@@ -17,18 +17,23 @@ public class CreatePageRequest
     @NotNull(message = "Chapter Id must not be empty")
     private Long chapterId;
     private String title;
-    private Integer sortPosition;
+
+    private Long beforePageId;
+    private Long afterPageId;
 
     @JsonCreator
     public CreatePageRequest(
             @JsonProperty("book_id") Long bookId,
             @JsonProperty("chapter_id") Long chapterId,
             @JsonProperty("title") String title,
-            @JsonProperty("sort_position") Integer sortPosition)
+            @JsonProperty("before_page_id") Long beforePageId,
+            @JsonProperty("after_page_id") Long afterPageId
+    )
     {
         this.bookId = bookId;
         this.chapterId = chapterId;
         this.title = title;
-        this.sortPosition = sortPosition;
+        this.beforePageId = beforePageId;
+        this.afterPageId = afterPageId;
     }
 }

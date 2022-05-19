@@ -3,6 +3,7 @@ package com.bcorp.polaris.author.service.impl;
 import com.bcorp.polaris.author.dao.AuthorPageDao;
 import com.bcorp.polaris.author.service.AuthorBookCategoryService;
 import com.bcorp.polaris.author.service.AuthorUserService;
+import com.bcorp.polaris.author.service.LexoRankService;
 import com.bcorp.polaris.core.model.tables.records.*;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,11 +33,13 @@ class DefaultAuthorBookServiceTest
     private AuthorBookCategoryService authorBookCategoryService;
     @MockBean
     private AuthorPageDao authorPageDao;
+    @MockBean
+    private LexoRankService lexoRankService;
 
     @BeforeEach
     void setUp()
     {
-        defaultAuthorBookService = new DefaultAuthorBookService(dslContext, authorUserService, authorPageDao);
+        defaultAuthorBookService = new DefaultAuthorBookService(dslContext, authorUserService, authorPageDao, lexoRankService);
     }
 
     @Test
@@ -52,6 +55,7 @@ class DefaultAuthorBookServiceTest
         dummyBookCategory.setId(1L);
         given(authorBookCategoryService.getBookCategoriesForIds(List.of(1L))).willReturn(List.of(dummyBookCategory));
 
+        given(lexoRankService.getInitialRank()).willReturn("0|hzzzzz:");
         // when
         final BookRecord newBook = defaultAuthorBookService.createNewBook(fakeTitle, List.of(dummyBookCategory));
 

@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateChapterDto
 {
-    private Long bookId;
     private String title;
-    private Long belowChapterId;
+    private Long bookId;
+    private Long beforeChapterId;
+    private Long afterChapterId;
 }

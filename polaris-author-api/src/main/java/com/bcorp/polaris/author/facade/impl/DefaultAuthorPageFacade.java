@@ -63,10 +63,8 @@ public class DefaultAuthorPageFacade implements AuthorPageFacade
 
         final PageRecord pageRecord = dslContext.newRecord(PAGE);
         pageRecord.setTitle(createPageDto.getTitle());
-        pageRecord.setSortPosition(createPageDto.getSortPosition());
-
-        final PageRecord createdPageRecord
-                = authorPageService.createPage(pageRecord, bookRecord, chapterRecord);
+        PageRecord createdPageRecord =
+                authorPageService.createPage(pageRecord, bookRecord, chapterRecord, createPageDto.getBeforePageId(), createPageDto.getAfterPageId());
         return authorPageMapper.toDto(createdPageRecord);
     }
 
@@ -80,6 +78,13 @@ public class DefaultAuthorPageFacade implements AuthorPageFacade
         pageRecord.update();
         pageRecord.refresh();
         return authorPageMapper.toDto(pageRecord);
+    }
+
+    @Override
+    public void deletePage(Long pageId)
+    {
+        final PageRecord pageRecord = authorPageService.getPageForId(pageId);
+        authorPageService.deletePage(pageRecord, false);
     }
 
 

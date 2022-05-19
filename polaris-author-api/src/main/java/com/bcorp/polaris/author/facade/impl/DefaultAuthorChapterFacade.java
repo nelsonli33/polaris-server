@@ -37,7 +37,8 @@ public class DefaultAuthorChapterFacade implements AuthorChapterFacade
                                       AuthorPageService authorPageService,
                                       AuthorChapterMapper authorChapterMapper,
                                       AuthorPageMapper authorPageMapper,
-                                      DSLContext dslContext)
+                                      DSLContext dslContext
+    )
     {
         this.authorChapterService = authorChapterService;
         this.authorBookService = authorBookService;
@@ -54,14 +55,9 @@ public class DefaultAuthorChapterFacade implements AuthorChapterFacade
 
         authorChapterService.validateAddChapterIsValid(bookRecord);
 
-        ChapterRecord belowChapterRecord = null;
-        if (dto.getBelowChapterId() != null)
-        {
-            belowChapterRecord = authorChapterService.getChapterForId(bookRecord, dto.getBelowChapterId());
-        }
-
         final ChapterRecord newChapter
-                = authorChapterService.createChapter(bookRecord, dto.getTitle(), belowChapterRecord);
+                = authorChapterService.createChapter(bookRecord, dto.getTitle(),
+                dto.getBeforeChapterId(), dto.getAfterChapterId());
 
         final ChapterDto chapterDto = authorChapterMapper.toDto(newChapter);
         final PageDto pageDto = autoGenNewPageForChapter(bookRecord, newChapter);
@@ -83,13 +79,21 @@ public class DefaultAuthorChapterFacade implements AuthorChapterFacade
         return authorChapterMapper.toDto(updatedChapter);
     }
 
+    @Override
+    public void deleteChapter(Long bookId, Long chapterId)
+    {
+        final BookRecord bookRecord = authorBookService.getBookForId(bookId);
+        final ChapterRecord chapterRecord = authorChapterService.getChapterForId(bookRecord, chapterId);
+
+        authorChapterService.deleteChapter(bookRecord, chapterRecord, false);
+    }
+
 
     protected PageDto autoGenNewPageForChapter(BookRecord bookRecord, ChapterRecord chapterRecord)
     {
         final PageRecord pageRecord = dslContext.newRecord(PAGE);
         pageRecord.setTitle("未命名頁面");
-        pageRecord.setSortPosition(1);
-        final PageRecord page = authorPageService.createPage(pageRecord, bookRecord, chapterRecord);
+        final PageRecord page = authorPageService.createPage(pageRecord, bookRecord, chapterRecord, null, null);
         return authorPageMapper.toDto(page);
     }
 }

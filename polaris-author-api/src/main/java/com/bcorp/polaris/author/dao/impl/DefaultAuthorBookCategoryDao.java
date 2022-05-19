@@ -29,7 +29,7 @@ public class DefaultAuthorBookCategoryDao implements AuthorBookCategoryDao
         return dslContext.select().from(BOOK_CATEGORY)
                 .where(BOOK_CATEGORY.IS_VISIBLE.eq((byte) 1))
                 .and(BOOK_CATEGORY.IS_DELETED.eq((byte) 0))
-                .orderBy(BOOK_CATEGORY.SORT_POSITION.asc())
+                .orderBy(BOOK_CATEGORY.RANK.asc())
                 .fetchInto(BookCategoryRecord.class);
     }
 

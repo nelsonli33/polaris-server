@@ -89,9 +89,9 @@ public class Page extends TableImpl<PageRecord> {
     public final TableField<PageRecord, Integer> CHARACTER_COUNT = createField(DSL.name("character_count"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "字數");
 
     /**
-     * The column <code>polaris-db.page.sort_position</code>. 排序位置
+     * The column <code>polaris-db.page.rank</code>. 排序位置 (alphaNumeric)
      */
-    public final TableField<PageRecord, Integer> SORT_POSITION = createField(DSL.name("sort_position"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "排序位置");
+    public final TableField<PageRecord, String> RANK = createField(DSL.name("rank"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "排序位置 (alphaNumeric)");
 
     /**
      * The column <code>polaris-db.page.is_deleted</code>. 是否刪除，0-未刪除，1-刪除，預設為 0
@@ -187,7 +187,7 @@ public class Page extends TableImpl<PageRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<Long, Long, Long, Long, String, String, JSON, Integer, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row12<Long, Long, Long, Long, String, String, JSON, Integer, String, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row12) super.fieldsRow();
     }
 }

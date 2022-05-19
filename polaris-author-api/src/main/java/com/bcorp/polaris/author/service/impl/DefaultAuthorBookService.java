@@ -3,6 +3,7 @@ package com.bcorp.polaris.author.service.impl;
 import com.bcorp.polaris.author.dao.AuthorPageDao;
 import com.bcorp.polaris.author.service.AuthorBookService;
 import com.bcorp.polaris.author.service.AuthorUserService;
+import com.bcorp.polaris.author.service.LexoRankService;
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.*;
@@ -28,12 +29,18 @@ public class DefaultAuthorBookService implements AuthorBookService
     private AuthorUserService authorUserService;
     private AuthorPageDao authorPageDao;
 
+    private LexoRankService lexoRankService;
 
-    public DefaultAuthorBookService(DSLContext dslContext, AuthorUserService authorUserService, AuthorPageDao authorPageDao)
+
+    public DefaultAuthorBookService(DSLContext dslContext,
+                                    AuthorUserService authorUserService,
+                                    AuthorPageDao authorPageDao,
+                                    LexoRankService lexoRankService)
     {
         this.dslContext = dslContext;
         this.authorUserService = authorUserService;
         this.authorPageDao = authorPageDao;
+        this.lexoRankService = lexoRankService;
     }
 
     public BookRecord getBookForId(Long bookId)
@@ -72,7 +79,7 @@ public class DefaultAuthorBookService implements AuthorBookService
         final ChapterRecord chapterRecord = dslContext.insertInto(CHAPTER)
                 .set(CHAPTER.BOOK_ID, bookRecord.getId())
                 .set(CHAPTER.TITLE, "第一章")
-                .set(CHAPTER.SORT_POSITION, 1)
+                .set(CHAPTER.RANK, lexoRankService.getInitialRank())
                 .returning(CHAPTER.ID)
                 .fetchOne();
 
@@ -80,7 +87,7 @@ public class DefaultAuthorBookService implements AuthorBookService
                 .set(PAGE.CHAPTER_ID, chapterRecord.getId())
                 .set(PAGE.BOOK_ID, bookRecord.getId())
                 .set(PAGE.USER_ID, currentAuthorUser.getId())
-                .set(PAGE.SORT_POSITION, 1)
+                .set(PAGE.RANK, lexoRankService.getInitialRank())
                 .execute();
 
         return bookRecord;

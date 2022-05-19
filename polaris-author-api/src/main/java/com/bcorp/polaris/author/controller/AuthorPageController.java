@@ -34,7 +34,8 @@ public class AuthorPageController extends AbstractAuthorController
         dto.setBookId(body.getBookId());
         dto.setChapterId(body.getChapterId());
         dto.setTitle(body.getTitle());
-        dto.setSortPosition(body.getSortPosition());
+        dto.setAfterPageId(body.getAfterPageId());
+        dto.setBeforePageId(body.getBeforePageId());
 
         final PageDto pageDto = authorPageFacade.createPage(dto);
 
@@ -67,7 +68,7 @@ public class AuthorPageController extends AbstractAuthorController
             @PathVariable(name = "page_id") Long pageId
     )
     {
-
+      
         SavePageDto dto = new SavePageDto();
         dto.setPageId(pageId);
         dto.setTitle(body.getTitle());
@@ -84,5 +85,10 @@ public class AuthorPageController extends AbstractAuthorController
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-
+    @DeleteMapping(path = "/author/api/v1/pages/{page_id}")
+    public ResponseEntity<SavePageResponse> deletePage(@PathVariable(name = "page_id") Long pageId)
+    {
+        authorPageFacade.deletePage(pageId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

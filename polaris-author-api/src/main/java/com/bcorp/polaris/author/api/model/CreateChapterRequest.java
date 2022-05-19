@@ -10,15 +10,18 @@ import lombok.Data;
 public class CreateChapterRequest
 {
     private String title;
-    private Long belowChapterId;
+    private Long beforeChapterId;
+    private Long afterChapterId;
 
     @JsonCreator
     public CreateChapterRequest(
             @JsonProperty("title") String title,
-            @JsonProperty("below_chapter_id") Long belowChapterId
+            @JsonProperty("before_chapter_id") Long beforeChapterId,
+            @JsonProperty("after_chapter_id") Long afterChapterId
     )
     {
         this.title = title;
-        this.belowChapterId = belowChapterId;
+        this.beforeChapterId = beforeChapterId;
+        this.afterChapterId = afterChapterId;
     }
 }

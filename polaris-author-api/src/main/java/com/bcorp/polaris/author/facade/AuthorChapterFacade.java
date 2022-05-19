@@ -11,4 +11,6 @@ public interface AuthorChapterFacade
 
     ChapterDto updateChapter(UpdateChapterDto dto);
 
+    void deleteChapter(Long bookId, Long chapterId);
+
 }

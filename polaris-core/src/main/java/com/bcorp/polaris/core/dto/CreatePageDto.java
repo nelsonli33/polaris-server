@@ -14,5 +14,6 @@ public class CreatePageDto
     private Long bookId;
     private Long chapterId;
     private String title;
-    private Integer sortPosition;
+    private Long beforePageId;
+    private Long afterPageId;
 }

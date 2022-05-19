@@ -63,9 +63,10 @@ public class BookCategory extends TableImpl<BookCategoryRecord> {
     public final TableField<BookCategoryRecord, Long> PARENT_ID = createField(DSL.name("parent_id"), SQLDataType.BIGINT, this, "父類別 id");
 
     /**
-     * The column <code>polaris-db.book_category.sort_position</code>. 排序位置
+     * The column <code>polaris-db.book_category.rank</code>. 排序位置
+     * (alphaNumeric)
      */
-    public final TableField<BookCategoryRecord, Integer> SORT_POSITION = createField(DSL.name("sort_position"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "排序位置");
+    public final TableField<BookCategoryRecord, String> RANK = createField(DSL.name("rank"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "排序位置 (alphaNumeric)");
 
     /**
      * The column <code>polaris-db.book_category.is_visible</code>.
@@ -168,7 +169,7 @@ public class BookCategory extends TableImpl<BookCategoryRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<Long, String, Long, Integer, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row8<Long, String, Long, String, Byte, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 }

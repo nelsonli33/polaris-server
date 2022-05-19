@@ -3,6 +3,7 @@ package com.bcorp.polaris.author.service.impl;
 import com.bcorp.polaris.author.dao.AuthorPageDao;
 import com.bcorp.polaris.author.service.AuthorPageService;
 import com.bcorp.polaris.author.service.AuthorUserService;
+import com.bcorp.polaris.author.service.LexoRankService;
 import com.bcorp.polaris.core.error.InternalErrorCode;
 import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
@@ -10,6 +11,7 @@ import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
 import com.bcorp.polaris.core.model.tables.records.UserRecord;
 import org.jooq.DSLContext;
+import org.jooq.tools.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +25,15 @@ public class DefaultAuthorPageService implements AuthorPageService
     private AuthorUserService authorUserService;
     private AuthorPageDao authorPageDao;
 
+    private LexoRankService lexoRankService;
+
     @Autowired
-    public DefaultAuthorPageService(DSLContext dslContext, AuthorUserService authorUserService, AuthorPageDao authorPageDao)
+    public DefaultAuthorPageService(DSLContext dslContext, AuthorUserService authorUserService, AuthorPageDao authorPageDao, LexoRankService lexoRankService)
     {
         this.dslContext = dslContext;
         this.authorUserService = authorUserService;
         this.authorPageDao = authorPageDao;
+        this.lexoRankService = lexoRankService;
     }
 
     @Override
@@ -45,9 +50,14 @@ public class DefaultAuthorPageService implements AuthorPageService
         return pageRecord;
     }
 
-
     @Override
-    public PageRecord createPage(PageRecord pageRecord, BookRecord bookRecord, ChapterRecord chapterRecord)
+    public PageRecord createPage(
+            PageRecord pageRecord,
+            BookRecord bookRecord,
+            ChapterRecord chapterRecord,
+            Long beforePageId,
+            Long afterPageId
+    )
     {
         validateParameterNotNull(bookRecord, "BookRecord cannot be null");
         validateParameterNotNull(chapterRecord, "ChapterRecord cannot be null");
@@ -56,6 +66,56 @@ public class DefaultAuthorPageService implements AuthorPageService
         pageRecord.setBookId(bookRecord.getId());
         pageRecord.setChapterId(chapterRecord.getId());
         pageRecord.setUserId(currentAuthorUser.getId());
+        pageRecord.setRank(genNewRank(beforePageId, afterPageId));
         return authorPageDao.save(pageRecord);
     }
+
+    protected String genNewRank(Long beforePageId, Long afterPageId)
+    {
+        String rank = "";
+
+        if (beforePageId == null && afterPageId == null)
+        {
+            rank = lexoRankService.getInitialRank();
+        }
+        else if (beforePageId != null && afterPageId == null)
+        {
+            final PageRecord beforePage = getPageForId(beforePageId);
+            rank = lexoRankService.getNextRank(beforePage.getRank());
+        }
+        else if (beforePageId == null && afterPageId != null)
+        {
+            final PageRecord afterPage = getPageForId(afterPageId);
+            rank = lexoRankService.getPrevRank(afterPage.getRank());
+        }
+        else
+        {
+            final PageRecord beforePage = getPageForId(beforePageId);
+            final PageRecord afterPage = getPageForId(afterPageId);
+            rank = lexoRankService.getBetweenRank(beforePage.getRank(), afterPage.getRank());
+        }
+
+        if (StringUtils.isEmpty(rank))
+        {
+            throw new PolarisServerRuntimeException(InternalErrorCode.INTERNAL_SERVER_ERROR, "Generate new rank for page failed.");
+        }
+
+        return rank;
+    }
+
+
+    @Override
+    public void deletePage(PageRecord pageRecord, boolean softDelete)
+    {
+        if (softDelete)
+        {
+            authorPageDao.softDelete(pageRecord);
+        }
+        else
+        {
+            pageRecord.delete();
+        }
+    }
+
+
 }

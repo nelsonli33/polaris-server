@@ -11,4 +11,6 @@ public interface AuthorPageFacade
     PageDto createPage(CreatePageDto createPageDto);
 
     PageDto savePage(SavePageDto savePageDto);
+
+    void deletePage(Long pageId);
 }

@@ -63,9 +63,9 @@ public class Chapter extends TableImpl<ChapterRecord> {
     public final TableField<ChapterRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "章節名稱");
 
     /**
-     * The column <code>polaris-db.chapter.sort_position</code>. 排序位置
+     * The column <code>polaris-db.chapter.rank</code>. 排序位置 (alphaNumeric)
      */
-    public final TableField<ChapterRecord, Integer> SORT_POSITION = createField(DSL.name("sort_position"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGER)), this, "排序位置");
+    public final TableField<ChapterRecord, String> RANK = createField(DSL.name("rank"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "排序位置 (alphaNumeric)");
 
     /**
      * The column <code>polaris-db.chapter.is_deleted</code>.
@@ -162,7 +162,7 @@ public class Chapter extends TableImpl<ChapterRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<Long, Long, String, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row7<Long, Long, String, String, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }

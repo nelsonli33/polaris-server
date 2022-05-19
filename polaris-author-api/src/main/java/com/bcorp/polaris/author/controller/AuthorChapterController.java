@@ -28,18 +28,16 @@ public class AuthorChapterController extends AbstractAuthorController
     }
 
     @PostMapping(path = "/author/api/v1/books/{book_id}/chapters")
-    public ResponseEntity<CreateChapterResponse> createBookChapter(
-            @PathVariable(name = "book_id") Long bookId,
-            @RequestBody CreateChapterRequest body
-    )
+    public ResponseEntity<CreateChapterResponse> createBookChapter(@PathVariable(name = "book_id") Long bookId,
+                                                                   @RequestBody CreateChapterRequest body)
     {
         CreateChapterDto dto = new CreateChapterDto();
         dto.setBookId(bookId);
         dto.setTitle(body.getTitle());
-        dto.setBelowChapterId(body.getBelowChapterId());
+        dto.setBeforeChapterId(body.getBeforeChapterId());
+        dto.setAfterChapterId(body.getAfterChapterId());
 
         final CreateChapterRespDto respDto = authorChapterFacade.createNewChapter(dto);
-
 
         final CreateChapterResponse response = CreateChapterResponse.builder()
                 .chapter(getAuthorRestMapper().convert(respDto.getChapterDto()))
@@ -67,10 +65,15 @@ public class AuthorChapterController extends AbstractAuthorController
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-//    @DeleteMapping(path = "/author/api/v1/books/{book_id}/chapters/{chapter_id}")
-//    public ResponseEntity<?> deleteBookChapter(@PathVariable(name = "book_id") Long bookId,
-//                                               @PathVariable(name = "chapter_id") Long chapterId)
-//    {
-//        // cascade delete pages
-//    }
+    @DeleteMapping(path = "/author/api/v1/books/{book_id}/chapters/{chapter_id}")
+    public ResponseEntity<?> deleteBookChapter(@PathVariable(name = "book_id") Long bookId,
+                                               @PathVariable(name = "chapter_id") Long chapterId)
+    {
+        if (bookId != null && chapterId != null)
+        {
+            authorChapterFacade.deleteChapter(bookId, chapterId);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

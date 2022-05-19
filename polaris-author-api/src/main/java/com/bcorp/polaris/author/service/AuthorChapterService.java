@@ -13,7 +13,9 @@ public interface AuthorChapterService
 
     void validateAddChapterIsValid(BookRecord bookRecord);
 
-    ChapterRecord createChapter(BookRecord bookRecord, String title, ChapterRecord belowChapterRecord);
+    ChapterRecord createChapter(BookRecord bookRecord, String title, Long beforeChapterId, Long afterChapterId);
 
     ChapterRecord updateChapter(ChapterRecord chapterRecord, String title);
+
+    void deleteChapter(BookRecord bookRecord, ChapterRecord chapterRecord, boolean softDelete);
 }
