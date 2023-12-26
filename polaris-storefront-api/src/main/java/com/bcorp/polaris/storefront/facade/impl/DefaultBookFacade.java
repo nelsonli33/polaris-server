@@ -1,11 +1,20 @@
 package com.bcorp.polaris.storefront.facade.impl;
 
-import com.bcorp.polaris.core.dto.*;
+import com.bcorp.polaris.core.dto.BookDto;
+import com.bcorp.polaris.core.dto.ChapterDto;
+import com.bcorp.polaris.core.dto.PageDto;
+import com.bcorp.polaris.core.dto.TableOfContentDto;
+import com.bcorp.polaris.core.model.tables.records.BookCategoryRecord;
+import com.bcorp.polaris.core.model.tables.records.BookRecord;
 import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
+import com.bcorp.polaris.storefront.bo.BookBo;
+import com.bcorp.polaris.storefront.dao.service.BookCategoryService;
+import com.bcorp.polaris.storefront.dao.service.BookService;
 import com.bcorp.polaris.storefront.facade.BookFacade;
-import com.bcorp.polaris.storefront.service.BookService;
-import org.jooq.Record;
+import com.bcorp.polaris.storefront.facade.mapper.BookCategoryMapper;
+import com.bcorp.polaris.storefront.facade.mapper.BookMapper;
+import com.bcorp.polaris.storefront.facade.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,20 +25,47 @@ import java.util.stream.Collectors;
 public class DefaultBookFacade implements BookFacade
 {
     private BookService bookService;
+    private BookCategoryService bookCategoryService;
+    private BookMapper bookMapper;
 
-    public DefaultBookFacade(BookService bookService)
+    private BookCategoryMapper bookCategoryMapper;
+    private UserMapper userMapper;
+
+
+    public DefaultBookFacade(
+            BookService bookService,
+            BookCategoryService bookCategoryService,
+            BookMapper bookMapper,
+            BookCategoryMapper bookCategoryMapper,
+            UserMapper userMapper
+    )
     {
+        this.bookMapper = bookMapper;
+        this.bookCategoryService = bookCategoryService;
+        this.userMapper = userMapper;
         this.bookService = bookService;
+        this.bookCategoryMapper = bookCategoryMapper;
     }
 
     @Override
-    public BookDto getBookIntro(Long bookId)
+    public List<BookDto> getAllBooks()
     {
-        final Record record = bookService.getBookAndAuthorForId(bookId);
+        final List<BookRecord> allBooks = bookService.getAllBooks();
+        return bookMapper.toDtos(allBooks);
+    }
+
+    @Override
+    public BookDto getBookDetail(Long bookId)
+    {
+        final BookBo bookBo = bookService.getBookAndAuthorForId(bookId);
         final TableOfContentDto tableOfContentDto = getTableOfContent(bookId);
 
-        final BookDto bookDto = record.into(BookDto.class);
-        bookDto.setAuthor(record.into(UserDto.class));
+        final List<BookCategoryRecord> bookCategories
+                = bookCategoryService.getBookCategoriesForBook(bookBo.getBook());
+
+        final BookDto bookDto = bookMapper.toDto(bookBo.getBook());
+        bookDto.setAuthor(userMapper.toDto(bookBo.getAuthor()));
+        bookDto.setCategories(bookCategoryMapper.toDtos(bookCategories));
         bookDto.setTableOfContent(tableOfContentDto);
         return bookDto;
     }

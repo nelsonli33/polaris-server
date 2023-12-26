@@ -1,9 +1,9 @@
 package com.bcorp.polaris.storefront.facade.impl;
 
 import com.bcorp.polaris.core.model.tables.records.UserRecord;
+import com.bcorp.polaris.storefront.dao.service.AccountService;
 import com.bcorp.polaris.storefront.dto.RegisterDto;
 import com.bcorp.polaris.storefront.facade.AccountFacade;
-import com.bcorp.polaris.storefront.service.AccountService;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

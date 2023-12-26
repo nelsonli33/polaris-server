@@ -30,9 +30,12 @@ public enum InternalErrorCode
     // Order 501 ~ 600
     ORDER_NOT_FOUND(501),
 
+    // Books 601 ~ 700
+    BOOK_ALREADY_PUBLISHED(601),
 
-    // Chapters 601 ~ 700
-    Exceed_MAXIMUM_CHAPTER_COUNT(601),
+    // Chapters 701 ~ 700
+    Exceed_MAXIMUM_CHAPTER_COUNT(701),
+
 
     INTERNAL_SERVER_ERROR(999);
 

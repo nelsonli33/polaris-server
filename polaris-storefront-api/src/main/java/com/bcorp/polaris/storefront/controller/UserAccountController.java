@@ -2,6 +2,7 @@ package com.bcorp.polaris.storefront.controller;
 
 import com.bcorp.polaris.core.dto.UserDto;
 import com.bcorp.polaris.core.dto.UserProfileDto;
+import com.bcorp.polaris.storefront.api.model.GetUserMeResponse;
 import com.bcorp.polaris.storefront.api.model.GetUserProfileResponse;
 import com.bcorp.polaris.storefront.api.model.UpdateUserRequest;
 import com.bcorp.polaris.storefront.api.model.UpdateUserResponse;
@@ -20,6 +21,18 @@ public class UserAccountController extends AbstractController
     public UserAccountController(UserFacade userFacade)
     {
         this.userFacade = userFacade;
+    }
+
+    @GetMapping(path = "/api/v1/user/me")
+    public ResponseEntity<GetUserMeResponse> getUser()
+    {
+        final UserDto currentUser = userFacade.getCurrentUser();
+
+        GetUserMeResponse response = GetUserMeResponse.builder()
+                .user(getStorefrontRestMapper().convert2UserBasic(currentUser))
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/api/v1/user/profile")

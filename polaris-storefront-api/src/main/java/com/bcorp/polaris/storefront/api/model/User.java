@@ -14,6 +14,7 @@ public class User
 {
     private Long id;
     private String name;
+    private String title;
     private String uid;
     private String email;
     private String avatar;
@@ -29,6 +30,7 @@ public class User
     public User(
             @JsonProperty("id") Long id,
             @JsonProperty("name") String name,
+            @JsonProperty("title") String title,
             @JsonProperty("uid") String uid,
             @JsonProperty("email") String email,
             @JsonProperty("avatar") String avatar,
@@ -38,10 +40,12 @@ public class User
             @JsonProperty("linkedin_url") String linkedInUrl,
             @JsonProperty("facebook_url") String facebookUrl,
             @JsonProperty("website_url") String websiteUrl,
-            @JsonProperty("youtube_url") String youtubeUrl)
+            @JsonProperty("youtube_url") String youtubeUrl
+    )
     {
         this.id = id;
         this.name = name;
+        this.title = title;
         this.uid = uid;
         this.email = email;
         this.avatar = avatar;

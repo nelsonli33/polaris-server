@@ -3,9 +3,9 @@ package com.bcorp.polaris.storefront.facade.impl;
 import com.bcorp.polaris.core.dto.UserDto;
 import com.bcorp.polaris.core.dto.UserProfileDto;
 import com.bcorp.polaris.core.model.tables.records.UserRecord;
+import com.bcorp.polaris.storefront.dao.service.UserService;
 import com.bcorp.polaris.storefront.facade.UserFacade;
 import com.bcorp.polaris.storefront.facade.mapper.UserMapper;
-import com.bcorp.polaris.storefront.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component(value = "userFacade")

@@ -16,7 +16,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row14;
+import org.jooq.Row15;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -64,6 +64,11 @@ public class Book extends TableImpl<BookRecord> {
     public final TableField<BookRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "書本標題");
 
     /**
+     * The column <code>polaris-db.book.subtitle</code>. 書本副標題
+     */
+    public final TableField<BookRecord, String> SUBTITLE = createField(DSL.name("subtitle"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "書本副標題");
+
+    /**
      * The column <code>polaris-db.book.price_type</code>. 免費or付費閱讀，1-免費,
      * 2-付費，預設為 2
      */
@@ -77,7 +82,7 @@ public class Book extends TableImpl<BookRecord> {
     /**
      * The column <code>polaris-db.book.synopsis</code>. 書本簡介
      */
-    public final TableField<BookRecord, String> SYNOPSIS = createField(DSL.name("synopsis"), SQLDataType.VARCHAR(255).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "書本簡介");
+    public final TableField<BookRecord, String> SYNOPSIS = createField(DSL.name("synopsis"), SQLDataType.CLOB, this, "書本簡介");
 
     /**
      * The column <code>polaris-db.book.acquisition</code>. 你能學到
@@ -194,11 +199,11 @@ public class Book extends TableImpl<BookRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row14 type methods
+    // Row15 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<Long, Long, String, Byte, BigDecimal, String, String, String, LocalDateTime, Byte, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
-        return (Row14) super.fieldsRow();
+    public Row15<Long, Long, String, String, Byte, BigDecimal, String, String, String, LocalDateTime, Byte, Integer, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+        return (Row15) super.fieldsRow();
     }
 }

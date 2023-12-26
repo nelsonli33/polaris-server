@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,8 +73,45 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(serverErrorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException ex)
+    {
+        InternalErrorCode errorCode = InternalErrorCode.INVALID_REQUEST_BODY;
+
+        log.error("ConstraintViolationException {}({})", errorCode, errorCode.getCode());
+        log.error(ex.getLocalizedMessage());
+
+        log.error("ConstraintViolationException::stack trace:", ex);
+        Throwable cause = ex.getCause();
+        log.error("ConstraintViolationException::cause: " + (cause == null ? "<none>" : cause.getMessage()));
+        if (cause != null)
+        {
+            log.error("cause::stack trace: ", cause);
+        }
+
+        final List<Error> errors = ex.getConstraintViolations().stream().map(e ->
+                Error.builder()
+                        .field(e.getPropertyPath().toString())
+                        .message(e.getMessage())
+                        .build()
+        ).collect(Collectors.toList());
+
+        ServerErrorResponse serverErrorResponse = new ServerErrorResponse();
+
+        ServerResponse serverResponse = ServerResponse
+                .builder()
+                .code(errorCode.getCode())
+                .message(errorCode.name())
+                .errors(Collections.singletonList(errors))
+                .build();
+
+        serverErrorResponse.setError(serverResponse);
+        return new ResponseEntity<>(serverErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(PolarisServerRuntimeException.class)
-    protected ResponseEntity<ServerErrorResponse> handleServerRuntimeException(PolarisServerRuntimeException ex, WebRequest request)
+    protected ResponseEntity<ServerErrorResponse> handleServerRuntimeException(PolarisServerRuntimeException
+                                                                                       ex, WebRequest request)
     {
         log.error("PolarisServerRuntimeException {}({})", ex.getErrorCode(), ex.getErrorCode().getCode());
         log.error(ex.getLocalizedMessage());
@@ -97,7 +136,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(PolarisAuthenticationException.class)
-    protected ResponseEntity<ServerErrorResponse> handleServerRuntimeException(PolarisAuthenticationException ex, WebRequest request)
+    protected ResponseEntity<ServerErrorResponse> handleServerRuntimeException(PolarisAuthenticationException
+                                                                                       ex, WebRequest request)
     {
         ServerErrorResponse serverErrorResponse = new ServerErrorResponse();
         ServerResponse serverResponse = ServerResponse

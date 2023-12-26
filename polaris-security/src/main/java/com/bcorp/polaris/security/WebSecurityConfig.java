@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     public CorsConfigurationSource corsConfigurationSource()
     {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(new ArrayList<>(Arrays.asList("http://localhost:3001")));
+        config.setAllowedOrigins(new ArrayList<>(Arrays.asList("http://localhost:3000")));
         config.setAllowCredentials(true);
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
@@ -54,17 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         http.cors().configurationSource(corsConfigurationSource())
                 .and()
                 .csrf()
-                .ignoringAntMatchers("/api/v1/user/login")
-                .ignoringAntMatchers("/api/v1/user/register")
+                .ignoringAntMatchers("/api/v1/**")
+                .ignoringAntMatchers("/author/api/v1/**")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeRequests((authz) -> authz
-                        .antMatchers(
-                                "/api/v1/user/register",
-                                "/api/v1/user/login")
-                        .permitAll()
+                        .antMatchers("/api/v1/**","/author/api/v1/**").permitAll()
+                        .anyRequest().authenticated()
 //                        .antMatchers("/author/api/**").hasRole("AUTHOR")
-                        .anyRequest().authenticated())
+                       )
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

@@ -1,6 +1,7 @@
 package com.bcorp.polaris.storefront.bo;
 
 import com.bcorp.polaris.core.model.tables.records.BookRecord;
+import com.bcorp.polaris.core.model.tables.records.UserRecord;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +20,5 @@ public class BookBo
     private String key;
     private Long bookId;
     private BookRecord book;
+    private UserRecord author;
 }

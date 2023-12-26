@@ -9,6 +9,7 @@ import com.bcorp.polaris.core.exception.PolarisServerRuntimeException;
 import com.bcorp.polaris.core.model.tables.records.*;
 import com.bcorp.polaris.core.type.BookStatus;
 import org.jooq.DSLContext;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,19 @@ public class DefaultAuthorBookService implements AuthorBookService
         this.authorUserService = authorUserService;
         this.authorPageDao = authorPageDao;
         this.lexoRankService = lexoRankService;
+    }
+
+    @Override
+    public List<BookRecord> getBookList(Pageable pageable)
+    {
+        final UserRecord currentAuthorUser = authorUserService.getCurrentAuthorUser();
+
+        return dslContext.select().from(BOOK)
+                .where(BOOK.USER_ID.eq(currentAuthorUser.getId()))
+                .orderBy(BOOK.PUBLISHED_AT.desc(), BOOK.CREATED_AT.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetchInto(BookRecord.class);
     }
 
     public BookRecord getBookForId(Long bookId)

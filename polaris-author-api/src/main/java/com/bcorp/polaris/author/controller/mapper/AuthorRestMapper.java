@@ -17,6 +17,8 @@ public interface AuthorRestMapper
 {
     Book convert(BookDto bookDto);
 
+    List<Book> convertList(List<BookDto> bookDtos);
+
     BookCategory convert(BookCategoryDto bookCategoryDto);
 
     Chapter convert(ChapterDto chapterDto);

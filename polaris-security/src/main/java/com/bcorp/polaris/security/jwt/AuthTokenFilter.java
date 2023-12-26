@@ -64,11 +64,14 @@ public class AuthTokenFilter extends OncePerRequestFilter
     private String getJwtFromCookie(HttpServletRequest request)
     {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies)
+        if(cookies != null)
         {
-            if (jwtTokenUtil.getAccessTokenCookieName().equals(cookie.getName()))
+            for (Cookie cookie : cookies)
             {
-                return cookie.getValue();
+                if (jwtTokenUtil.getAccessTokenCookieName().equals(cookie.getName()))
+                {
+                    return cookie.getValue();
+                }
             }
         }
         return null;

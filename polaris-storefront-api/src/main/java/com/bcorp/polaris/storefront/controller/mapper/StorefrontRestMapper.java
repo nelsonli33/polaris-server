@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring"
@@ -21,7 +23,11 @@ public interface StorefrontRestMapper
 
     Book convert(BookDto bookDto);
 
+    List<Book> convertList(List<BookDto> bookDtos);
+
     User convert(UserDto userDto);
+
+    UserBasic convert2UserBasic(UserDto userDto);
 
     Chapter convert(ChapterDto chapterDto);
 
@@ -46,5 +52,6 @@ public interface StorefrontRestMapper
     CompanyInvoice convert(CompanyInvoiceDto companyInvoiceDto);
 
     @Mapping(source = "invoiceType.code", target = "invoiceType")
+    @Mapping(source = "charityLovecode", target = "loveCode")
     DonationInvoice convert(DonationInvoiceDto donationInvoiceDto);
 }

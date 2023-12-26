@@ -18,10 +18,11 @@ public class BookDto
     private Long id;
     private Long userId;
     private String title;
+    private String subtitle;
     private Byte priceType;
     private BigDecimal price;
     private String synopsis;
-    private String acquisition;
+    private List<String> acquisition;
     private String cover;
     private LocalDateTime publishedAt;
     private Byte status;

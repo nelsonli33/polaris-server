@@ -5,10 +5,10 @@ import com.bcorp.polaris.core.model.tables.records.OrderRecord;
 import com.bcorp.polaris.core.util.EnumUtil;
 import com.bcorp.polaris.storefront.bo.OrderBo;
 import com.bcorp.polaris.storefront.constant.PaymentType;
+import com.bcorp.polaris.storefront.dao.service.EcpayPaymentService;
+import com.bcorp.polaris.storefront.dao.service.OrderService;
 import com.bcorp.polaris.storefront.dto.PaymentDto;
 import com.bcorp.polaris.storefront.facade.PaymentFacade;
-import com.bcorp.polaris.storefront.service.EcpayPaymentService;
-import com.bcorp.polaris.storefront.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class DefaultPaymentFacade implements PaymentFacade
     private static final String BACKEND_DOMAIN = "";
     @Value("${polaris.app.frontend.domain}")
     private static final String FRONTEND_DOMAIN = "";
-    private static final String TRADE_DESC = "";
+    private static final String TRADE_DESC = "購物";
     private static final String RETURN_URL = "/checkout/ecpay/payment/callback";
     private static final String CLIENT_BACK_URL = "/checkout/ecpay/payment/client-back";
     private static final String ORDER_RESULT_URL = "/checkout/ecpay/payment/order-result";

@@ -15,9 +15,10 @@ import java.util.List;
 public class UpdateBookDto
 {
     private String title;
+    private String subtitle;
     private List<Long> categoryIds;
     private BigDecimal price;
     private String synopsis;
-    private String acquisition;
+    private List<String> acquisition;
     private String cover;
 }

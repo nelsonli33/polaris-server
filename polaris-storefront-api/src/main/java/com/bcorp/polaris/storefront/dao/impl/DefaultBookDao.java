@@ -7,6 +7,8 @@ import org.jooq.Record;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import static com.bcorp.polaris.core.model.tables.Book.BOOK;
 import static com.bcorp.polaris.core.model.tables.User.USER;
 
@@ -21,6 +23,12 @@ public class DefaultBookDao implements BookDao
         this.dslContext = dslContext;
     }
 
+    public List<BookRecord> findAllBooks()
+    {
+        return dslContext.select().from(BOOK)
+                .where(BOOK.STATUS.eq((byte) 1)).and(BOOK.IS_DELETED.eq((byte) 0))
+                .fetchInto(BookRecord.class);
+    }
 
     @Override
     public BookRecord findBookById(Long bookId)

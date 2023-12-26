@@ -4,13 +4,18 @@ import com.bcorp.polaris.author.api.model.*;
 import com.bcorp.polaris.author.dto.UpdateBookDto;
 import com.bcorp.polaris.author.facade.AuthorBookFacade;
 import com.bcorp.polaris.core.dto.BookDto;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import java.util.List;
 
 @RestController
+@Validated
 public class AuthorBookController extends AbstractAuthorController
 {
     private AuthorBookFacade authorBookFacade;
@@ -19,6 +24,23 @@ public class AuthorBookController extends AbstractAuthorController
     public AuthorBookController(AuthorBookFacade authorBookFacade)
     {
         this.authorBookFacade = authorBookFacade;
+    }
+
+    @GetMapping(path = "/author/api/v1/books")
+    public ResponseEntity<GetBookListResponse> getBookList(
+            @RequestParam(name = "page", defaultValue = "1") @Min(value = 1, message = "Page must not be less than zero!") int page,
+            @RequestParam(name = "limit", defaultValue = "25") int limit
+    )
+    {
+        final PageRequest pageRequest = PageRequest.of(page - 1, limit);
+        final List<BookDto> bookList = authorBookFacade.getBookList(pageRequest);
+
+        GetBookListResponse response = GetBookListResponse
+                .builder()
+                .books(getAuthorRestMapper().convertList(bookList))
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping(path = "/author/api/v1/books/{book_id}")
@@ -30,6 +52,8 @@ public class AuthorBookController extends AbstractAuthorController
                 .book(getAuthorRestMapper().convert(bookIntroDto))
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
+
+
     }
 
     @PostMapping(path = "/author/api/v1/books")
@@ -54,6 +78,7 @@ public class AuthorBookController extends AbstractAuthorController
                 .build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
 
     @PutMapping(path = "/author/api/v1/books/{book_id}/categories/batch-save")
     public ResponseEntity<?> batchSaveBookCategoriesToBook(

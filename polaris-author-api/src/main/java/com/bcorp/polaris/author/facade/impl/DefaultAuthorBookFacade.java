@@ -17,8 +17,10 @@ import com.bcorp.polaris.core.model.tables.records.ChapterRecord;
 import com.bcorp.polaris.core.model.tables.records.PageRecord;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -50,6 +52,14 @@ public class DefaultAuthorBookFacade implements AuthorBookFacade
         this.authorBookCategoryMapper = authorBookCategoryMapper;
     }
 
+
+    @Override
+    public List<BookDto> getBookList(Pageable pageable)
+    {
+        final List<BookRecord> books = authorBookService.getBookList(pageable);
+        return authorBookMapper.toDtos(books);
+    }
+
     @Override
     public BookDto getBookIntro(Long bookId)
     {
@@ -58,7 +68,7 @@ public class DefaultAuthorBookFacade implements AuthorBookFacade
         final List<BookCategoryRecord> bookCategories
                 = authorBookCategoryService.getBookCategoriesForBook(bookRecord);
 
-        final BookDto bookDto = bookRecord.into(BookDto.class);
+        final BookDto bookDto = authorBookMapper.toDto(bookRecord);
         bookDto.setTableOfContent(tableOfContentDto);
         bookDto.setCategories(authorBookCategoryMapper.toDto(bookCategories));
         return bookDto;
@@ -84,9 +94,20 @@ public class DefaultAuthorBookFacade implements AuthorBookFacade
             batchSaveBookCategoryForBook(bookRecord, updateBookDto.getCategoryIds());
         }
         authorBookMapper.update(updateBookDto, bookRecord);
+        publishedBook(bookRecord);
         bookRecord.update();
         return bookRecord.getId();
     }
+
+    protected void publishedBook(BookRecord bookRecord)
+    {
+        if (bookRecord.getStatus().intValue() == 0)
+        {
+            bookRecord.setPublishedAt(LocalDateTime.now());
+            bookRecord.setStatus((byte) 1);
+        }
+    }
+
 
     @Override
     public void batchSaveBookCategoryForBookId(Long bookId, List<Long> bookCategoryIds)
